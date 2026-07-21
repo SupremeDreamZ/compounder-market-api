@@ -1,0 +1,38 @@
+{
+  "name": "compounder-market-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Paid, machine-readable decision tools for autonomous operators, settled in USDC on Base through x402.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "verify": "npm run typecheck && npm test && npm run build"
+  },
+  "dependencies": {
+    "@x402/core": "2.19.0",
+    "@x402/evm": "2.19.0",
+    "@x402/extensions": "2.19.0",
+    "@x402/next": "2.19.0",
+    "next": "16.2.11",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "22.16.0",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "overrides": {
+    "postcss": "8.5.21",
+    "sharp": "0.35.3",
+    "esbuild": "0.28.1"
+  }
+}
