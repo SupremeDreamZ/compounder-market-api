@@ -12,7 +12,8 @@
     "verify": "npm run typecheck && npm test && npm run build",
     "verify:production": "node scripts/verify-production.mjs",
     "watchdog": "python3 scripts/compounder_watchdog.py --report",
-    "continuity:build": "bash scripts/build-continuity-release.sh"
+    "continuity:build": "bash scripts/build-continuity-release.sh",
+    "continuity:refresh": "bash scripts/refresh-continuity-if-needed.sh"
   },
   "dependencies": {
     "@x402/core": "2.19.0",
