@@ -8,8 +8,13 @@ BUNDLE="$BACKUP_DIR/compounder-market-api.bundle"
 ARCHIVE="$BACKUP_DIR/compounder-market-api-standalone.tar.gz"
 CHECKSUMS="$BACKUP_DIR/compounder-market-api-SHA256SUMS"
 STAGE="$(mktemp -d)"
+TEST_PID=""
 
 cleanup() {
+  if [ -n "$TEST_PID" ]; then
+    kill "$TEST_PID" 2>/dev/null || true
+    wait "$TEST_PID" 2>/dev/null || true
+  fi
   rm -rf "$STAGE"
 }
 trap cleanup EXIT
@@ -38,6 +43,11 @@ if [ ! -f ".next/standalone/server.js" ]; then
 fi
 
 cp -R .next/standalone/. "$STAGE/"
+# The x402 resource server loads extension processors dynamically by package
+# name, which Next's static trace cannot discover. Keep the package available
+# in the standalone runtime even though declaration code is already bundled.
+mkdir -p "$STAGE/node_modules/@x402"
+cp -R node_modules/@x402/extensions "$STAGE/node_modules/@x402/extensions"
 mkdir -p "$STAGE/.next"
 cp -R .next/static "$STAGE/.next/static"
 if [ -d public ]; then
@@ -56,6 +66,34 @@ printf '%s\n' \
   "Start: HOSTNAME=127.0.0.1 PORT=4021 node server.js" \
   "Verify from another shell: COMPOUNDER_BASE_URL=http://127.0.0.1:4021 node scripts/verify-production.mjs" \
   > "$STAGE/OFFLINE-START.txt"
+
+# Clean-room self-test before archiving. This catches dynamically loaded
+# packages that a normal source-tree test would accidentally satisfy.
+HOSTNAME=127.0.0.1 PORT=44021 node "$STAGE/server.js" > "$STAGE/runtime-self-test.log" 2>&1 &
+TEST_PID=$!
+READY=0
+for _ in $(seq 1 50); do
+  if curl -fsS "http://127.0.0.1:44021/api/health" >/dev/null 2>&1; then
+    READY=1
+    break
+  fi
+  sleep 0.2
+done
+if [ "$READY" -ne 1 ]; then
+  echo "Standalone runtime did not become ready." >&2
+  node -e 'const fs=require("fs"); console.error(fs.readFileSync(process.argv[1],"utf8").split("\n").slice(0,120).join("\n"))' "$STAGE/runtime-self-test.log"
+  exit 67
+fi
+COMPOUNDER_BASE_URL=http://127.0.0.1:44021 node "$STAGE/scripts/verify-production.mjs" >/dev/null
+if node -e 'const fs=require("fs"); const s=fs.readFileSync(process.argv[1],"utf8"); process.exit(s.includes("Failed to load bazaar extension") ? 0 : 1)' "$STAGE/runtime-self-test.log"; then
+  echo "Standalone runtime could not load the Bazaar extension package." >&2
+  node -e 'const fs=require("fs"); console.error(fs.readFileSync(process.argv[1],"utf8").split("\n").slice(0,120).join("\n"))' "$STAGE/runtime-self-test.log"
+  exit 68
+fi
+kill "$TEST_PID"
+wait "$TEST_PID" 2>/dev/null || true
+TEST_PID=""
+rm -f "$STAGE/runtime-self-test.log"
 
 tar -czf "$ARCHIVE.tmp" -C "$STAGE" .
 mv "$ARCHIVE.tmp" "$ARCHIVE"
