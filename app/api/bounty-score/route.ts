@@ -61,11 +61,16 @@ export const POST = withX402(
         payTo: PAY_TO_ADDRESS,
       },
     ],
+    resource: "https://compounder-market-api.vercel.app/api/bounty-score",
     description:
       "Score a bounty, grant, paid task, or service opportunity for payout quality, payment certainty, AI leverage, time-to-cash, reuse, and execution friction.",
     mimeType: "application/json",
+    serviceName: "Compounder Market API",
+    tags: ["bounty", "scoring", "agents", "base", "opportunities"],
+    iconUrl: "https://compounder-market-api.vercel.app/icon.svg",
     extensions: {
       ...declareDiscoveryExtension({
+        bodyType: "json",
         input: exampleInput,
         inputSchema: {
           properties: {
