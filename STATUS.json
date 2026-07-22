@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-07-22T00:26:25Z",
+  "asOf": "2026-07-22T01:55:51Z",
   "timezoneContext": "2026-07-21 America/Los_Angeles",
   "project": {
     "name": "Compounder Market API",
@@ -8,6 +8,12 @@
     "branch": "main",
     "production": "https://compounder-market-api.vercel.app",
     "paidEndpoint": "POST /api/bounty-score",
+    "discovery": {
+      "openapi": "https://compounder-market-api.vercel.app/openapi.json",
+      "llms": "https://compounder-market-api.vercel.app/llms.txt",
+      "x402Manifest": "https://compounder-market-api.vercel.app/.well-known/x402",
+      "freeExample": "https://compounder-market-api.vercel.app/api/bounty-score/example"
+    },
     "price": {
       "display": "$0.01 USDC",
       "atomicUnits": "10000"
@@ -25,7 +31,7 @@
   "verification": {
     "sourceTypecheck": "passed",
     "tests": {
-      "passed": 5,
+      "passed": 10,
       "failed": 0
     },
     "productionBuild": "passed",
@@ -35,7 +41,13 @@
     "paymentRequirements": "verified",
     "bazaarBodyType": "json",
     "bazaarMethodIncludesPost": true,
-    "bazaarBodyFieldCount": 17
+    "bazaarBodyFieldCount": 17,
+    "openapiContract": "verified",
+    "llmsIndex": "verified",
+    "x402Manifest": "verified",
+    "freeGeneratedExample": "verified",
+    "walletOwnershipProof": "verified",
+    "agentcashDiscoveryScanner": "passed-with-zero-warnings"
   },
   "bazaar": {
     "metadataState": "ready-and-verified",
@@ -43,21 +55,43 @@
     "selfPurchasePerformed": false,
     "catalogTrigger": "facilitator-processed payment carrying the Bazaar extension",
     "lastCatalogProbe": {
-      "checkedAt": "2026-07-22T00:26:25Z",
+      "checkedAt": "2026-07-22T01:55:51Z",
       "newestPageItems": 100,
-      "reportedTotalItems": 24845,
+      "reportedTotalItems": 24848,
       "exactResourceFoundOnNewestPage": false,
       "scopeWarning": "A miss on the newest page is not proof of absence from every historical page."
+    }
+  },
+  "distribution": {
+    "demandState": "unverified",
+    "selfPurchasePerformed": false,
+    "x402scan": {
+      "state": "registered",
+      "serverId": "51fc8f77-01c4-4b81-90e3-ac677646d9c2",
+      "url": "https://www.x402scan.com/server/51fc8f77-01c4-4b81-90e3-ac677646d9c2",
+      "resourceCount": 4,
+      "paidRouteCount": 1,
+      "publicRouteCount": 3,
+      "transactions": 0,
+      "volumeUsd": 0,
+      "buyers": 0,
+      "snapshotAt": "2026-07-22T01:51:13Z"
+    },
+    "github": {
+      "homepageConfigured": true,
+      "topicCount": 9,
+      "awesomeX402PullRequest": "https://github.com/xpaysh/awesome-x402/pull/954",
+      "awesomeX402PullRequestState": "open-and-mergeable"
     }
   },
   "wallet": {
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
     "snapshotSource": "live Base JSON-RPC",
-    "snapshotAt": "2026-07-22T00:26:25Z",
+    "snapshotAt": "2026-07-22T01:55:51Z",
     "eth": "0.002580219611430271",
     "liquidUsdc": "11",
-    "aUsdc": "10.000032",
+    "aUsdc": "10.000078",
     "aaveUsdcAllowance": "0",
     "nonce": 2
   },
