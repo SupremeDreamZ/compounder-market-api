@@ -194,7 +194,7 @@ The password remains in macOS Keychain and is not included in the kit. On 2026-0
 | GitHub unavailable | Vercel's current deployment and local bundle | Restore from Git bundle; add remote later |
 | Vercel unavailable | Source, wallet, Aave position, local standalone runtime | Run local server or deploy verified source to another host |
 | PayAI catalog unavailable | Paid route may still emit valid requirements; catalog monitoring is warning-only | Verify facilitator health before claiming settlement availability |
-| Base RPC endpoint rejects/limits | Production may continue; watchdog reports RPC issue | Set `BASE_RPC_URL` to another verified Base Mainnet RPC |
+| Base RPC endpoint rejects/limits | Production may continue; watchdog rotates across three verified read-only endpoints | Override with `BASE_RPC_URL` or comma-separated `BASE_RPC_URLS` if needed |
 | Hermes session reset | Repo, vault, cron jobs, private continuity folder remain | Read this file, `STATUS.json`, and the private runbook |
 | This Mac is lost | GitHub/Vercel continue | Wallet recovery requires the separately exported encrypted kit and independent password recovery |
 

@@ -21,7 +21,17 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 BASE_URL = os.environ.get("COMPOUNDER_BASE_URL", "https://compounder-market-api.vercel.app").rstrip("/")
-RPC_URL = os.environ.get("BASE_RPC_URL", "https://mainnet.base.org")
+_rpc_override = os.environ.get("BASE_RPC_URLS") or os.environ.get("BASE_RPC_URL")
+RPC_URLS = (
+    [url.strip() for url in _rpc_override.split(",") if url.strip()]
+    if _rpc_override
+    else [
+        "https://mainnet.base.org",
+        "https://base-rpc.publicnode.com",
+        "https://1rpc.io/base",
+    ]
+)
+LAST_RPC_URL: str | None = None
 CATALOG_URL = os.environ.get(
     "X402_CATALOG_URL", "https://facilitator.payai.network/discovery/resources?limit=100&offset=0"
 )
@@ -63,18 +73,26 @@ def http_json(url: str, *, method: str = "GET", body: dict[str, Any] | None = No
 
 
 def rpc(method: str, params: list[Any]) -> str:
+    global LAST_RPC_URL
     payload = json.dumps({"jsonrpc": "2.0", "id": 1, "method": method, "params": params}).encode()
-    request = Request(
-        RPC_URL,
-        data=payload,
-        headers={"Content-Type": "application/json", "User-Agent": "compounder-watchdog/1.0"},
-        method="POST",
-    )
-    with urlopen(request, timeout=25) as response:
-        result = json.loads(response.read())
-    if "error" in result:
-        raise RuntimeError(f"RPC {method}: {result['error']}")
-    return result["result"]
+    errors: list[str] = []
+    for rpc_url in RPC_URLS:
+        request = Request(
+            rpc_url,
+            data=payload,
+            headers={"Content-Type": "application/json", "User-Agent": "compounder-watchdog/1.0"},
+            method="POST",
+        )
+        try:
+            with urlopen(request, timeout=25) as response:
+                result = json.loads(response.read())
+            if "error" in result:
+                raise RuntimeError(str(result["error"]))
+            LAST_RPC_URL = rpc_url
+            return result["result"]
+        except (HTTPError, URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError, RuntimeError) as error:
+            errors.append(f"{rpc_url}: {error}")
+    raise RuntimeError(f"all Base RPC endpoints failed for {method}: " + " | ".join(errors))
 
 
 def address_word(address: str) -> str:
@@ -163,6 +181,9 @@ def verify_service() -> dict[str, Any]:
 
 
 def wallet_snapshot() -> dict[str, Any]:
+    chain_id = int(rpc("eth_chainId", []), 16)
+    if chain_id != 8453:
+        raise RuntimeError(f"unexpected chain ID: {chain_id}")
     eth = Decimal(int(rpc("eth_getBalance", [WALLET, "latest"]), 16)) / Decimal(10**18)
     nonce = int(rpc("eth_getTransactionCount", [WALLET, "latest"]), 16)
     usdc = token_balance(USDC, WALLET)
@@ -174,6 +195,8 @@ def wallet_snapshot() -> dict[str, Any]:
         "aUsdc": str(ausdc),
         "aaveAllowance": str(allowance),
         "nonce": nonce,
+        "chainId": chain_id,
+        "rpcUrl": LAST_RPC_URL,
     }
 
 
