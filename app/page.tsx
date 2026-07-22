@@ -33,7 +33,7 @@ export default function Home() {
           <span>$0.01 USDC</span>
           <span>Base Mainnet</span>
           <span>x402 v2</span>
-          <span>Agent-discoverable</span>
+          <span>Bazaar-ready</span>
         </div>
       </section>
 
