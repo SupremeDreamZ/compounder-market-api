@@ -17,7 +17,18 @@ For deployment, monitoring, offline recovery, wallet boundaries, and lower-model
 
 The scorer returns a 0–100 score, pursue/skip verdict, expected value, weighted breakdown, hard stops, risks, strengths, and a next action. It weights payment certainty and operator fit above headline payout, then favors short, verifiable, AI-leveraged work that compounds into reusable assets.
 
-A free `GET /api/bounty-score` request returns the input schema and example. `GET /api/health` returns service and payment configuration.
+A free `GET /api/bounty-score` request returns the input schema and a scorer-generated output example. `GET /api/health` returns service and payment configuration.
+
+## Agent discovery
+
+The service exposes multiple machine-readable entry points from the canonical production origin:
+
+- **OpenAPI 3.1:** [`/openapi.json`](https://compounder-market-api.vercel.app/openapi.json)
+- **LLM index:** [`/llms.txt`](https://compounder-market-api.vercel.app/llms.txt)
+- **x402 compatibility manifest:** [`/.well-known/x402`](https://compounder-market-api.vercel.app/.well-known/x402)
+- **Free fixed sample:** [`/api/bounty-score/example`](https://compounder-market-api.vercel.app/api/bounty-score/example)
+
+The OpenAPI document includes x402scan-compatible `x-payment-info`, complete input/output schemas, free-route classification, and an EIP-191 ownership proof signed by the payment recipient over the canonical origin. The signature proves control of the receiving wallet without exposing a key, spending gas, or generating a fake payment.
 
 ## Local verification
 
@@ -32,6 +43,10 @@ Then inspect:
 
 ```bash
 curl http://localhost:3000/api/health
+curl http://localhost:3000/openapi.json
+curl http://localhost:3000/.well-known/x402
+curl http://localhost:3000/llms.txt
+curl http://localhost:3000/api/bounty-score/example
 curl http://localhost:3000/api/bounty-score
 curl -i -X POST http://localhost:3000/api/bounty-score \
   -H 'Content-Type: application/json' \
@@ -70,7 +85,7 @@ No wallet signing key is present or required on the server. The facilitator veri
 
 ## Roadmap
 
-1. Confirm first external x402 payment and Bazaar discovery.
+1. Confirm first unrelated x402 payment and automatic Bazaar discovery.
 2. Add generated launch-copy and bounty-draft endpoints using a narrowly scoped inference credential.
 3. Add usage telemetry that stores no buyer secrets.
 4. Raise prices only after measured demand.

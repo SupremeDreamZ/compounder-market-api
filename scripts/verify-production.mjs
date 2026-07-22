@@ -10,6 +10,8 @@ const EXPECTED = {
     process.env.COMPOUNDER_EXPECTED_RESOURCE_URL ??
     "https://compounder-market-api.vercel.app/api/bounty-score",
   serviceName: "Compounder Market API",
+  ownershipProof:
+    "0x56f7faf1bf7c3bb03a1463ef9bf381412fee8646b78f01eaa7f91ddde8c997eb389896e62ea62117bdc787648b40caf803df09552183e66b152f95e6424118231b",
 };
 
 function assert(condition, message) {
@@ -50,6 +52,51 @@ async function main() {
   assert(docs.method === "POST", `unexpected docs method: ${docs.method}`);
   assert(docs.price === "$0.01 USDC", `unexpected docs price: ${docs.price}`);
 
+  const [openapiResponse, discoveryResponse, llmsResponse, exampleResponse] = await Promise.all([
+    fetchWithTimeout(`${BASE_URL}/openapi.json`, { headers: { accept: "application/json" } }),
+    fetchWithTimeout(`${BASE_URL}/.well-known/x402`, { headers: { accept: "application/json" } }),
+    fetchWithTimeout(`${BASE_URL}/llms.txt`, { headers: { accept: "text/plain" } }),
+    fetchWithTimeout(`${BASE_URL}/api/bounty-score/example`, {
+      headers: { accept: "application/json" },
+    }),
+  ]);
+  assert(openapiResponse.ok, `OpenAPI returned HTTP ${openapiResponse.status}`);
+  assert(discoveryResponse.ok, `x402 discovery returned HTTP ${discoveryResponse.status}`);
+  assert(llmsResponse.ok, `llms.txt returned HTTP ${llmsResponse.status}`);
+  assert(exampleResponse.ok, `free example returned HTTP ${exampleResponse.status}`);
+
+  const openapi = await openapiResponse.json();
+  const operation = openapi.paths?.["/api/bounty-score"]?.post;
+  const paymentInfo = operation?.["x-payment-info"];
+  const openapiX402 = paymentInfo?.protocols?.find((protocol) => protocol?.x402)?.x402;
+  assert(openapi.openapi === "3.1.0", `unexpected OpenAPI version: ${openapi.openapi}`);
+  assert(openapi.info?.["x-guidance"], "OpenAPI is missing info.x-guidance");
+  assert(operation?.requestBody, "OpenAPI paid operation is missing an input schema");
+  assert(operation?.responses?.["200"], "OpenAPI paid operation is missing an output schema");
+  assert(operation?.responses?.["402"], "OpenAPI paid operation is missing a 402 response");
+  assert(paymentInfo?.price?.amount === "0.01", "OpenAPI advertises the wrong price");
+  assert(openapiX402?.network === EXPECTED.network, "OpenAPI advertises the wrong network");
+  assert(openapiX402?.asset?.toLowerCase() === EXPECTED.asset.toLowerCase(), "OpenAPI advertises the wrong asset");
+  assert(openapiX402?.payTo?.toLowerCase() === EXPECTED.payTo.toLowerCase(), "OpenAPI advertises the wrong payee");
+  assert(
+    openapi["x-discovery"]?.ownershipProofs?.includes(EXPECTED.ownershipProof),
+    "OpenAPI ownership proof is missing",
+  );
+
+  const discovery = await discoveryResponse.json();
+  assert(discovery.resources?.includes(EXPECTED.resource), "x402 discovery is missing the paid resource");
+  assert(discovery.ownershipProofs?.includes(EXPECTED.ownershipProof), "x402 discovery ownership proof is missing");
+
+  const llms = await llmsResponse.text();
+  const canonicalOrigin = new URL(EXPECTED.resource).origin;
+  assert(llms.includes(`${canonicalOrigin}/openapi.json`), "llms.txt is missing the OpenAPI URL");
+  assert(llms.includes(`POST ${EXPECTED.resource}`), "llms.txt is missing the paid endpoint");
+
+  const example = await exampleResponse.json();
+  assert(example.free === true && example.kind === "fixed-example", "free example metadata is invalid");
+  assert(Number.isInteger(example.output?.result?.score), "free example lacks a generated score");
+  assert(example.output?.result?.recommendedAction, "free example lacks a recommended action");
+
   const paymentResponse = await fetchWithTimeout(`${BASE_URL}/api/bounty-score`, {
     method: "POST",
     headers: { "content-type": "application/json", accept: "application/json" },
@@ -88,6 +135,13 @@ async function main() {
         baseUrl: BASE_URL,
         health: "ok",
         freeDocs: "ok",
+        discovery: {
+          openapi: "ok",
+          x402Manifest: "ok",
+          llms: "ok",
+          freeExample: "ok",
+          walletOwnershipProof: "present",
+        },
         unpaidPostStatus: paymentResponse.status,
         x402Version: requirement.x402Version,
         payment: {
