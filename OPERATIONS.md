@@ -1,0 +1,226 @@
+# Compounder Market API — Operations and Continuity
+
+Updated: 2026-07-21 (America/Los_Angeles) / 2026-07-22 UTC
+
+This is the public-safe source of truth for operating, verifying, restoring, and handing off the Compounder Market API. It contains no signing key, wallet password, Vercel token, or GitHub token.
+
+## 1. Canonical identity
+
+| Item | Value |
+|---|---|
+| Production | <https://compounder-market-api.vercel.app> |
+| Repository | <https://github.com/SupremeDreamZ/compounder-market-api> |
+| Branch | `main` |
+| Wallet | `0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35` |
+| Chain | Base Mainnet, chain ID `8453`, CAIP-2 `eip155:8453` |
+| Paid route | `POST /api/bounty-score` |
+| Price | `10,000` atomic USDC = `$0.01 USDC` |
+| USDC | `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` |
+| Facilitator | `https://facilitator.payai.network` |
+| Protocol | x402 v2, `exact` settlement |
+
+The server has no wallet signer. A buyer signs a USDC authorization; the facilitator verifies and settles directly to the public receiving wallet.
+
+## 2. Sixty-second operator check
+
+From the project root:
+
+```bash
+npm run verify:production
+npm run watchdog
+```
+
+Expected result:
+
+- `verify:production` prints JSON with `"ok": true`.
+- `watchdog` prints a full report with `"status": "healthy"`.
+- The unpaid POST returns HTTP `402`.
+- Payment recipient, Base network, canonical USDC address, `$0.01` amount, and Bazaar POST/JSON schema all match this document.
+- The Aave allowance remains zero.
+
+A normal scheduled watchdog invocation uses:
+
+```bash
+python3 scripts/compounder_watchdog.py
+```
+
+It prints **nothing** while state remains healthy and unchanged. It prints only on an actionable transition, wallet balance change, or Bazaar listing appearance. This mode needs no LLM or model credits.
+
+## 3. Verification levels
+
+### Source and build
+
+```bash
+npm ci
+npm run verify
+npm audit --audit-level=low
+```
+
+`npm run verify` performs TypeScript checking, five deterministic scorer tests, and a production Next.js build.
+
+### Public production
+
+```bash
+npm run verify:production
+```
+
+This verifies the public landing service, free schema endpoint, exact unpaid `402`, payment requirements, and Bazaar metadata. It does not spend funds.
+
+### Wallet and monitoring
+
+```bash
+npm run watchdog
+```
+
+This uses public Base JSON-RPC calls only. It does not access the keystore, request a signature, approve a token, or send a transaction.
+
+## 4. Bazaar status and demand integrity
+
+The service emits verified Bazaar metadata with:
+
+- service name `Compounder Market API`;
+- tags `bounty`, `scoring`, `agents`, `base`, and `opportunities`;
+- method including `POST`;
+- `bodyType: json`;
+- a 17-field body example and schema.
+
+Cataloging is separate from metadata readiness. Official x402 documentation says a supporting facilitator may catalog the resource after processing a payment carrying the Bazaar extension. Do not buy the API from the controlled receiving wallet or another controlled wallet to manufacture demand. The first unrelated paid buyer is the evidence gate.
+
+The watchdog checks PayAI's newest 100 catalog entries. PayAI reported 24,845 total entries on 2026-07-21; therefore a first-page miss is a launch-window detector, not proof that the URL is absent from all historical pages.
+
+## 5. Capital policy
+
+Snapshot details live in `STATUS.json` and are timestamped because balances and APY change.
+
+Policy:
+
+- Keep approximately 10 USDC in the Aave V3 reserve as the passive-yield hurdle.
+- Keep the remaining USDC liquid for evidence-backed, low-capital experiments.
+- Preserve Base ETH for operating gas.
+- Use exact or narrowly bounded approvals and reconcile allowance afterward.
+- Do not use leverage, bridges, blind signatures, speculative inventory, or unlimited approvals.
+- Do not classify wallet funding as revenue; reconcile sender and transaction context first.
+- Do not self-purchase to create a fake order.
+
+At the 2026-07-21 snapshot, 10.000024 aUSDC at 2.70303% APY produced about `$0.27030365` annualized. Twenty-eight one-cent calls would exceed that annual reserve yield on a gross-revenue basis. Gross is not profit; re-evaluate if hosting, facilitator, inference, refund, or maintenance costs become nonzero.
+
+## 6. Normal deployment
+
+Prerequisites: Node 22+, npm, GitHub access, and an authenticated Vercel CLI.
+
+```bash
+npm ci
+npm run verify
+npm run verify:production
+git status --short
+git push origin main
+vercel --prod --yes
+npm run verify:production
+```
+
+Never add a wallet signer to Vercel. Public deployment needs only the default receiving address and facilitator URL already in source.
+
+If Vercel authentication expires, GitHub/Vercel OAuth is a human-only step. Do not paste account passwords or long-lived API tokens into chat.
+
+For rollback, use the Vercel deployment dashboard to promote the last known-good deployment, then run `npm run verify:production`.
+
+## 7. No-internet local mode
+
+A continuity release contains a prebuilt standalone Next server. Extract it and run:
+
+```bash
+HOSTNAME=127.0.0.1 PORT=4021 node server.js
+```
+
+From another shell:
+
+```bash
+COMPOUNDER_BASE_URL=http://127.0.0.1:4021 node scripts/verify-production.mjs
+```
+
+The local server can render and generate payment requirements without npm, GitHub, Vercel, or an LLM. Actual Base settlement, RPC balance checks, PayAI facilitation, and external buyers still require network connectivity.
+
+## 8. Offline source and runtime recovery
+
+Canonical local artifacts:
+
+```text
+~/Documents/_Projects/Backups/compounder-market-api.bundle
+~/Documents/_Projects/Backups/compounder-market-api-standalone.tar.gz
+~/Documents/_Projects/Backups/compounder-market-api-SHA256SUMS
+```
+
+Verify:
+
+```bash
+cd ~/Documents/_Projects/Backups
+shasum -a 256 -c compounder-market-api-SHA256SUMS
+```
+
+Restore full Git history without GitHub:
+
+```bash
+git clone ~/Documents/_Projects/Backups/compounder-market-api.bundle compounder-market-api-restored
+cd compounder-market-api-restored
+git branch --show-current
+```
+
+Regenerate both artifacts from a clean, verified worktree:
+
+```bash
+npm run continuity:build
+```
+
+## 9. Wallet recovery boundary
+
+The repository and runtime archives contain no keystore and no password.
+
+A separate private recovery kit exists in the active Hermes profile. It contains:
+
+- a copy of the already-encrypted keystore;
+- public wallet metadata;
+- a SHA-256 manifest;
+- an export script for an encrypted external drive;
+- a private recovery runbook.
+
+The password remains in macOS Keychain and is not included in the kit. On 2026-07-21, Time Machine had no destination configured. The remaining human continuity step is to export the encrypted kit to a separate device and confirm independent password recovery. Never upload the kit automatically or place it in Git, Obsidian, chat, or a public project directory.
+
+## 10. Failure matrix
+
+| Failure | What continues | Recovery |
+|---|---|---|
+| LLM credits/model unavailable | Vercel production, GitHub, Aave accrual, token-free watchdog | Use this document and deterministic scripts |
+| Internet unavailable | Local source, Git bundle, standalone server, encrypted recovery kit | Run offline archive; external settlement waits for connectivity |
+| GitHub unavailable | Vercel's current deployment and local bundle | Restore from Git bundle; add remote later |
+| Vercel unavailable | Source, wallet, Aave position, local standalone runtime | Run local server or deploy verified source to another host |
+| PayAI catalog unavailable | Paid route may still emit valid requirements; catalog monitoring is warning-only | Verify facilitator health before claiming settlement availability |
+| Base RPC endpoint rejects/limits | Production may continue; watchdog reports RPC issue | Set `BASE_RPC_URL` to another verified Base Mainnet RPC |
+| Hermes session reset | Repo, vault, cron jobs, private continuity folder remain | Read this file, `STATUS.json`, and the private runbook |
+| This Mac is lost | GitHub/Vercel continue | Wallet recovery requires the separately exported encrypted kit and independent password recovery |
+
+## 11. Instructions for a weaker replacement model
+
+Read and act in this order:
+
+1. `OPERATIONS.md`.
+2. `STATUS.json`—treat every balance, APY, and catalog count as timestamped, not current truth.
+3. `README.md`.
+4. Run `npm run verify:production` and `npm run watchdog` before making claims.
+5. Read the Obsidian vault's `Wiki/Index.md` before answering project-history questions.
+6. Load `evm-wallet-operations` before any signing or wallet action.
+7. Load `onchain-revenue-experiments` before changing offer, price, or capital allocation.
+8. Never guess a transaction result, balance, catalog state, or deployment state—query it.
+9. Do not alter immutable `Raw/` vault sources.
+10. Keep one service core and add payment/discovery adapters rather than duplicating fulfillment logic.
+
+## 12. Evidence gate and next action
+
+Current success gate: one unrelated paid call or another qualified demand signal.
+
+Until that happens:
+
+- keep fixed burn at zero;
+- monitor service, wallet, and newest Bazaar listings;
+- distribute transparently through terms-compliant channels;
+- improve positioning before adding paid infrastructure;
+- preserve liquid capital.

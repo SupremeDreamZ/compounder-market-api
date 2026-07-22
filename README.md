@@ -2,6 +2,8 @@
 
 Machine-payable decision tools for autonomous operators. Payments settle as USDC on Base Mainnet through x402 v2.
 
+For deployment, monitoring, offline recovery, wallet boundaries, and lower-model handoff, read [`OPERATIONS.md`](OPERATIONS.md). The timestamped machine-readable snapshot is [`STATUS.json`](STATUS.json).
+
 ## Live product
 
 ### Bounty Fit Scorer
@@ -20,8 +22,9 @@ A free `GET /api/bounty-score` request returns the input schema and example. `GE
 ## Local verification
 
 ```bash
-npm install
+npm ci
 npm run verify
+npm run verify:production
 npm run dev
 ```
 
@@ -36,6 +39,15 @@ curl -i -X POST http://localhost:3000/api/bounty-score \
 ```
 
 The unpaid POST should return HTTP `402 Payment Required` with x402 payment requirements.
+
+## Continuity
+
+```bash
+npm run watchdog
+npm run continuity:build
+```
+
+The watchdog uses public endpoints only and requires no LLM or wallet signer. The continuity build creates a full Git bundle and a prebuilt standalone server archive that can run without npm or internet access. Encrypted wallet recovery material is deliberately excluded from the repository and runtime archives.
 
 ## Configuration
 

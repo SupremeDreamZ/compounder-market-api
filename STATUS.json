@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-07-22T00:26:25Z",
+  "timezoneContext": "2026-07-21 America/Los_Angeles",
+  "project": {
+    "name": "Compounder Market API",
+    "repository": "https://github.com/SupremeDreamZ/compounder-market-api",
+    "branch": "main",
+    "production": "https://compounder-market-api.vercel.app",
+    "paidEndpoint": "POST /api/bounty-score",
+    "price": {
+      "display": "$0.01 USDC",
+      "atomicUnits": "10000"
+    }
+  },
+  "payment": {
+    "protocol": "x402 v2",
+    "scheme": "exact",
+    "network": "eip155:8453",
+    "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "payTo": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
+    "facilitator": "https://facilitator.payai.network",
+    "serverSignerPresent": false
+  },
+  "verification": {
+    "sourceTypecheck": "passed",
+    "tests": {
+      "passed": 5,
+      "failed": 0
+    },
+    "productionBuild": "passed",
+    "npmAuditVulnerabilities": 0,
+    "publicHealth": "passed",
+    "unpaidPostStatus": 402,
+    "paymentRequirements": "verified",
+    "bazaarBodyType": "json",
+    "bazaarMethodIncludesPost": true,
+    "bazaarBodyFieldCount": 17
+  },
+  "bazaar": {
+    "metadataState": "ready-and-verified",
+    "catalogState": "not-confirmed",
+    "selfPurchasePerformed": false,
+    "catalogTrigger": "facilitator-processed payment carrying the Bazaar extension",
+    "lastCatalogProbe": {
+      "checkedAt": "2026-07-22T00:26:25Z",
+      "newestPageItems": 100,
+      "reportedTotalItems": 24845,
+      "exactResourceFoundOnNewestPage": false,
+      "scopeWarning": "A miss on the newest page is not proof of absence from every historical page."
+    }
+  },
+  "wallet": {
+    "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
+    "chainId": 8453,
+    "snapshotSource": "live Base JSON-RPC",
+    "snapshotAt": "2026-07-22T00:26:25Z",
+    "eth": "0.002580219611430271",
+    "liquidUsdc": "11",
+    "aUsdc": "10.000032",
+    "aaveUsdcAllowance": "0",
+    "nonce": 2
+  },
+  "yieldBenchmark": {
+    "source": "DefiLlama pools API",
+    "observedAt": "2026-07-22T00:16:53Z",
+    "aaveV3BaseUsdcApyPercent": "2.70303",
+    "poolTvlUsd": "43936256",
+    "annualizedReserveYieldUsd": "0.27030365",
+    "monthlyReserveYieldUsd": "0.02252530",
+    "grossOneCentCallsToBeatAnnualReserveYield": 28,
+    "daysOfReserveYieldPerOneCentCall": "13.50"
+  },
+  "continuity": {
+    "productionRequiresLlm": false,
+    "watchdogRequiresLlm": false,
+    "offlineGitBundle": "~/Documents/_Projects/Backups/compounder-market-api.bundle",
+    "offlineRuntime": "~/Documents/_Projects/Backups/compounder-market-api-standalone.tar.gz",
+    "checksums": "~/Documents/_Projects/Backups/compounder-market-api-SHA256SUMS",
+    "encryptedRecoveryCopyCreated": true,
+    "encryptedRecoveryCopyAddressVerified": true,
+    "keychainEntryPresent": true,
+    "timeMachineDestinationConfigured": false,
+    "separateDeviceRecoveryCopyConfirmed": false
+  },
+  "remainingHumanContinuityStep": "Export the encrypted recovery kit to a separate encrypted device and confirm independent wallet-password recovery."
+}
