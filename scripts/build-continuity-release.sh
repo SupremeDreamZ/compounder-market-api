@@ -43,11 +43,16 @@ if [ ! -f ".next/standalone/server.js" ]; then
 fi
 
 cp -R .next/standalone/. "$STAGE/"
-# The x402 resource server loads extension processors dynamically by package
-# name, which Next's static trace cannot discover. Keep the package available
-# in the standalone runtime even though declaration code is already bundled.
-mkdir -p "$STAGE/node_modules/@x402"
-cp -R node_modules/@x402/extensions "$STAGE/node_modules/@x402/extensions"
+# The x402 Next wrapper validates Bazaar through a webpack-ignored runtime
+# import. Static tracing cannot see that dependency closure, so package the
+# installed production tree and prune development-only modules in isolation.
+rm -rf "$STAGE/node_modules"
+cp -R node_modules "$STAGE/node_modules"
+cp package.json package-lock.json "$STAGE/"
+(
+  cd "$STAGE"
+  npm prune --omit=dev --ignore-scripts --no-audit --no-fund >/dev/null
+)
 mkdir -p "$STAGE/.next"
 cp -R .next/static "$STAGE/.next/static"
 if [ -d public ]; then
