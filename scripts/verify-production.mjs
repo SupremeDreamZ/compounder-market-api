@@ -84,8 +84,52 @@ async function main() {
   );
 
   const discovery = await discoveryResponse.json();
-  assert(discovery.resources?.includes(EXPECTED.resource), "x402 discovery is missing the paid resource");
+  // The manifest must advertise resources on its own canonical host. Local runs
+  // (COMPOUNDER_BASE_URL=http://127.0.0.1:PORT) intentionally still advertise the
+  // canonical production origin, so the rule is anchored to the paid resource.
+  const manifestHost = new URL(EXPECTED.resource).host;
+  const manifestContentType = discoveryResponse.headers.get("content-type") ?? "";
+  assert(manifestContentType.includes("application/json"), `x402 manifest content type is ${manifestContentType}`);
+  assert(
+    discoveryResponse.headers.get("access-control-allow-origin") === "*",
+    "x402 manifest is not cross-origin readable (draft-hawkins-x402-dns-discovery-03 requires public cross-origin GET)",
+  );
+  assert(discovery.x402Version === 2, `x402 manifest advertises protocol version ${discovery.x402Version}`);
+  assert(
+    ["facilitator", "resource-server", "both"].includes(discovery.kind),
+    `x402 manifest declares an unsupported kind: ${discovery.kind}`,
+  );
+  assert(typeof discovery.name === "string" && discovery.name.length > 0, "x402 manifest is missing name");
+  assert(
+    typeof discovery.description === "string" && discovery.description.length > 20,
+    "x402 manifest description is too thin for agent selection",
+  );
+  assert(
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/.test(discovery.updated ?? ""),
+    `x402 manifest updated is not an RFC3339 UTC timestamp: ${discovery.updated}`,
+  );
+  assert(Array.isArray(discovery.resources) && discovery.resources.length > 0, "x402 manifest lists no resources");
+  const advertisedResource = discovery.resources.find(
+    (entry) => entry?.url === EXPECTED.resource && entry?.method === "POST",
+  );
+  assert(advertisedResource, "x402 manifest does not advertise the paid POST resource as an object entry");
+  assert(
+    typeof advertisedResource.description === "string" && advertisedResource.description.length > 20,
+    "x402 manifest resource description is missing",
+  );
+  for (const entry of discovery.resources) {
+    const parsedUrl = new URL(entry.url);
+    assert(parsedUrl.protocol === "https:", `x402 manifest resource is not https: ${entry.url}`);
+    assert(
+      parsedUrl.hostname === manifestHost || parsedUrl.hostname.endsWith(`.${manifestHost}`),
+      `x402 manifest resource is off-host: ${parsedUrl.hostname}`,
+    );
+  }
   assert(discovery.ownershipProofs?.includes(EXPECTED.ownershipProof), "x402 discovery ownership proof is missing");
+  assert(
+    !/"(privateKey|mnemonic|seed|apiKey|api_key|secret|password|keystore|recovery)"/i.test(JSON.stringify(discovery)),
+    "x402 manifest exposes a secret-bearing field",
+  );
 
   const llms = await llmsResponse.text();
   const canonicalOrigin = new URL(EXPECTED.resource).origin;
@@ -138,6 +182,9 @@ async function main() {
         discovery: {
           openapi: "ok",
           x402Manifest: "ok",
+          x402ManifestVersion: discovery.x402Version,
+          x402ManifestKind: discovery.kind,
+          x402ManifestUpdated: discovery.updated,
           llms: "ok",
           freeExample: "ok",
           walletOwnershipProof: "present",

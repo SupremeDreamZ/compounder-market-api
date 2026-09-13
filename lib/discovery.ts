@@ -15,16 +15,15 @@ import {
   SERVICE_VERSION,
 } from "./product";
 
-export const OWNERSHIP_PROOF =
-  "0x56f7faf1bf7c3bb03a1463ef9bf381412fee8646b78f01eaa7f91ddde8c997eb389896e62ea62117bdc787648b40caf803df09552183e66b152f95e6424118231b";
+export {
+  OWNERSHIP_PROOF,
+  X402_WELLKNOWN_HEADERS as X402_DISCOVERY_HEADERS,
+  X402_WELLKNOWN_MANIFEST as X402_DISCOVERY_DOCUMENT,
+  X402_WELLKNOWN_MANIFEST_UPDATED,
+  validateX402WellKnownManifest,
+} from "./x402-wellknown";
 
-export const X402_DISCOVERY_DOCUMENT = {
-  version: 1,
-  resources: [BOUNTY_RESOURCE_URL],
-  ownershipProofs: [OWNERSHIP_PROOF],
-  instructions:
-    "Fetch /openapi.json for the canonical contract. GET /api/bounty-score/example returns a free fixed sample; POST /api/bounty-score is paid through x402.",
-} as const;
+import { OWNERSHIP_PROOF as PROOF } from "./x402-wellknown";
 
 export const OPENAPI_DOCUMENT = {
   openapi: "3.1.0",
@@ -50,7 +49,7 @@ export const OPENAPI_DOCUMENT = {
     { name: "Discovery", description: "Free schemas, examples, and service health" },
   ],
   "x-discovery": {
-    ownershipProofs: [OWNERSHIP_PROOF],
+    ownershipProofs: [PROOF],
   },
   paths: {
     "/api/health": {

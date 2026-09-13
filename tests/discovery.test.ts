@@ -5,6 +5,7 @@ import {
   OPENAPI_DOCUMENT,
   OWNERSHIP_PROOF,
   X402_DISCOVERY_DOCUMENT,
+  validateX402WellKnownManifest,
 } from "../lib/discovery";
 import {
   BOUNTY_RESOURCE_URL,
@@ -35,10 +36,15 @@ test("OpenAPI advertises the paid route in x402scan-compatible form", () => {
   assert.deepEqual(paidOperation.security, []);
 });
 
-test("compatibility discovery fans out to the canonical paid resource", () => {
-  assert.equal(X402_DISCOVERY_DOCUMENT.version, 1);
-  assert.deepEqual(X402_DISCOVERY_DOCUMENT.resources, [BOUNTY_RESOURCE_URL]);
+test("compatibility discovery manifest fans out to the canonical paid resource", () => {
+  assert.equal(X402_DISCOVERY_DOCUMENT.x402Version, 2);
+  assert.equal(X402_DISCOVERY_DOCUMENT.kind, "resource-server");
+  assert.deepEqual(
+    X402_DISCOVERY_DOCUMENT.resources.map((resource) => resource.url),
+    [BOUNTY_RESOURCE_URL],
+  );
   assert.deepEqual(X402_DISCOVERY_DOCUMENT.ownershipProofs, [OWNERSHIP_PROOF]);
+  assert.deepEqual(validateX402WellKnownManifest(X402_DISCOVERY_DOCUMENT, new URL(PUBLIC_BASE_URL).host), []);
 });
 
 test("ownership proof has a complete EVM signature shape", () => {
