@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-08-09T17:31:25Z",
-  "timezoneContext": "2026-08-09 America/Los_Angeles",
+  "asOf": "2026-09-13T00:29:31Z",
+  "timezoneContext": "2026-09-12 America/Los_Angeles",
   "project": {
     "name": "Compounder Market API",
     "repository": "https://github.com/SupremeDreamZ/compounder-market-api",
@@ -69,7 +69,17 @@
     "freeGeneratedExample": "verified",
     "walletOwnershipProof": "verified",
     "agentcashDiscoveryScanner": "passed-with-zero-warnings at the 2026-07-22 source snapshot",
-    "productionCheckedAt": "2026-08-09T17:39:45Z"
+    "productionCheckedAt": "2026-08-09T17:39:45Z",
+    "sourceCommit": "38c4c2f",
+    "publicCheckedAt": "2026-09-13T00:29:31Z",
+    "testsPassed": 32,
+    "testsFailed": 0,
+    "x402WellKnownManifest": "conformant",
+    "x402ManifestStandard": "draft-hawkins-x402-dns-discovery-03",
+    "x402ManifestVersion": 2,
+    "x402ManifestKind": "resource-server",
+    "x402ManifestGauntletScenarios": 20,
+    "x402ManifestCrossOriginReadable": true
   },
   "bazaar": {
     "metadataState": "ready-and-verified",
@@ -77,9 +87,9 @@
     "selfPurchasePerformed": false,
     "catalogTrigger": "facilitator-processed payment carrying the Bazaar extension",
     "lastCatalogProbe": {
-      "checkedAt": "2026-08-09T17:30:35Z",
+      "checkedAt": "2026-09-13T00:02:14Z",
       "newestPageItems": 100,
-      "reportedTotalItems": 25738,
+      "reportedTotalItems": 28582,
       "exactResourceFoundOnNewestPage": false,
       "scopeWarning": "A miss on the newest page is not proof of absence from every historical page."
     }
@@ -117,11 +127,11 @@
   "wallet": {
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
-    "snapshotSource": "live Base JSON-RPC",
-    "snapshotAt": "2026-08-09T17:30:35Z",
+    "snapshotSource": "live Base JSON-RPC (eth_chainId 8453)",
+    "snapshotAt": "2026-09-13T00:29:31Z",
     "eth": "0.002580219611430271",
-    "liquidUsdc": "36",
-    "aUsdc": "10.01738",
+    "liquidUsdc": "0",
+    "aUsdc": "10.050760",
     "aaveUsdcAllowance": "0",
     "nonce": 2,
     "portfolioUsdApprox": {
@@ -157,5 +167,23 @@
     "timeMachineDestinationConfigured": false,
     "separateDeviceRecoveryCopyConfirmed": false
   },
-  "remainingHumanContinuityStep": "Export the encrypted recovery kit to a separate encrypted device and confirm independent wallet-password recovery."
+  "remainingHumanContinuityStep": "Export the encrypted recovery kit to a separate encrypted device and confirm independent wallet-password recovery.",
+  "discoveryManifest": {
+    "path": "/.well-known/x402",
+    "standard": "draft-hawkins-x402-dns-discovery-03 (x402 Foundation extension spec under review)",
+    "fields": [
+      "x402Version",
+      "kind",
+      "name",
+      "description",
+      "resources[].url|method|description|price",
+      "attestation",
+      "docs",
+      "updated",
+      "ownershipProofs"
+    ],
+    "note": "resources changed from bare URL strings to object entries so crawlers read method and terms without probing; the EIP-191 ownership proof is retained as a forward-compatible extra field.",
+    "gauntlet": "tests/x402-wellknown-gauntlet.test.ts (versioned beside the artifact; 20 violating manifests must each be rejected)",
+    "dnsTxtLayer": "not available; the deployment uses a platform-assigned subdomain (vercel.app), which the draft explicitly permits for manifest-only publishers"
+  }
 }
