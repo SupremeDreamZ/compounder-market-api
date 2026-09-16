@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-09-13T00:29:31Z",
-  "timezoneContext": "2026-09-12 America/Los_Angeles",
+  "asOf": "2026-09-16T18:44:13Z",
+  "timezoneContext": "2026-09-16 America/Los_Angeles",
   "project": {
     "name": "Compounder Market API",
     "repository": "https://github.com/SupremeDreamZ/compounder-market-api",
@@ -37,16 +37,16 @@
       "x402scanTransactions": 0,
       "x402scanVolumeUsd": 0,
       "x402scanBuyers": 0,
-      "walletLiquidUsdcIncreaseSincePriorSnapshot": "25",
-      "walletIncreaseClassification": "funding-not-revenue",
-      "walletIncreaseReason": "The 25 USDC inbound transfer came from the same address that sent the wallet's initial 1 and 20 USDC funding transfers; no x402 transaction or buyer is recorded.",
+      "walletLiquidUsdcIncreaseSincePriorSnapshot": "0",
+      "walletIncreaseClassification": "none",
+      "walletIncreaseReason": "No inbound USDC since the 2026-07-23 funding transfer; liquid USDC 0; wallet nonce 2 unchanged since the documented 2026-08-11 withdrawal.",
       "fundingTransaction": "https://base.blockscout.com/tx/0x807d8a7067cb7383fc28732cacc16b95a05bcc27284c4c9c192d19feb6035522"
     }
   },
   "verification": {
     "sourceTypecheck": "passed",
     "tests": {
-      "passed": 10,
+      "passed": 36,
       "failed": 0
     },
     "productionBuild": "passed",
@@ -69,17 +69,21 @@
     "freeGeneratedExample": "verified",
     "walletOwnershipProof": "verified",
     "agentcashDiscoveryScanner": "passed-with-zero-warnings at the 2026-07-22 source snapshot",
-    "productionCheckedAt": "2026-08-09T17:39:45Z",
-    "sourceCommit": "38c4c2f",
-    "publicCheckedAt": "2026-09-13T00:29:31Z",
-    "testsPassed": 32,
+    "productionCheckedAt": "2026-09-16T18:42:29Z",
+    "sourceCommit": "60676f0",
+    "publicCheckedAt": "2026-09-16T18:42:29Z",
+    "testsPassed": 36,
     "testsFailed": 0,
     "x402WellKnownManifest": "conformant",
     "x402ManifestStandard": "draft-hawkins-x402-dns-discovery-03",
     "x402ManifestVersion": 2,
     "x402ManifestKind": "resource-server",
     "x402ManifestGauntletScenarios": 20,
-    "x402ManifestCrossOriginReadable": true
+    "x402ManifestCrossOriginReadable": true,
+    "bazaarDeclarationState": "valid \u2014 served info.input.method=POST + pathParams; enriched by statically registered bazaarResourceServerExtension (commit 60676f0); passes @x402/extensions validateDiscoveryExtension + spec checks",
+    "bazaarDeclarationRegression": "Production previously served a declaration missing required info.input.method (serverless bundle skipped @x402/next dynamic auto-registration); PayAI rejected cataloging with \"Invalid input at info.input\". Fixed in 60676f0; pinned by tests/bazaar-discovery.test.ts (4 violating forms rejected) and the verify:production assertion info.input.method === \"POST\".",
+    "deployedCommit": "60676f0",
+    "deploymentObservedAt": "2026-09-16T18:41:54Z"
   },
   "bazaar": {
     "metadataState": "ready-and-verified",
@@ -87,11 +91,23 @@
     "selfPurchasePerformed": false,
     "catalogTrigger": "facilitator-processed payment carrying the Bazaar extension",
     "lastCatalogProbe": {
-      "checkedAt": "2026-09-13T00:02:14Z",
+      "checkedAt": "2026-09-16T18:13:34Z",
       "newestPageItems": 100,
-      "reportedTotalItems": 28582,
+      "reportedTotalItems": 25474,
       "exactResourceFoundOnNewestPage": false,
       "scopeWarning": "A miss on the newest page is not proof of absence from every historical page."
+    },
+    "declarationValidation": {
+      "validator": "@x402/extensions validateDiscoveryExtension/validateDiscoveryExtensionSpec (2.19.0)",
+      "servedForm": "enriched: info.input carry method POST, bodyType json, 17-field body; schema enum [POST]",
+      "liveGate": "scripts/verify-production.mjs asserts info.input.method === \"POST\" on the served 402"
+    },
+    "payaiProbe": {
+      "checkedAt": "2026-09-16T18:43:20Z",
+      "method": "synthetic /verify with junk signature, no funds, no keystore, no signature by operator",
+      "resultFixed": "declaration no longer reported rejected; no EXTENSION-RESPONSES header on a failed verify (valid declaration); /discovery/listing-status 404 \"no catalog row\" \u2014 POST resources seen only via verify are deferred (resource_needs_settlement) and list on first settled payment",
+      "resultBeforeFix": "EXTENSION-RESPONSES bazaar status rejected: \"Bazaar extension validation failed: Invalid input at info.input\"",
+      "classification": "self-generated integration probe \u2014 not demand, not revenue, no settlement"
     }
   },
   "distribution": {
@@ -107,7 +123,7 @@
       "transactions": 0,
       "volumeUsd": 0,
       "buyers": 0,
-      "snapshotAt": "2026-08-09T17:30:51Z"
+      "snapshotAt": "2026-09-16T18:17:00Z"
     },
     "github": {
       "homepageConfigured": true,
@@ -115,23 +131,50 @@
       "awesomeX402PullRequest": "https://github.com/xpaysh/awesome-x402/pull/954",
       "awesomeX402PullRequestState": "open-and-mergeable",
       "trafficWindow": {
-        "through": "2026-08-08T00:00:00Z",
+        "through": "2026-09-16T00:00:00Z",
         "views": 0,
         "uniqueVisitors": 0,
-        "clones": 14,
-        "uniqueCloners": 8,
+        "clones": 35,
+        "uniqueCloners": 26,
         "warning": "Clones are not buyer demand and may include automated or operator activity."
       }
+    },
+    "agent402": {
+      "state": "indexed-and-live",
+      "seedPullRequest": "https://github.com/MikeyPetrillo/Agent402/pull/1338",
+      "mergedAt": "2026-09-13T18:42:10Z",
+      "mergedBy": "MikeyPetrillo",
+      "sellerInfo": "https://agent402.tools/api/index?seller=compounder-market-api.vercel.app",
+      "toolCount": 3,
+      "paidToolCount": 1,
+      "healthScore": 1,
+      "routable": true,
+      "routerDispatch": "eligible=false \u2014 settlement_required (\"below the settlement floor\"): the router pays only sellers with settled history from distinct payers",
+      "probeObservedAt": "2026-09-16T18:15:00Z"
+    },
+    "x402watch": {
+      "state": "listed-in-public-dataset",
+      "dataset": "https://raw.githubusercontent.com/ucsandman/x402watch/main/data/latest.json (34,693 rows; generated 2026-09-16T17:08:44Z)",
+      "ourRows": 3,
+      "artifactNote": "Their crawler merges resources by URL, so the GET docs row (200s) shadows the paid POST row; score 19/100 reflects that merge, not a service defect. Declared amount 10000 carried through."
+    },
+    "trafficSnapshot": {
+      "checkedAt": "2026-09-16T18:44:00Z",
+      "githubViews14d": 0,
+      "githubUniqueVisitors14d": 0,
+      "githubClones14d": 35,
+      "githubUniqueCloners14d": 26,
+      "note": "Clones are not buyer demand and may include automated or operator activity."
     }
   },
   "wallet": {
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
     "snapshotSource": "live Base JSON-RPC (eth_chainId 8453)",
-    "snapshotAt": "2026-09-13T00:29:31Z",
+    "snapshotAt": "2026-09-16T18:44:13Z",
     "eth": "0.002580219611430271",
     "liquidUsdc": "0",
-    "aUsdc": "10.050760",
+    "aUsdc": "10.054482",
     "aaveUsdcAllowance": "0",
     "nonce": 2,
     "portfolioUsdApprox": {
