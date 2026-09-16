@@ -1,20 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { withX402 } from "@x402/next";
-import { declareDiscoveryExtension } from "@x402/extensions/bazaar";
 import { scoreBounty } from "@/lib/scoring";
-import { NETWORK, PAY_TO_ADDRESS, paymentServer } from "@/lib/x402";
+import { BOUNTY_ROUTE_CONFIG } from "@/lib/bounty-route";
+import { NETWORK, paymentServer } from "@/lib/x402";
 import {
-  BOUNTY_INPUT_SCHEMA,
   BOUNTY_PRICE_LABEL,
-  BOUNTY_PRICE_USD,
-  BOUNTY_RESOURCE_URL,
   BOUNTY_SCORER_NAME,
   BOUNTY_SCORER_VERSION,
   EXAMPLE_INPUT,
   EXAMPLE_OUTPUT,
-  PRODUCT_TAGS,
   PUBLIC_BASE_URL,
-  SERVICE_NAME,
 } from "@/lib/product";
 
 export const runtime = "nodejs";
@@ -50,37 +45,4 @@ const paidHandler = async (request: NextRequest): Promise<NextResponse> => {
   }
 };
 
-export const POST = withX402(
-  paidHandler,
-  {
-    accepts: [
-      {
-        scheme: "exact",
-        price: `$${BOUNTY_PRICE_USD}`,
-        network: NETWORK,
-        payTo: PAY_TO_ADDRESS,
-      },
-    ],
-    resource: BOUNTY_RESOURCE_URL,
-    description:
-      "Score a bounty, grant, paid task, or service opportunity for payout quality, payment certainty, AI leverage, time-to-cash, reuse, and execution friction.",
-    mimeType: "application/json",
-    serviceName: SERVICE_NAME,
-    tags: [...PRODUCT_TAGS],
-    iconUrl: `${PUBLIC_BASE_URL}/icon.svg`,
-    extensions: {
-      ...declareDiscoveryExtension({
-        bodyType: "json",
-        input: EXAMPLE_INPUT,
-        inputSchema: {
-          properties: BOUNTY_INPUT_SCHEMA.properties,
-          required: [...BOUNTY_INPUT_SCHEMA.required],
-        },
-        output: {
-          example: EXAMPLE_OUTPUT,
-        },
-      }),
-    },
-  },
-  paymentServer,
-);
+export const POST = withX402(paidHandler, BOUNTY_ROUTE_CONFIG, paymentServer);

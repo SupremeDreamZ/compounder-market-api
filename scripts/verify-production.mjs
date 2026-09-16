@@ -167,6 +167,7 @@ async function main() {
   const bazaar = requirement.extensions?.bazaar;
   const input = bazaar?.info?.input;
   const methods = bazaar?.schema?.properties?.input?.properties?.method?.enum ?? [];
+  assert(input?.method === "POST", `Bazaar info.input.method is ${input?.method}, expected POST`);
   assert(input?.bodyType === "json", `Bazaar body type is ${input?.bodyType}, expected json`);
   assert(input?.body && typeof input.body === "object", "Bazaar JSON body example is missing");
   assert(methods.includes("POST"), `Bazaar method enum does not include POST: ${methods.join(",")}`);
@@ -200,7 +201,7 @@ async function main() {
         },
         bazaar: {
           state: "metadata-ready; cataloging requires a facilitator-processed payment",
-          method: "POST",
+          method: input.method,
           bodyType: input.bodyType,
           bodyFieldCount: Object.keys(input.body).length,
           serviceName: resource.serviceName,
