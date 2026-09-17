@@ -12,6 +12,8 @@ const EXPECTED = {
   serviceName: "Compounder Market API",
   ownershipProof:
     "0x56f7faf1bf7c3bb03a1463ef9bf381412fee8646b78f01eaa7f91ddde8c997eb389896e62ea62117bdc787648b40caf803df09552183e66b152f95e6424118231b",
+  domainVerificationHash:
+    "a00a300dd926194f8824d6931163334a89e0eb1a9d2f17fc705ea15022bc77de",
 };
 
 function assert(condition, message) {
@@ -52,14 +54,18 @@ async function main() {
   assert(docs.method === "POST", `unexpected docs method: ${docs.method}`);
   assert(docs.price === "$0.01 USDC", `unexpected docs price: ${docs.price}`);
 
-  const [openapiResponse, discoveryResponse, llmsResponse, exampleResponse] = await Promise.all([
-    fetchWithTimeout(`${BASE_URL}/openapi.json`, { headers: { accept: "application/json" } }),
-    fetchWithTimeout(`${BASE_URL}/.well-known/x402`, { headers: { accept: "application/json" } }),
-    fetchWithTimeout(`${BASE_URL}/llms.txt`, { headers: { accept: "text/plain" } }),
-    fetchWithTimeout(`${BASE_URL}/api/bounty-score/example`, {
-      headers: { accept: "application/json" },
-    }),
-  ]);
+  const [openapiResponse, discoveryResponse, llmsResponse, exampleResponse, domainVerificationResponse] =
+    await Promise.all([
+      fetchWithTimeout(`${BASE_URL}/openapi.json`, { headers: { accept: "application/json" } }),
+      fetchWithTimeout(`${BASE_URL}/.well-known/x402`, { headers: { accept: "application/json" } }),
+      fetchWithTimeout(`${BASE_URL}/llms.txt`, { headers: { accept: "text/plain" } }),
+      fetchWithTimeout(`${BASE_URL}/api/bounty-score/example`, {
+        headers: { accept: "application/json" },
+      }),
+      fetchWithTimeout(`${BASE_URL}/.well-known/402index-verify.txt`, {
+        headers: { accept: "text/plain" },
+      }),
+    ]);
   assert(openapiResponse.ok, `OpenAPI returned HTTP ${openapiResponse.status}`);
   assert(discoveryResponse.ok, `x402 discovery returned HTTP ${discoveryResponse.status}`);
   assert(llmsResponse.ok, `llms.txt returned HTTP ${llmsResponse.status}`);
@@ -141,6 +147,16 @@ async function main() {
   assert(Number.isInteger(example.output?.result?.score), "free example lacks a generated score");
   assert(example.output?.result?.recommendedAction, "free example lacks a recommended action");
 
+  assert(
+    domainVerificationResponse.ok,
+    `domain verification file returned HTTP ${domainVerificationResponse.status}`,
+  );
+  const domainVerificationBody = (await domainVerificationResponse.text()).trim();
+  assert(
+    domainVerificationBody === EXPECTED.domainVerificationHash,
+    "domain verification file does not serve the registered hash",
+  );
+
   const paymentResponse = await fetchWithTimeout(`${BASE_URL}/api/bounty-score`, {
     method: "POST",
     headers: { "content-type": "application/json", accept: "application/json" },
@@ -189,6 +205,7 @@ async function main() {
           llms: "ok",
           freeExample: "ok",
           walletOwnershipProof: "present",
+          domainVerification: "ok",
         },
         unpaidPostStatus: paymentResponse.status,
         x402Version: requirement.x402Version,

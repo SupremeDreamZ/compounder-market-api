@@ -10,6 +10,15 @@ export const BOUNTY_PRICE_LABEL = "$0.01 USDC";
 export const BOUNTY_RESOURCE_URL = `${PUBLIC_BASE_URL}/api/bounty-score`;
 export const PRODUCT_TAGS = ["bounty", "scoring", "agents", "base", "opportunities"] as const;
 
+/**
+ * 402index.io domain-ownership verification hash. Public value (no secret):
+ * it must be served verbatim at /.well-known/402index-verify.txt from the
+ * canonical origin. Claimed 2026-09-17; rotate only by re-claiming the domain
+ * at https://402index.io/verify so the served file and the claim stay in sync.
+ */
+export const INDEX402_VERIFICATION_HASH =
+  "a00a300dd926194f8824d6931163334a89e0eb1a9d2f17fc705ea15022bc77de";
+
 export const EXAMPLE_INPUT = {
   title: "Write a five-post launch thread",
   payoutUsd: 250,
