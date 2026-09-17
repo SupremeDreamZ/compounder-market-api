@@ -99,6 +99,8 @@ The origin is manually registered on x402scan at <https://www.x402scan.com/serve
 
 x402scan registration and an ecosystem pull request are distribution milestones, not revenue or demand proof.
 
+Directory listings (updated 2026-09-17): the paid endpoint is listed on 402index.io as service `c0ed25bd-9c15-4bb6-bcbf-20337deeb01d` — <https://402index.io/service/c0ed25bd-9c15-4bb6-bcbf-20337deeb01d> (active, domain-verified; free self-serve registration). Domain ownership is proven by the claim hash served verbatim at `/.well-known/402index-verify.txt` (`INDEX402_VERIFICATION_HASH` in `lib/product.ts`; pinned by `tests/domain-verification.test.ts` and asserted by `verify:production`). The claim token authorizes owner PATCHes of that listing and lives only in the gitignored `.state/402index-claim.json` — never commit, print, or log it. The endpoint is also listed on OrbitX402, which discovered it from `/.well-known/x402` (free registration).
+
 Cataloging is separate from metadata readiness. Official x402 documentation says a supporting facilitator may catalog the resource after processing a payment carrying the Bazaar extension. Do not buy the API from the controlled receiving wallet or another controlled wallet to manufacture demand. The first unrelated paid buyer is the evidence gate.
 
 The watchdog checks PayAI's newest 100 catalog entries. PayAI reported 24,848 total entries at `2026-07-22T01:55:51Z`; therefore a first-page miss is a launch-window detector, not proof that the URL is absent from all historical pages.
