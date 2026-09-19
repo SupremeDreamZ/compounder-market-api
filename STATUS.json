@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-09-17T16:15:00Z",
+  "asOf": "2026-09-19T00:20:00Z",
   "timezoneContext": "2026-09-16 America/Los_Angeles",
   "project": {
     "name": "Compounder Market API",
@@ -69,9 +69,9 @@
     "freeGeneratedExample": "verified",
     "walletOwnershipProof": "verified",
     "agentcashDiscoveryScanner": "passed-with-zero-warnings at the 2026-07-22 source snapshot",
-    "productionCheckedAt": "2026-09-17T16:01:10Z",
-    "sourceCommit": "2406b5a",
-    "publicCheckedAt": "2026-09-17T16:01:10Z",
+    "productionCheckedAt": "2026-09-19T00:01:34Z",
+    "sourceCommit": "9b751a6",
+    "publicCheckedAt": "2026-09-19T00:01:34Z",
     "testsPassed": 37,
     "testsFailed": 0,
     "x402WellKnownManifest": "conformant",
@@ -82,8 +82,8 @@
     "x402ManifestCrossOriginReadable": true,
     "bazaarDeclarationState": "valid — served info.input.method=POST + pathParams; enriched by statically registered bazaarResourceServerExtension (commit 60676f0); passes @x402/extensions validateDiscoveryExtension + spec checks",
     "bazaarDeclarationRegression": "Production previously served a declaration missing required info.input.method (serverless bundle skipped @x402/next dynamic auto-registration); PayAI rejected cataloging with \"Invalid input at info.input\". Fixed in 60676f0; pinned by tests/bazaar-discovery.test.ts (4 violating forms rejected) and the verify:production assertion info.input.method === \"POST\".",
-    "deployedCommit": "60676f0",
-    "deploymentObservedAt": "2026-09-16T18:41:54Z",
+    "deployedCommit": "2406b5a",
+    "deploymentObservedAt": "2026-09-19T00:01:34Z",
     "domainVerificationFile": "verified — /.well-known/402index-verify.txt serves the registered 402index claim hash verbatim; pinned by tests/domain-verification.test.ts and verify:production (discovery.domainVerification)"
   },
   "bazaar": {
@@ -92,11 +92,11 @@
     "selfPurchasePerformed": false,
     "catalogTrigger": "facilitator-processed payment carrying the Bazaar extension",
     "lastCatalogProbe": {
-      "checkedAt": "2026-09-16T18:13:34Z",
+      "checkedAt": "2026-09-19T00:01Z",
       "newestPageItems": 100,
-      "reportedTotalItems": 25474,
+      "reportedTotalItems": 6543,
       "exactResourceFoundOnNewestPage": false,
-      "scopeWarning": "A miss on the newest page is not proof of absence from every historical page."
+      "scopeWarning": "A miss on the newest page is not proof of absence from every historical page. Provider-reported totals are unstable (25,474 on 2026-09-16 vs 6,543 on 2026-09-19)."
     },
     "declarationValidation": {
       "validator": "@x402/extensions validateDiscoveryExtension/validateDiscoveryExtensionSpec (2.19.0)",
@@ -132,11 +132,11 @@
       "awesomeX402PullRequest": "https://github.com/xpaysh/awesome-x402/pull/954",
       "awesomeX402PullRequestState": "open-and-mergeable",
       "trafficWindow": {
-        "through": "2026-09-17T00:00:00Z",
+        "through": "2026-09-18T00:00:00Z",
         "views": 0,
         "uniqueVisitors": 0,
-        "clones": 44,
-        "uniqueCloners": 29,
+        "clones": 95,
+        "uniqueCloners": 54,
         "warning": "Clones are not buyer demand and may include automated or operator activity."
       }
     },
@@ -160,11 +160,11 @@
       "artifactNote": "Their crawler merges resources by URL, so the GET docs row (200s) shadows the paid POST row; score 19/100 reflects that merge, not a service defect. Declared amount 10000 carried through."
     },
     "trafficSnapshot": {
-      "checkedAt": "2026-09-17T16:05Z",
+      "checkedAt": "2026-09-19T00:16Z",
       "githubViews14d": 0,
       "githubUniqueVisitors14d": 0,
-      "githubClones14d": 44,
-      "githubUniqueCloners14d": 29,
+      "githubClones14d": 95,
+      "githubUniqueCloners14d": 54,
       "note": "Clones are not buyer demand and may include automated or operator activity."
     },
     "index402": {
@@ -185,18 +185,31 @@
       "submittedAt": "2026-09-17T16:08Z (approx)",
       "response": "HTTP 200 {\"ok\":true}",
       "directoryScale": "2,957 services total, 24 verified, $647,477 on-chain volume tracked (snapshot 2026-09-17T16:12Z)",
-      "visibility": "Not yet visible in the public feed after submit; directory copy: \"We'll review it shortly.\"",
-      "gateNote": "Scores come only from observed traffic; directory also auto-discovers from on-chain traffic."
+      "visibility": "Not yet visible in the public feed after submit; directory copy: \"We'll review it shortly.\" Re-checked 2026-09-19T00:12Z: still not visible in the public feed (utility category + search).",
+      "gateNote": "Scores come only from observed traffic; directory also auto-discovers from on-chain traffic.",
+      "lastCheckedAt": "2026-09-19T00:12Z"
+    },
+    "signal402": {
+      "state": "seller-listing-request-filed",
+      "url": "https://402signal.com",
+      "issue": "https://github.com/402signalhq/402signal/issues/269",
+      "submittedAt": "2026-09-19T00:11:36Z",
+      "readinessBefore": {
+        "validateUrl": "https://402signal.com/validate?url=https%3A%2F%2Fcompounder-market-api.vercel.app%2Fapi%2Fbounty-score",
+        "result": "readiness=discovered, miss_reason=unlisted, live=false, payable=false, invocable=false",
+        "checkedAt": "2026-09-19T00:10:37Z"
+      },
+      "note": "402Signal is a buyer-side x402 service-selection layer; unlisted endpoints cannot be selected by its buyers. Request filed via their seller_listing issue template; labels are applied by maintainers. No funds moved; readiness checks are free."
     }
   },
   "wallet": {
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
     "snapshotSource": "live Base JSON-RPC (eth_chainId 8453)",
-    "snapshotAt": "2026-09-17T16:06Z",
+    "snapshotAt": "2026-09-19T00:01Z",
     "eth": "0.002580219611430271",
     "liquidUsdc": "0",
-    "aUsdc": "10.055394",
+    "aUsdc": "10.056728",
     "aaveUsdcAllowance": "0",
     "nonce": 2,
     "portfolioUsdApprox": {
@@ -214,11 +227,12 @@
     "observedAt": "2026-08-09T17:31:25Z",
     "aaveV3BaseUsdcApyPercent": "3.45387",
     "poolTvlUsd": "21753594",
-    "aUsdcAccruedAboveTenUsdc": "0.01738",
+    "aUsdcAccruedAboveTenUsdc": "0.056728",
     "annualizedReserveYieldUsd": "0.34598728",
     "monthlyReserveYieldUsd": "0.02883227",
     "grossOneCentCallsToBeatAnnualReserveYield": 35,
-    "warning": "Spot APY is variable and the annualized figures are not guaranteed."
+    "warning": "Spot APY is variable and the annualized figures are not guaranteed.",
+    "accruedAsOf": "2026-09-19T00:01Z"
   },
   "continuity": {
     "productionRequiresLlm": false,
