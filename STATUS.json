@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-09-19T00:17:00Z",
+  "asOf": "2026-09-20T01:10:00Z",
   "timezoneContext": "2026-09-16 America/Los_Angeles",
   "project": {
     "name": "Compounder Market API",
@@ -124,7 +124,7 @@
       "transactions": 0,
       "volumeUsd": 0,
       "buyers": 0,
-      "snapshotAt": "2026-09-17T16:04Z"
+      "snapshotAt": "2026-09-20T01:08Z"
     },
     "github": {
       "homepageConfigured": true,
@@ -135,8 +135,8 @@
         "through": "2026-09-18T00:00:00Z",
         "views": 0,
         "uniqueVisitors": 0,
-        "clones": 95,
-        "uniqueCloners": 54,
+        "clones": 96,
+        "uniqueCloners": 55,
         "warning": "Clones are not buyer demand and may include automated or operator activity."
       }
     },
@@ -160,11 +160,11 @@
       "artifactNote": "Their crawler merges resources by URL, so the GET docs row (200s) shadows the paid POST row; score 19/100 reflects that merge, not a service defect. Declared amount 10000 carried through."
     },
     "trafficSnapshot": {
-      "checkedAt": "2026-09-19T00:16Z",
+      "checkedAt": "2026-09-20T01:04Z",
       "githubViews14d": 0,
       "githubUniqueVisitors14d": 0,
-      "githubClones14d": 95,
-      "githubUniqueCloners14d": 54,
+      "githubClones14d": 96,
+      "githubUniqueCloners14d": 55,
       "note": "Clones are not buyer demand and may include automated or operator activity."
     },
     "index402": {
@@ -187,19 +187,20 @@
       "directoryScale": "2,957 services total, 24 verified, $647,477 on-chain volume tracked (snapshot 2026-09-17T16:12Z)",
       "visibility": "Not yet visible in the public feed after submit; directory copy: \"We'll review it shortly.\" Re-checked 2026-09-19T00:12Z: still not visible in the public feed (utility category + search).",
       "gateNote": "Scores come only from observed traffic; directory also auto-discovers from on-chain traffic.",
-      "lastCheckedAt": "2026-09-19T00:12Z"
+      "lastCheckedAt": "2026-09-20T01:09Z"
     },
     "signal402": {
-      "state": "seller-listing-request-filed",
+      "state": "listing-request-lost-in-platform-migration",
       "url": "https://402signal.com",
       "issue": "https://github.com/402signalhq/402signal/issues/269",
       "submittedAt": "2026-09-19T00:11:36Z",
-      "readinessBefore": {
+      "migration": "Platform fully rewritten 2026-09-19T13:45-13:57Z; entire issue tracker wiped (repo open issues = 0; our #269 now 404); seller_listing template removed; docs now state listings refresh from authoritative discovery sources.",
+      "readinessLatest": {
         "validateUrl": "https://402signal.com/validate?url=https%3A%2F%2Fcompounder-market-api.vercel.app%2Fapi%2Fbounty-score",
         "result": "readiness=discovered, miss_reason=unlisted, live=false, payable=false, invocable=false",
-        "checkedAt": "2026-09-19T00:10:37Z"
+        "checkedAt": "2026-09-20T01:07Z"
       },
-      "note": "402Signal is a buyer-side x402 service-selection layer; unlisted endpoints cannot be selected by its buyers. Request filed via their seller_listing issue template; labels are applied by maintainers. No funds moved; readiness checks are free."
+      "note": "No seller submission path exists after the migration; do not re-file. Re-check /validate in future cycles. No funds moved; readiness checks are free."
     }
   },
   "wallet": {
