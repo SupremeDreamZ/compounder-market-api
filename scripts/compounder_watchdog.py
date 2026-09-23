@@ -35,6 +35,15 @@ LAST_RPC_URL: str | None = None
 CATALOG_URL = os.environ.get(
     "X402_CATALOG_URL", "https://facilitator.payai.network/discovery/resources?limit=100&offset=0"
 )
+AGENT_BOUNTIES_READY_URL = os.environ.get(
+    "AGENT_BOUNTIES_READY_URL",
+    "https://api.agentbounties.app/v1/opportunities"
+    "?network=base-mainnet&view=ready_to_earn&source_type=canonical_base&limit=300",
+)
+AGENT_BOUNTIES_FEED_URL = os.environ.get(
+    "AGENT_BOUNTIES_FEED_URL",
+    "https://api.agentbounties.app/v1/base/autonomous-bounties/feed?network=base-mainnet",
+)
 WALLET = "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35"
 USDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
 AUSDC = "0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB"
@@ -215,6 +224,59 @@ def catalog_snapshot() -> dict[str, Any]:
     }
 
 
+def agent_bounties_snapshot() -> dict[str, Any]:
+    """Read-only snapshot of the canonical Base bounty rail (agentbounties.app).
+
+    "Actionable" means a canonical item that is claimable AND verification-ready
+    per the venue's own fields. This check never signs, claims, or posts a bond;
+    a claim still requires a wallet bond and the mission capital-policy check.
+    """
+    status, ready, _ = http_json(AGENT_BOUNTIES_READY_URL)
+    if status != 200 or not isinstance(ready, dict):
+        raise RuntimeError(f"ready feed returned HTTP {status}")
+    ready_items: list[dict[str, Any]] = []
+    for item in ready.get("items", []):
+        if not isinstance(item, dict):
+            continue
+        ready_items.append(
+            {
+                "id": item.get("opportunity_id") or item.get("source_id"),
+                "title": item.get("title"),
+            }
+        )
+
+    status, feed, _ = http_json(AGENT_BOUNTIES_FEED_URL)
+    if status != 200 or not isinstance(feed, list):
+        raise RuntimeError(f"canonical feed returned HTTP {status}")
+
+    counts: dict[str, int] = {}
+    item_status: dict[str, str] = {}
+    actionable: list[dict[str, Any]] = []
+    for item in feed:
+        if not isinstance(item, dict):
+            continue
+        state = str(item.get("status"))
+        counts[state] = counts.get(state, 0) + 1
+        bounty_id = str(item.get("bounty_id"))
+        item_status[bounty_id] = state
+        if state == "claimable" and item.get("verification_ready") is True:
+            document = (item.get("terms") or {}).get("document") or {}
+            actionable.append(
+                {
+                    "id": bounty_id,
+                    "title": document.get("title"),
+                    "rewardAtomic": item.get("solver_reward"),
+                    "bondAtomic": item.get("claim_bond"),
+                }
+            )
+    return {
+        "readyToEarn": ready_items,
+        "actionable": actionable,
+        "counts": counts,
+        "itemStatus": item_status,
+    }
+
+
 def load_state(path: Path) -> dict[str, Any]:
     try:
         return json.loads(path.read_text())
@@ -244,6 +306,7 @@ def main() -> int:
     service: dict[str, Any] | None = None
     wallet: dict[str, Any] | None = None
     catalog: dict[str, Any] | None = None
+    agent_bounties: dict[str, Any] | None = None
 
     try:
         service = verify_service()
@@ -269,6 +332,12 @@ def main() -> int:
             "listed": (previous.get("catalog") or {}).get("listed"),
             "error": str(error),
         }
+
+    try:
+        agent_bounties = agent_bounties_snapshot()
+    except (RuntimeError, URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError) as error:
+        warnings.append(f"agent bounties: {error}")
+        agent_bounties = None
 
     status = "unhealthy" if issues else "healthy"
     messages: list[str] = []
@@ -300,6 +369,40 @@ def main() -> int:
     if catalog and catalog["listed"] and old_catalog is not True:
         messages.append(f"🔎 Compounder Market API appeared in the PayAI Bazaar catalog at {checked_at}.")
 
+    old_agent_bounties = previous.get("agentBounties") or {}
+    if agent_bounties is not None and old_agent_bounties:
+        old_actionable_ids = {
+            entry.get("id") for entry in old_agent_bounties.get("actionable", [])
+        }
+        appeared = [
+            entry
+            for entry in agent_bounties["actionable"]
+            if entry.get("id") not in old_actionable_ids
+        ]
+        show = appeared or (
+            agent_bounties["readyToEarn"] if not old_agent_bounties.get("readyToEarn") else []
+        )
+        if show:
+            listing = "; ".join(
+                f"{entry.get('title')} ({str(entry.get('id'))[:14]}…)" for entry in show
+            )
+            messages.append(
+                f"💰 agentbounties claimable + verification-ready work appeared at {checked_at}: "
+                f"{listing}. Read the terms and bond size before claiming; wallet spend still "
+                "needs the capital-policy check (never flagged standing-meta items)."
+            )
+
+    if agent_bounties is not None:
+        stored_agent_bounties: dict[str, Any] = agent_bounties
+    else:
+        stored_agent_bounties = {
+            "fetchFailed": True,
+            "actionable": old_agent_bounties.get("actionable", []),
+            "readyToEarn": old_agent_bounties.get("readyToEarn", []),
+            "itemStatus": old_agent_bounties.get("itemStatus", {}),
+            "counts": old_agent_bounties.get("counts", {}),
+        }
+
     current = {
         "checkedAt": checked_at,
         "status": status,
@@ -308,6 +411,7 @@ def main() -> int:
         "service": service,
         "wallet": wallet,
         "catalog": catalog,
+        "agentBounties": stored_agent_bounties,
     }
     save_state(args.state, current)
 
