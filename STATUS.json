@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-09-28T16:17Z",
-  "timezoneContext": "2026-09-28 America/Los_Angeles",
+  "asOf": "2026-09-29T19:42Z",
+  "timezoneContext": "2026-09-29 America/Los_Angeles",
   "project": {
     "name": "Compounder Market API",
     "repository": "https://github.com/SupremeDreamZ/compounder-market-api",
@@ -64,6 +64,16 @@
       "closureNote": "https://github.com/NSPG13/agent-bounties/issues/1505#issuecomment-5874031477 (posted 2026-09-28T16:16:23Z)",
       "note": "Only a canonical BountySettled event proves payment; none was emitted for this item by us. This episode realized $0 external revenue and ended capital-neutral: bond recovered, ~0.0000017 ETH total gas across withdraw/expire/approve/supply (claim gas was forwarder-paid)."
     }
+  },
+  "activeExperiment": {
+    "name": "agentbounties routed standing-meta-v3 child (agent discovery lane)",
+    "state": "setup complete 2026-09-29T19:38:33Z — child created+funded on Base, parent claimed at round 3; awaiting completion of the child by a different registered participant",
+    "child": "0xf87087509a34a1cf3654ddc36884b925ccf2ccaa (1.00 USDC target; task: fix one deterministic agent-card discovery regression; reconciled a2a-agent-card benchmark)",
+    "parent": "0x8a4acb37acef4c24c821835dad36345b6afa7d4d (round 3; claim expires 2026-10-13T19:38:33Z)",
+    "walletFloatAtWorkUsd": "1.010000",
+    "expectedOnCompletionUsd": "+1.00 net (parent pays 2.00; child funding 1.00)",
+    "nextAction": "monitor child settlement; on settle by an eligible solver: submit abi.encode(address childBounty) + evidence to the parent, relay verifyAndSettle, then re-supply Aave (~10 USDC target)",
+    "runbook": "compounder-market-api/.state/ab-child-episode.json (status checker: node .state/ab-child-status.mjs)"
   },
   "verification": {
     "sourceTypecheck": "passed",
@@ -251,34 +261,34 @@
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
     "snapshotSource": "live Base JSON-RPC (eth_chainId 8453)",
-    "snapshotAt": "2026-09-28T16:14:42Z",
-    "eth": "0.00257699215029314",
+    "snapshotAt": "2026-09-29T19:42:00Z",
+    "eth": "0.002567889511947915",
     "liquidUsdc": "0",
-    "aUsdc": "10.066411",
+    "aUsdc": "9.057632",
     "aaveUsdcAllowance": "0",
-    "nonce": 7,
+    "nonce": 15,
     "portfolioUsdApprox": {
-      "value": "16.96",
+      "value": "15.98",
       "priceSource": "DefiLlama Coins API",
-      "priceObservedAt": "2026-09-28T16:14:40Z",
-      "ethUsd": "2673.746865394185",
-      "usdcUsd": "0.9998611094662264",
-      "warning": "Approximate mark-to-market of wallet assets only (ETH + aUSDC); excludes unsolicited valueless token dust. The 2.000000 USDC bond is no longer at risk — it was refunded and re-supplied to Aave on 2026-09-28."
+      "priceObservedAt": "2026-09-29T19:42Z",
+      "ethUsd": "2694.3483211268726",
+      "usdcUsd": "0.9998820023337834",
+      "warning": "Approximate mark-to-market of wallet assets only (ETH + aUSDC); excludes unsolicited valueless token dust. 1.010000 USDC of working capital is deployed in the open routed-child episode (1.00 child funding + 0.01 parent claim bond); on completion the wallet is paid 2.00 USDC."
     }
   },
   "yieldBenchmark": {
     "source": "DefiLlama pools API",
     "poolId": "7e0661bf-8cf3-45e6-9424-31916d4c7b84",
-    "observedAt": "2026-09-28T16:17Z (re-queried)",
-    "aaveV3BaseUsdcApyPercent": "3.89084",
-    "poolTvlUsd": "17814132",
-    "aUsdcCurrent": "10.066411",
-    "note": "—2.000000 USDC was withdrawn 2026-09-26T00:21:43Z as the agentbounties round-3 claim bond; the bond was refunded 2026-09-28T16:12:15Z (lapsed review) and re-supplied to Aave the same day. Reserve fully restored.",
-    "annualizedReserveYieldUsd": "0.391668",
-    "monthlyReserveYieldUsd": "0.032639",
-    "grossOneCentCallsToBeatAnnualReserveYield": 40,
+    "observedAt": "2026-09-29T19:41Z (re-queried)",
+    "aaveV3BaseUsdcApyPercent": "4.13856",
+    "poolTvlUsd": "17333560",
+    "aUsdcCurrent": "9.057632",
+    "note": "1.010000 USDC withdrawn 2026-09-29T19:30:58Z as float for the routed standing-meta child episode (1.00 child funding + 0.01 parent round-3 bond). Reserve restores to ~10+ on loop completion (expected +2.00 USDC inflow).",
+    "annualizedReserveYieldUsd": "0.374856",
+    "monthlyReserveYieldUsd": "0.031238",
+    "grossOneCentCallsToBeatAnnualReserveYield": 38,
     "warning": "Spot APY is variable and the annualized figures are not guaranteed.",
-    "accruedAsOf": "2026-09-28T16:14Z"
+    "accruedAsOf": "2026-09-29T19:42Z"
   },
   "continuity": {
     "productionRequiresLlm": false,
