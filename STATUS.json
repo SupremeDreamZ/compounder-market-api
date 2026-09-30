@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-09-29T19:42Z",
+  "asOf": "2026-09-30T00:45Z",
   "timezoneContext": "2026-09-29 America/Los_Angeles",
   "project": {
     "name": "Compounder Market API",
@@ -41,7 +41,8 @@
       "walletLiquidUsdcIncreaseSincePriorSnapshot": "0",
       "walletIncreaseClassification": "none — no inbound USDC",
       "walletIncreaseReason": "No inbound USDC; liquid USDC 0. Nonce moved 4 -> 7 closing the agentbounties round-3 episode: permissionless expireSubmission() refunded the 2.000000 USDC bond (tx 0xa5ebec616681f353e6a8aa0480c9f628745817eaadad62b4187fe52df0be182c, 2026-09-28T16:12:15Z), then an exact approve + Aave V3 supply (txs 0x08137ec119c3d3a875d3d0221554b432d92ddbd03da3a587b657413d81152b2a, 0x75ed8136b5badb4d5d0db612b6d3d6d8f1ac7bab42337f45e0a60a2e984557ec) restored the reserve to 10.066411 aUSDC. No revenue event occurred.",
-      "fundingTransaction": "https://base.blockscout.com/tx/0x807d8a7067cb7383fc28732cacc16b95a05bcc27284c4c9c192d19feb6035522"
+      "fundingTransaction": "https://base.blockscout.com/tx/0x807d8a7067cb7383fc28732cacc16b95a05bcc27284c4c9c192d19feb6035522",
+      "routedChildStatus_20260930": "Child 0xf87087509a34a1cf3654ddc36884b925ccf2ccaa claimed 2026-09-29T20:02:13Z by UNREGISTERED 0x1d4c28113002718859d9e808d81ccd3b7763e9b8; submission 20:07:49Z carries an invalid source_snapshot_digest (all zeros) — no-verdict path; expected lapse 2026-10-02T20:07:49Z, then re-claimable. Parent verification requires a solver registered before the parent claim; eligible completers: 0xe903a87c7e323370a4de509bcddcd1cdb961e67e (@Dvorf, reg 2026-09-11T13:33:11Z) and 0x4fccded771c8a4340318b5a7eb9eb9181c8adb5f (@MScaryMouse, reg 2026-09-11T13:38:29Z). Coordination comment posted: https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5901785678"
     },
     "agentBountyOutcome": {
       "venue": "agentbounties.app (canonical Base autonomous-bounties rail)",
@@ -67,12 +68,17 @@
   },
   "activeExperiment": {
     "name": "agentbounties routed standing-meta-v3 child (agent discovery lane)",
-    "state": "setup complete 2026-09-29T19:38:33Z — child created+funded on Base, parent claimed at round 3; awaiting completion of the child by a different registered participant",
+    "state": "setup complete 2026-09-29T19:38:33Z; 2026-09-30 update: child 0xf8708750 was claimed by an unregistered wallet (0x1d4c…, invalid-input submission — no qualifying completion possible from it); expected lapse ~2026-10-02T20:07:49Z → returns to claimable; eligible-solver coordination comment posted on issue #590; awaiting completion by a pre-claim-registered participant",
     "child": "0xf87087509a34a1cf3654ddc36884b925ccf2ccaa (1.00 USDC target; task: fix one deterministic agent-card discovery regression; reconciled a2a-agent-card benchmark)",
     "parent": "0x8a4acb37acef4c24c821835dad36345b6afa7d4d (round 3; claim expires 2026-10-13T19:38:33Z)",
     "walletFloatAtWorkUsd": "1.010000",
     "expectedOnCompletionUsd": "+1.00 net (parent pays 2.00; child funding 1.00)",
-    "nextAction": "monitor child settlement; on settle by an eligible solver: submit abi.encode(address childBounty) + evidence to the parent, relay verifyAndSettle, then re-supply Aave (~10 USDC target)",
+    "nextAction": "watch child for lapse (~2026-10-02T20:07:49Z → re-claimable; standing invitation = coordination comment); on settle by an eligible solver (0xe903a87c / 0x4fccded7): pre-simulate, submit abi.encode(address childBounty) + evidence to parent, relay verifyAndSettle, re-supply Aave; Trigger A (child settles to a non-qualifying solver): create one replacement child (same termsHash 0x353bbb…, fresh nonce, +1.00 float) and re-invite; stop rule: unsolved by 2026-10-10 → cancel + refund, accept ≤0.01 bond forfeit",
+    "coordinationComment": "https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5901785678",
+    "eligibleCompleters": [
+      "0xe903a87c7e323370a4de509bcddcd1cdb961e67e (@Dvorf, registered 2026-09-11T13:33:11Z — claimed this parent's round 2; created the round-2 child that settled 2026-09-29T08:37Z)",
+      "0x4fccded771c8a4340318b5a7eb9eb9181c8adb5f (@MScaryMouse, registered 2026-09-11T13:38:29Z — attempted the round-2 child)"
+    ],
     "runbook": "compounder-market-api/.state/ab-child-episode.json (status checker: node .state/ab-child-status.mjs)"
   },
   "verification": {
