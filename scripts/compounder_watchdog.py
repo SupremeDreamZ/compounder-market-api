@@ -318,7 +318,11 @@ def main() -> int:
         if Decimal(wallet["eth"]) < Decimal("0.0005"):
             issues.append(f"wallet gas low: {wallet['eth']} ETH")
         if Decimal(wallet["aUsdc"]) < Decimal("9.9"):
-            issues.append(f"Aave reserve below floor: {wallet['aUsdc']} aUSDC")
+            # Quantize the reported figure to 0.01 aUSDC: aUSDC accrues continuously, so the raw
+            # value drifts every run and re-fires the "issue changed" message even when nothing
+            # actionable happened. 0.01 granularity still re-fires on any material change.
+            reserve_display = Decimal(wallet["aUsdc"]).quantize(Decimal("0.01"))
+            issues.append(f"Aave reserve below floor: {reserve_display} aUSDC")
         if Decimal(wallet["aaveAllowance"]) != 0:
             issues.append(f"unexpected Aave USDC allowance: {wallet['aaveAllowance']} USDC")
     except (RuntimeError, URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError) as error:

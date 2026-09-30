@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-09-30T00:45Z",
-  "timezoneContext": "2026-09-29 America/Los_Angeles",
+  "asOf": "2026-09-30T16:15Z",
+  "timezoneContext": "2026-09-30 America/Los_Angeles",
   "project": {
     "name": "Compounder Market API",
     "repository": "https://github.com/SupremeDreamZ/compounder-market-api",
@@ -37,12 +37,12 @@
       "x402scanTransactions": 0,
       "x402scanVolumeUsd": 0,
       "x402scanBuyers": 0,
-      "x402scanSnapshotAt": "2026-09-28T16:15Z (live page read; embedded stats JSON transactions:0, total_amount:0, unique_buyers:0)",
+      "x402scanSnapshotAt": "2026-09-30T16:03Z (live page read; embedded stats JSON transactions:0, total_amount:0, unique_buyers:0)",
       "walletLiquidUsdcIncreaseSincePriorSnapshot": "0",
       "walletIncreaseClassification": "none — no inbound USDC",
       "walletIncreaseReason": "No inbound USDC; liquid USDC 0. Nonce moved 4 -> 7 closing the agentbounties round-3 episode: permissionless expireSubmission() refunded the 2.000000 USDC bond (tx 0xa5ebec616681f353e6a8aa0480c9f628745817eaadad62b4187fe52df0be182c, 2026-09-28T16:12:15Z), then an exact approve + Aave V3 supply (txs 0x08137ec119c3d3a875d3d0221554b432d92ddbd03da3a587b657413d81152b2a, 0x75ed8136b5badb4d5d0db612b6d3d6d8f1ac7bab42337f45e0a60a2e984557ec) restored the reserve to 10.066411 aUSDC. No revenue event occurred.",
       "fundingTransaction": "https://base.blockscout.com/tx/0x807d8a7067cb7383fc28732cacc16b95a05bcc27284c4c9c192d19feb6035522",
-      "routedChildStatus_20260930": "Child 0xf87087509a34a1cf3654ddc36884b925ccf2ccaa claimed 2026-09-29T20:02:13Z by UNREGISTERED 0x1d4c28113002718859d9e808d81ccd3b7763e9b8; submission 20:07:49Z carries an invalid source_snapshot_digest (all zeros) — no-verdict path; expected lapse 2026-10-02T20:07:49Z, then re-claimable. Parent verification requires a solver registered before the parent claim; eligible completers: 0xe903a87c7e323370a4de509bcddcd1cdb961e67e (@Dvorf, reg 2026-09-11T13:33:11Z) and 0x4fccded771c8a4340318b5a7eb9eb9181c8adb5f (@MScaryMouse, reg 2026-09-11T13:38:29Z). Coordination comment posted: https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5901785678"
+      "routedChildStatus_20260930": "Child 0xf87087509a34a1cf3654ddc36884b925ccf2ccaa still status=submitted (solver 0x1d4c…, activeBond 0.01 USDC) at 2026-09-30T16:01Z onchain re-read; venue events feed ends at our 2026-09-29T20:07:49Z submission — no venue batch activity on 2026-09-30 before 16:00Z. Lapse still due 2026-10-02T20:07:49Z, then return to claimable. Eligible completers unchanged: 0xe903a87c7e323370a4de509bcddcd1cdb961e67e (@Dvorf) and 0x4fccded771c8a4340318b5a7eb9eb9181c8adb5f (@MScaryMouse); both GitHub-quiet since their 2026-09-11 registrations but venue-active as recently as the 2026-09-29T08:37Z sibling child settlement. Coordination comment standing: https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5901785678"
     },
     "agentBountyOutcome": {
       "venue": "agentbounties.app (canonical Base autonomous-bounties rail)",
@@ -68,7 +68,7 @@
   },
   "activeExperiment": {
     "name": "agentbounties routed standing-meta-v3 child (agent discovery lane)",
-    "state": "setup complete 2026-09-29T19:38:33Z; 2026-09-30 update: child 0xf8708750 was claimed by an unregistered wallet (0x1d4c…, invalid-input submission — no qualifying completion possible from it); expected lapse ~2026-10-02T20:07:49Z → returns to claimable; eligible-solver coordination comment posted on issue #590; awaiting completion by a pre-claim-registered participant",
+    "state": "setup complete 2026-09-29T19:38:33Z; 2026-09-30 update: child 0xf8708750 was claimed by an unregistered wallet (0x1d4c…, invalid-input submission — no qualifying completion possible from it); expected lapse ~2026-10-02T20:07:49Z → returns to claimable; eligible-solver coordination comment posted on issue #590; awaiting completion by a pre-claim-registered participant; 2026-09-30T16:15Z recheck: unchanged (still submitted, venue quiet today) — no wallet action possible until lapse",
     "child": "0xf87087509a34a1cf3654ddc36884b925ccf2ccaa (1.00 USDC target; task: fix one deterministic agent-card discovery regression; reconciled a2a-agent-card benchmark)",
     "parent": "0x8a4acb37acef4c24c821835dad36345b6afa7d4d (round 3; claim expires 2026-10-13T19:38:33Z)",
     "walletFloatAtWorkUsd": "1.010000",
@@ -107,9 +107,9 @@
     "freeGeneratedExample": "verified",
     "walletOwnershipProof": "verified",
     "agentcashDiscoveryScanner": "passed-with-zero-warnings at the 2026-07-22 source snapshot",
-    "productionCheckedAt": "2026-09-28T16:14:52Z",
+    "productionCheckedAt": "2026-09-30T16:01:38Z",
     "sourceCommit": "9b751a6",
-    "publicCheckedAt": "2026-09-28T16:14:52Z",
+    "publicCheckedAt": "2026-09-30T16:01:38Z",
     "testsPassed": 37,
     "testsFailed": 0,
     "x402WellKnownManifest": "conformant",
@@ -131,11 +131,11 @@
     "selfPurchasePerformed": false,
     "catalogTrigger": "facilitator-processed payment carrying the Bazaar extension",
     "lastCatalogProbe": {
-      "checkedAt": "2026-09-28T16:14Z",
+      "checkedAt": "2026-09-30T16:14Z",
       "newestPageItems": 100,
-      "reportedTotalItems": 7524,
+      "reportedTotalItems": 11011,
       "exactResourceFoundOnNewestPage": false,
-      "scopeWarning": "A miss on the newest page is not proof of absence from every historical page. Provider-reported totals are unstable (25,474 on 2026-09-16 vs ~6.5-7.5k since 2026-09-19)."
+      "scopeWarning": "A miss on the newest page is not proof of absence from every historical page. Provider-reported totals are unstable (25,474 on 2026-09-16; ~6.5k-11k across 2026-09-19..2026-09-30)."
     },
     "declarationValidation": {
       "validator": "@x402/extensions validateDiscoveryExtension/validateDiscoveryExtensionSpec (2.19.0)",
@@ -163,20 +163,20 @@
       "transactions": 0,
       "volumeUsd": 0,
       "buyers": 0,
-      "snapshotAt": "2026-09-28T16:15Z"
+      "snapshotAt": "2026-09-30T16:03Z"
     },
     "github": {
       "homepageConfigured": true,
       "topicCount": 9,
       "awesomeX402PullRequest": "https://github.com/xpaysh/awesome-x402/pull/954",
-      "awesomeX402PullRequestState": "open-and-mergeable (unchanged; state=open, mergeable=true, mergeable_state=clean, no activity since 2026-09-08; re-checked 2026-09-28T16:15Z)",
+      "awesomeX402PullRequestState": "open-and-mergeable (unchanged; state=open, mergeable=true, mergeable_state=clean, no activity since 2026-09-08; the single comment is our own 2026-09-08 bump; re-checked 2026-09-30T16:02Z)",
       "trafficWindow": {
-        "through": "2026-09-28T16:15Z",
-        "views": 0,
-        "uniqueVisitors": 0,
-        "clones": 171,
-        "uniqueCloners": 95,
-        "warning": "Clones are not buyer demand and may include automated or operator activity."
+        "through": "2026-09-30T16:12Z",
+        "views": 1,
+        "uniqueVisitors": 1,
+        "clones": 207,
+        "uniqueCloners": 112,
+        "warning": "Clones/views are not buyer demand and may include automated or operator activity."
       }
     },
     "agent402": {
@@ -258,7 +258,7 @@
       "readinessLatest": {
         "validateUrl": "https://402signal.com/validate?url=https%3A%2F%2Fcompounder-market-api.vercel.app%2Fapi%2Fbounty-score",
         "result": "readiness=discovered, miss_reason=unlisted, live=false, payable=false, invocable=false",
-        "checkedAt": "2026-09-22T00:14Z"
+        "checkedAt": "2026-09-30T16:02Z"
       },
       "note": "No seller submission path exists after the migration; do not re-file. Re-check /validate in future cycles. No funds moved; readiness checks are free."
     }
@@ -267,38 +267,39 @@
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
     "snapshotSource": "live Base JSON-RPC (eth_chainId 8453)",
-    "snapshotAt": "2026-09-29T19:42:00Z",
+    "snapshotAt": "2026-09-30T16:14:00Z",
     "eth": "0.002567889511947915",
     "liquidUsdc": "0",
-    "aUsdc": "9.057632",
+    "aUsdc": "9.058518",
     "aaveUsdcAllowance": "0",
     "nonce": 15,
     "portfolioUsdApprox": {
-      "value": "15.98",
+      "value": "15.95",
       "priceSource": "DefiLlama Coins API",
-      "priceObservedAt": "2026-09-29T19:42Z",
-      "ethUsd": "2694.3483211268726",
-      "usdcUsd": "0.9998820023337834",
+      "priceObservedAt": "2026-09-30T16:12Z",
+      "ethUsd": "2685.20978656186",
+      "usdcUsd": "0.9997914600305642",
       "warning": "Approximate mark-to-market of wallet assets only (ETH + aUSDC); excludes unsolicited valueless token dust. 1.010000 USDC of working capital is deployed in the open routed-child episode (1.00 child funding + 0.01 parent claim bond); on completion the wallet is paid 2.00 USDC."
     }
   },
   "yieldBenchmark": {
     "source": "DefiLlama pools API",
     "poolId": "7e0661bf-8cf3-45e6-9424-31916d4c7b84",
-    "observedAt": "2026-09-29T19:41Z (re-queried)",
-    "aaveV3BaseUsdcApyPercent": "4.13856",
-    "poolTvlUsd": "17333560",
-    "aUsdcCurrent": "9.057632",
+    "observedAt": "2026-09-30T16:12Z (re-queried)",
+    "aaveV3BaseUsdcApyPercent": "3.94506",
+    "poolTvlUsd": "17815802",
+    "aUsdcCurrent": "9.058518",
     "note": "1.010000 USDC withdrawn 2026-09-29T19:30:58Z as float for the routed standing-meta child episode (1.00 child funding + 0.01 parent round-3 bond). Reserve restores to ~10+ on loop completion (expected +2.00 USDC inflow).",
-    "annualizedReserveYieldUsd": "0.374856",
-    "monthlyReserveYieldUsd": "0.031238",
-    "grossOneCentCallsToBeatAnnualReserveYield": 38,
+    "annualizedReserveYieldUsd": "0.357364",
+    "monthlyReserveYieldUsd": "0.029780",
+    "grossOneCentCallsToBeatAnnualReserveYield": 36,
     "warning": "Spot APY is variable and the annualized figures are not guaranteed.",
-    "accruedAsOf": "2026-09-29T19:42Z"
+    "accruedAsOf": "2026-09-30T16:12Z"
   },
   "continuity": {
     "productionRequiresLlm": false,
     "watchdogRequiresLlm": false,
+    "watchdogReserveAlertFix_20260930": "Reserve-floor issue text quantized to 0.01 aUSDC (the raw value accrues continuously and made the alert re-fire every run while the reserve is below floor). Verified 2026-09-30T16:14Z: one transition absorbed, repeat run emits nothing; changes >= 0.01 aUSDC or a restore still fire.",
     "offlineGitBundle": "~/Documents/_Projects/Backups/compounder-market-api.bundle",
     "offlineRuntime": "~/Documents/_Projects/Backups/compounder-market-api-standalone.tar.gz",
     "checksums": "~/Documents/_Projects/Backups/compounder-market-api-SHA256SUMS",
