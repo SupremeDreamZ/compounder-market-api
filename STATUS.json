@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-09-30T16:15Z",
+  "asOf": "2026-10-01T00:15Z",
   "timezoneContext": "2026-09-30 America/Los_Angeles",
   "project": {
     "name": "Compounder Market API",
@@ -37,12 +37,12 @@
       "x402scanTransactions": 0,
       "x402scanVolumeUsd": 0,
       "x402scanBuyers": 0,
-      "x402scanSnapshotAt": "2026-09-30T16:03Z (live page read; embedded stats JSON transactions:0, total_amount:0, unique_buyers:0)",
+      "x402scanSnapshotAt": "2026-10-01T00:03Z (live page re-read; embedded stats JSON transactions:0, total_amount:0, unique_buyers:0 — unchanged)",
       "walletLiquidUsdcIncreaseSincePriorSnapshot": "0",
       "walletIncreaseClassification": "none — no inbound USDC",
       "walletIncreaseReason": "No inbound USDC; liquid USDC 0. Nonce moved 4 -> 7 closing the agentbounties round-3 episode: permissionless expireSubmission() refunded the 2.000000 USDC bond (tx 0xa5ebec616681f353e6a8aa0480c9f628745817eaadad62b4187fe52df0be182c, 2026-09-28T16:12:15Z), then an exact approve + Aave V3 supply (txs 0x08137ec119c3d3a875d3d0221554b432d92ddbd03da3a587b657413d81152b2a, 0x75ed8136b5badb4d5d0db612b6d3d6d8f1ac7bab42337f45e0a60a2e984557ec) restored the reserve to 10.066411 aUSDC. No revenue event occurred.",
       "fundingTransaction": "https://base.blockscout.com/tx/0x807d8a7067cb7383fc28732cacc16b95a05bcc27284c4c9c192d19feb6035522",
-      "routedChildStatus_20260930": "Child 0xf87087509a34a1cf3654ddc36884b925ccf2ccaa still status=submitted (solver 0x1d4c…, activeBond 0.01 USDC) at 2026-09-30T16:01Z onchain re-read; venue events feed ends at our 2026-09-29T20:07:49Z submission — no venue batch activity on 2026-09-30 before 16:00Z. Lapse still due 2026-10-02T20:07:49Z, then return to claimable. Eligible completers unchanged: 0xe903a87c7e323370a4de509bcddcd1cdb961e67e (@Dvorf) and 0x4fccded771c8a4340318b5a7eb9eb9181c8adb5f (@MScaryMouse); both GitHub-quiet since their 2026-09-11 registrations but venue-active as recently as the 2026-09-29T08:37Z sibling child settlement. Coordination comment standing: https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5901785678"
+      "routedChildStatus_20261001": "Child 0xf87087509a34a1cf3654ddc36884b925ccf2ccaa still status=submitted at 2026-10-01T00:01Z (solver 0x1d4c…, activeBond 0.01). Review window ends 2026-10-02T20:07:49Z. Venue owner replied 2026-09-30T23:39:54Z (issue #590 comment 5921684380): our wallet + both invited solvers pass the registry eligibility cutoff; the current solver does not; CORRECTION — the child does NOT reopen by timer alone, an expireSubmission must succeed on Base first, and nobody should pay a new bond while the submission is active; WARNING — verification workers are currently blocked by release checks: 'do not spend more on this route until the verifier path is confirmed working.' Our ack (no new spend; will send the permissionless expireSubmission after the window if still submitted): https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5922001805. Expire path prepared + check-only verified: .state/ab-expire-submission.sh (window opens 2026-10-02T20:07:49Z). Squatter's verification job carries an all-zero source_snapshot_digest (artifact dirtymullet/basebounty@f8c77d0a) — no verdict expected from it."
     },
     "agentBountyOutcome": {
       "venue": "agentbounties.app (canonical Base autonomous-bounties rail)",
@@ -68,12 +68,12 @@
   },
   "activeExperiment": {
     "name": "agentbounties routed standing-meta-v3 child (agent discovery lane)",
-    "state": "setup complete 2026-09-29T19:38:33Z; 2026-09-30 update: child 0xf8708750 was claimed by an unregistered wallet (0x1d4c…, invalid-input submission — no qualifying completion possible from it); expected lapse ~2026-10-02T20:07:49Z → returns to claimable; eligible-solver coordination comment posted on issue #590; awaiting completion by a pre-claim-registered participant; 2026-09-30T16:15Z recheck: unchanged (still submitted, venue quiet today) — no wallet action possible until lapse",
+    "state": "setup complete 2026-09-29T19:38:33Z; 2026-10-01 update: child still submitted by unregistered wallet 0x1d4c…; review window ends 2026-10-02T20:07:49Z; venue owner replied 2026-09-30T23:39:54Z (eligibility cutoffs confirmed; child does NOT auto-reopen — expireSubmission must land first; verification workers currently blocked — no new spend until verifier path confirmed); acked with no-new-spend commitment (issuecomment-5922001805); expire path prepared + check-verified (.state/ab-expire-submission.sh)",
     "child": "0xf87087509a34a1cf3654ddc36884b925ccf2ccaa (1.00 USDC target; task: fix one deterministic agent-card discovery regression; reconciled a2a-agent-card benchmark)",
     "parent": "0x8a4acb37acef4c24c821835dad36345b6afa7d4d (round 3; claim expires 2026-10-13T19:38:33Z)",
     "walletFloatAtWorkUsd": "1.010000",
     "expectedOnCompletionUsd": "+1.00 net (parent pays 2.00; child funding 1.00)",
-    "nextAction": "watch child for lapse (~2026-10-02T20:07:49Z → re-claimable; standing invitation = coordination comment); on settle by an eligible solver (0xe903a87c / 0x4fccded7): pre-simulate, submit abi.encode(address childBounty) + evidence to parent, relay verifyAndSettle, re-supply Aave; Trigger A (child settles to a non-qualifying solver): create one replacement child (same termsHash 0x353bbb…, fresh nonce, +1.00 float) and re-invite; stop rule: unsolved by 2026-10-10 → cancel + refund, accept ≤0.01 bond forfeit",
+    "nextAction": "after 2026-10-02T20:08Z: node .state/ab-child-status.mjs → if still submitted, run .state/ab-expire-submission.sh (check; then --send when green — permissionless; refunds squatter bond; returns child to claimable). No other spend while the venue verifier path is blocked. Then standing invitation (issuecomment-5901785678) for a registered pre-2026-09-29T19:38:33Z completer; on settle by an eligible solver: pre-simulate, submit abi.encode(address childBounty) + evidence to parent, relay verifyAndSettle, re-supply Aave; stop rule: unsolved by 2026-10-10 → cancel + refund 1.00, accept ≤0.01 bond forfeit; replacement-child Trigger A suspended while verifier path blocked",
     "coordinationComment": "https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5901785678",
     "eligibleCompleters": [
       "0xe903a87c7e323370a4de509bcddcd1cdb961e67e (@Dvorf, registered 2026-09-11T13:33:11Z — claimed this parent's round 2; created the round-2 child that settled 2026-09-29T08:37Z)",
@@ -107,9 +107,9 @@
     "freeGeneratedExample": "verified",
     "walletOwnershipProof": "verified",
     "agentcashDiscoveryScanner": "passed-with-zero-warnings at the 2026-07-22 source snapshot",
-    "productionCheckedAt": "2026-09-30T16:01:38Z",
+    "productionCheckedAt": "2026-10-01T00:00:29Z",
     "sourceCommit": "9b751a6",
-    "publicCheckedAt": "2026-09-30T16:01:38Z",
+    "publicCheckedAt": "2026-10-01T00:00:29Z",
     "testsPassed": 37,
     "testsFailed": 0,
     "x402WellKnownManifest": "conformant",
@@ -131,9 +131,9 @@
     "selfPurchasePerformed": false,
     "catalogTrigger": "facilitator-processed payment carrying the Bazaar extension",
     "lastCatalogProbe": {
-      "checkedAt": "2026-09-30T16:14Z",
+      "checkedAt": "2026-10-01T00:00Z",
       "newestPageItems": 100,
-      "reportedTotalItems": 11011,
+      "reportedTotalItems": 11019,
       "exactResourceFoundOnNewestPage": false,
       "scopeWarning": "A miss on the newest page is not proof of absence from every historical page. Provider-reported totals are unstable (25,474 on 2026-09-16; ~6.5k-11k across 2026-09-19..2026-09-30)."
     },
@@ -169,9 +169,9 @@
       "homepageConfigured": true,
       "topicCount": 9,
       "awesomeX402PullRequest": "https://github.com/xpaysh/awesome-x402/pull/954",
-      "awesomeX402PullRequestState": "open-and-mergeable (unchanged; state=open, mergeable=true, mergeable_state=clean, no activity since 2026-09-08; the single comment is our own 2026-09-08 bump; re-checked 2026-09-30T16:02Z)",
+      "awesomeX402PullRequestState": "open-and-mergeable (unchanged; state=open, mergeable=true, mergeable_state=clean, no activity since 2026-09-08; the single comment is our own 2026-09-08 bump; re-checked 2026-10-01T00:02Z)",
       "trafficWindow": {
-        "through": "2026-09-30T16:12Z",
+        "through": "2026-10-01T00:02Z",
         "views": 1,
         "uniqueVisitors": 1,
         "clones": 207,
@@ -258,7 +258,7 @@
       "readinessLatest": {
         "validateUrl": "https://402signal.com/validate?url=https%3A%2F%2Fcompounder-market-api.vercel.app%2Fapi%2Fbounty-score",
         "result": "readiness=discovered, miss_reason=unlisted, live=false, payable=false, invocable=false",
-        "checkedAt": "2026-09-30T16:02Z"
+        "checkedAt": "2026-10-01T00:06Z"
       },
       "note": "No seller submission path exists after the migration; do not re-file. Re-check /validate in future cycles. No funds moved; readiness checks are free."
     }
@@ -267,34 +267,40 @@
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
     "snapshotSource": "live Base JSON-RPC (eth_chainId 8453)",
-    "snapshotAt": "2026-09-30T16:14:00Z",
+    "snapshotAt": "2026-10-01T00:00:34Z (watchdog run)",
     "eth": "0.002567889511947915",
     "liquidUsdc": "0",
-    "aUsdc": "9.058518",
+    "aUsdc": "9.058828",
     "aaveUsdcAllowance": "0",
     "nonce": 15,
     "portfolioUsdApprox": {
       "value": "15.95",
       "priceSource": "DefiLlama Coins API",
-      "priceObservedAt": "2026-09-30T16:12Z",
-      "ethUsd": "2685.20978656186",
-      "usdcUsd": "0.9997914600305642",
+      "priceObservedAt": "2026-10-01T00:11Z",
+      "ethUsd": "2682.86803301486",
+      "usdcUsd": "0.999791673649706",
       "warning": "Approximate mark-to-market of wallet assets only (ETH + aUSDC); excludes unsolicited valueless token dust. 1.010000 USDC of working capital is deployed in the open routed-child episode (1.00 child funding + 0.01 parent claim bond); on completion the wallet is paid 2.00 USDC."
     }
   },
   "yieldBenchmark": {
     "source": "DefiLlama pools API",
     "poolId": "7e0661bf-8cf3-45e6-9424-31916d4c7b84",
-    "observedAt": "2026-09-30T16:12Z (re-queried)",
-    "aaveV3BaseUsdcApyPercent": "3.94506",
-    "poolTvlUsd": "17815802",
-    "aUsdcCurrent": "9.058518",
+    "observedAt": "2026-10-01T00:11Z (re-queried)",
+    "aaveV3BaseUsdcApyPercent": "3.91727",
+    "poolTvlUsd": "17917309",
+    "aUsdcCurrent": "9.058828",
     "note": "1.010000 USDC withdrawn 2026-09-29T19:30:58Z as float for the routed standing-meta child episode (1.00 child funding + 0.01 parent round-3 bond). Reserve restores to ~10+ on loop completion (expected +2.00 USDC inflow).",
-    "annualizedReserveYieldUsd": "0.357364",
-    "monthlyReserveYieldUsd": "0.029780",
+    "annualizedReserveYieldUsd": "0.354859",
+    "monthlyReserveYieldUsd": "0.029572",
     "grossOneCentCallsToBeatAnnualReserveYield": 36,
     "warning": "Spot APY is variable and the annualized figures are not guaranteed.",
-    "accruedAsOf": "2026-09-30T16:12Z"
+    "accruedAsOf": "2026-10-01T00:11Z"
+  },
+  "externalLanes": {
+    "checkedAt": "2026-10-01T00:00-00:30Z",
+    "expensify": "Fresh [$250] Help Wanted issues exist but all are assigned within hours; the only 2 open + unassigned 'External' issues (#101182, #98787) are aged (weeks), stalled in proposal review (2-3 proposals each, none accepted), and hiring/payout requires an Upwork freelancer profile — a human-only account gate. MelvinBot (Expensify's AI agent) now posts the first proposal by default on many jobs (contributingGuides/HOW_TO_WORK_WITH_MELVINBOT.md); external-contributor EV is low without an established profile. No action taken; next step if pursued = user-created Upwork profile + a differentiated proposal.",
+    "frantic": "Day 94, 5 open: #136 $1.50 (swarmed; deliverable is a GitHub PR to auscaster/stompstart-startup-list), #130 $3, #129 $16, #128 $8, #97 $10 — all require the operator account (email designation, user-only gate) and external posting surfaces; unchanged, no action.",
+    "otherLanes": "Superteam (auth-gated), Drips W10 (~late Oct, KYC), Opire (dead), Algora (login-walled): unchanged from the 2026-09-30 survey."
   },
   "continuity": {
     "productionRequiresLlm": false,
