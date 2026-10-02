@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-02T00:32Z",
-  "timezoneContext": "2026-10-01 America/Los_Angeles",
+  "asOf": "2026-10-02T16:25Z",
+  "timezoneContext": "2026-10-02 America/Los_Angeles",
   "project": {
     "name": "Compounder Market API",
     "repository": "https://github.com/SupremeDreamZ/compounder-market-api",
@@ -68,7 +68,7 @@
   },
   "activeExperiment": {
     "name": "agentbounties routed standing-meta-v3 child (agent discovery lane)",
-    "state": "2026-10-02T00:20Z update: child still submitted (solver 0x1d4c…, bond 0.01); review window ends 2026-10-02T20:07:49Z; venue owner 2026-10-01T21:12Z confirmed our amended plan (expire strictly after the window; post tx to #590; no re-invite; refunds per existing permissions) and noted verification runs again for APPROVED tests only — this child's config stays unapproved; verification-jobs endpoint empty. MergePay radar added to the watchdog (baseline: 3 open funded issues, all contested — no action). Expire path armed + dry-run verified; wind-down verified (expire → cancel → withdrawRefund).",
+    "state": "2026-10-02T00:20Z update: child still submitted (solver 0x1d4c…, bond 0.01); review window ends 2026-10-02T20:07:49Z; venue owner 2026-10-01T21:12Z confirmed our amended plan (expire strictly after the window; post tx to #590; no re-invite; refunds per existing permissions) and noted verification runs again for APPROVED tests only — this child's config stays unapproved; verification-jobs endpoint empty. MergePay radar added to the watchdog (baseline: 3 open funded issues, all contested — no action). Expire path armed + dry-run verified; wind-down verified (expire → cancel → withdrawRefund). 2026-10-02T16:01Z run: re-checked — unchanged (still submitted; window still opens 20:07:49Z).",
     "child": "0xf87087509a34a1cf3654ddc36884b925ccf2ccaa (1.00 USDC target; task: fix one deterministic agent-card discovery regression; reconciled a2a-agent-card benchmark)",
     "parent": "0x8a4acb37acef4c24c821835dad36345b6afa7d4d (round 3; claim expires 2026-10-13T19:38:33Z)",
     "walletFloatAtWorkUsd": "1.010000",
@@ -107,10 +107,10 @@
     "freeGeneratedExample": "verified",
     "walletOwnershipProof": "verified",
     "agentcashDiscoveryScanner": "passed-with-zero-warnings at the 2026-07-22 source snapshot",
-    "productionCheckedAt": "2026-10-02T00:02:30Z",
+    "productionCheckedAt": "2026-10-02T16:01Z (verify:production ok; unpaid 402; bazaar metadata asserted)",
     "watchdogMergepayRadar_20261002": "added — read-only GitHub search (\"MergePay bounty\" state:open, PRs filtered); alerts only when a NEW funded issue appears vs the saved baseline; verified 2026-10-02 with synthetic subset/empty-old appear cases + two real silent runs; baseline saved 00:18:46Z (3 open, all contested).",
     "sourceCommit": "9b751a6",
-    "publicCheckedAt": "2026-10-02T00:02:30Z",
+    "publicCheckedAt": "2026-10-02T16:01Z (landing, OpenAPI, llms.txt, x402 manifest, free example, domain file all ok)",
     "testsPassed": 37,
     "testsFailed": 0,
     "x402WellKnownManifest": "conformant",
@@ -164,20 +164,20 @@
       "transactions": 0,
       "volumeUsd": 0,
       "buyers": 0,
-      "snapshotAt": "2026-10-02T00:04Z"
+      "snapshotAt": "2026-10-02T16:02Z (page read: 0 tx / $0.00 / 0 buyers — unchanged)"
     },
     "github": {
       "homepageConfigured": true,
       "topicCount": 9,
       "awesomeX402PullRequest": "https://github.com/xpaysh/awesome-x402/pull/954",
-      "awesomeX402PullRequestState": "open-and-mergeable (state=open, mergeable=MERGEABLE, mergeStateStatus=CLEAN; no activity since 2026-09-08; the single comment is our own 2026-09-08 bump; re-checked 2026-10-02T00:04Z via gh pr view 954)",
+      "awesomeX402PullRequestState": "open-and-mergeable (state=open, mergeable=MERGEABLE, mergeStateStatus=CLEAN; no activity since 2026-09-08; the single comment is our own 2026-09-08 bump; re-checked 2026-10-02T16:03Z via gh pr view 954)",
       "trafficWindow": {
-        "through": "2026-10-02T00:05Z",
+        "through": "2026-10-02T16:03Z",
         "views": 1,
         "uniqueVisitors": 1,
-        "clones": 216,
-        "uniqueCloners": 116,
-        "warning": "Clones/views are not buyer demand and may include automated or operator activity."
+        "clones": 178,
+        "uniqueCloners": 96,
+        "warning": "Clones/views are not buyer demand and may include automated or operator activity; the 14-day rolling window moved 216→178 as older days rolled off."
       }
     },
     "agent402": {
@@ -191,7 +191,18 @@
       "healthScore": 1,
       "routable": true,
       "routerDispatch": "eligible=false — settlement_required (\"below the settlement floor\"): the router pays only sellers with settled history from distinct payers",
-      "probeObservedAt": "2026-10-02T00:15Z — seller card served (tools=3, routable=true); no transactional change"
+      "probeObservedAt": "2026-10-02T16:16Z — seller card served (tools=3, routable=true, health=1; paid POST lastVerifiedAt 16:15:58Z); routerDispatchEligible still false — settlement_required (below the settlement floor; no unprovenTier key present)"
+    },
+    "agentFirstDirectory": {
+      "state": "listing-pr-open",
+      "url": "https://github.com/bradvin/agentfirst.directory/pull/91",
+      "submittedAt": "2026-10-02T16:19:31Z",
+      "content": "tools/compounder-market-api.md + tool-submitters.json (fork SupremeDreamZ/agentfirst.directory, branch add-compounder-market-api, commit 461c9f6)",
+      "category": "specialized-search-discovery-engines",
+      "classification": "agent-native",
+      "pricing": "paid",
+      "checks": "local npm test 84/84 + validate:content --require-submitters passed on the exact commit; repo Enrich Tool Assets check passed; Validate Content run is action_required pending maintainer approval (repo norm for fork PRs)",
+      "note": "Curated agent-first tools directory; submission used the repo's documented agent contributor workflow (evidence-backed PR, four first-party sources, accessedAt 2026-10-02). Distribution progress only — not demand or revenue."
     },
     "agentToolsCloud": {
       "state": "listed-verified (auto-crawled; no submission needed)",
@@ -268,41 +279,41 @@
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
     "snapshotSource": "live Base JSON-RPC (eth_chainId 8453)",
-    "snapshotAt": "2026-10-02T00:18:46Z (watchdog run)",
+    "snapshotAt": "2026-10-02T16:05Z (cast reads; Base block 52083877)",
     "eth": "0.002567889511947915",
     "liquidUsdc": "0",
-    "aUsdc": "9.059871",
+    "aUsdc": "9.060518",
     "aaveUsdcAllowance": "0",
     "nonce": 15,
     "portfolioUsdApprox": {
-      "value": "16.01",
+      "value": "15.99",
       "priceSource": "DefiLlama Coins API",
-      "priceObservedAt": "2026-10-02T00:29Z",
-      "ethUsd": "2706.101413837436",
-      "usdcUsd": "0.9999313968329349",
+      "priceObservedAt": "2026-10-02T16:19Z",
+      "ethUsd": "2698.4721252980135",
+      "usdcUsd": "0.9999576192013003",
       "warning": "Approximate mark-to-market of wallet assets only (ETH + aUSDC); excludes unsolicited valueless token dust. 1.010000 USDC of working capital remains deployed in the open routed-child episode (1.00 child funding + 0.01 parent claim bond); expected recovery now runs through the child's cancel/refund path (1.00 principal + bonus) unless the venue repair revives child completion (+2.00 path)."
     }
   },
   "yieldBenchmark": {
     "source": "DefiLlama pools API",
     "poolId": "7e0661bf-8cf3-45e6-9424-31916d4c7b84",
-    "observedAt": "2026-10-01T16:10Z (re-queried)",
-    "aaveV3BaseUsdcApyPercent": "4.27953",
-    "poolTvlUsd": "17072990",
-    "aUsdcCurrent": "9.059523",
+    "observedAt": "2026-10-02T16:19Z (pools list re-query; the per-pool endpoint is retired — 'Cannot GET /pool/{id}')",
+    "aaveV3BaseUsdcApyPercent": "3.74619",
+    "poolTvlUsd": "19515044",
+    "aUsdcCurrent": "9.060518",
     "note": "1.010000 USDC is deployed as float for the routed standing-meta child episode (1.00 child funding + 0.01 parent round-3 bond). Reserve restores toward ~10 via the refund path (principal 1.00 + bonus) if the child stays unverifiable; +2.00 only if a registered solver completes the child and the verifier path recovers.",
-    "annualizedReserveYieldUsd": "0.387705",
-    "monthlyReserveYieldUsd": "0.032309",
-    "grossOneCentCallsToBeatAnnualReserveYield": 39,
+    "annualizedReserveYieldUsd": "0.339424",
+    "monthlyReserveYieldUsd": "0.028285",
+    "grossOneCentCallsToBeatAnnualReserveYield": 34,
     "warning": "Spot APY is variable and the annualized figures are not guaranteed.",
-    "accruedAsOf": "2026-10-01T16:10Z"
+    "accruedAsOf": "2026-10-02T16:19Z"
   },
   "externalLanes": {
-    "checkedAt": "2026-10-02T00:05-00:25Z (Expensify, Frantic, GitHub bounty sweep, MergePay, new directories, agentbounties solver feed all re-scanned this run)",
+    "checkedAt": "2026-10-02T00:05-00:25Z; re-verified 2026-10-02T16:00-16:22Z (Expensify 27 open / 0 unassigned; MergePay 3 funded all contested; child still submitted pre-window; PR #954 open/CLEAN; x402scan 0/0/0; production verify ok)",
     "expensify": "Re-checked 2026-10-02T00:05Z via gh search: 27 open 'Help Wanted' issues; 16 are [$250]; ZERO unassigned. Hiring/payout still requires an Upwork freelancer profile (human-only gate). No action; lane closed without the profile.",
     "frantic": "Day 94 board refreshed 2026-10-02T00:10Z: 5 open, $38.50 total sticker (#136 $1.50, #130 $3, #129 $16, #128 $8, #97 $10); funded_usd 842.5, moved_usd 1280.3. The old Ausca-kit offers (#131-135) are gone from the board; every current item needs the operator account (email designation, user-only) and/or external posting surfaces. The staged kit (frantic-kit) remains valid in mechanics but its target offers no longer exist — no action.",
     "mergepay": "NEW LANE surveyed 2026-10-02: MergePay (mergepay.fun) — keyless, GitHub-native USDC-on-Arc bounties (comment '/claim', PR 'Fixes #N', merge pays the claimant; wallet link in-app; no bond, no platform fee). Exactly 3 funded issues exist platform-wide and ALL are contested (mergepay#3 assigned to another claimant; tastemaker #85/#86 have multiple /claim comments + competing open PRs). No claimable work now; watchdog radar added 2026-10-02 to alert on new fundings — expect a swarm within hours of any new funding.",
-    "newDirectories": "Sentinel agent-payable directory (sentinel.rootstuff.io/agents/directory — free, curated, 4-region probes; 71 listings; we are not listed; submission via /contact needs an email) and x402-list.com (new live-monitored x402 directory with /submit form + /api/v1/services; submission REQUIRES an email field) surveyed 2026-10-02 — both blocked only by the email gate. agentfirst.directory submission is PR-based (SKILL.md flow, no email) — candidate for a later cycle. agentic.market (Coinbase) lists automatically from Bazaar indexing — no submission path while uncataloged.",
+    "newDirectories": "Sentinel agent-payable directory (sentinel.rootstuff.io/agents/directory — free, curated, 4-region probes; 71 listings; we are not listed; submission via /contact needs an email) and x402-list.com (new live-monitored x402 directory with /submit form + /api/v1/services; submission REQUIRES an email field) surveyed 2026-10-02 — both blocked only by the email gate. agentfirst.directory submission is PR-based (SKILL.md flow, no email) — SUBMITTED 2026-10-02T16:19Z (PR #91; see distribution.agentFirstDirectory). agentic.market (Coinbase) lists automatically from Bazaar indexing — no submission path while uncataloged.",
     "githubBountySweep": "Broad GitHub sweep 2026-10-02: AstralDeep org = 'Points only; no monetary payment' (excluded); Ikalus1988/MisakaNet = bounty issues unfunded ('does not have any reward yet'; pays only via Opire /reward) (excluded); goobinss/pearOS = 'Proposed only; funding and terms require separate written confirmation' (not guaranteed) (excluded); go165/bounty-radar feed stale since 2026-06-28 (dead).",
     "otherLanes": "Superteam (auth-gated), Drips W10 (~late Oct, KYC), Opire (dead/unfetchable), Algora (login-walled + compliance/1099 payouts), Stacker News bounties (~5k sats typical; new account + Lightning rails — needs user decision): unchanged / no autonomous action."
   },
