@@ -1,6 +1,6 @@
 # Compounder Market API — Operations and Continuity
 
-Updated: 2026-09-22 (America/Los_Angeles) / 2026-09-23 UTC
+Updated: 2026-10-01 (America/Los_Angeles) / 2026-10-02 UTC
 
 This is the public-safe source of truth for operating, verifying, restoring, and handing off the Compounder Market API. It contains no signing key, wallet password, Vercel token, or GitHub token.
 
@@ -46,7 +46,7 @@ A normal scheduled watchdog invocation uses:
 python3 scripts/compounder_watchdog.py
 ```
 
-It prints **nothing** while state remains healthy and unchanged. It prints only on an actionable transition, wallet balance change, Bazaar listing appearance, or new claimable + verification-ready work on the canonical Base bounty rail (`agentbounties.app`, read-only check — never signs, claims, or posts a bond). This mode needs no LLM or model credits.
+It prints **nothing** while state remains healthy and unchanged. It prints only on an actionable transition, wallet balance change, Bazaar listing appearance, new claimable + verification-ready work on the canonical Base bounty rail (`agentbounties.app`, read-only check — never signs, claims, or posts a bond), or a newly funded issue on the MergePay GitHub rail (`mergepay.fun` — USDC on Arc paid to the claimant whose PR merges; read-only GitHub search — never comments, claims, or spends). This mode needs no LLM or model credits.
 
 ## 3. Verification levels
 

@@ -44,6 +44,11 @@ AGENT_BOUNTIES_FEED_URL = os.environ.get(
     "AGENT_BOUNTIES_FEED_URL",
     "https://api.agentbounties.app/v1/base/autonomous-bounties/feed?network=base-mainnet",
 )
+MERGEPAY_SEARCH_URL = os.environ.get(
+    "MERGEPAY_SEARCH_URL",
+    "https://api.github.com/search/issues"
+    "?q=%22MergePay%20bounty%22%20state%3Aopen&per_page=50",
+)
 WALLET = "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35"
 USDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
 AUSDC = "0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB"
@@ -64,7 +69,11 @@ def http_json(url: str, *, method: str = "GET", body: dict[str, Any] | None = No
         url,
         data=data,
         method=method,
-        headers={"Accept": "application/json", "Content-Type": "application/json"},
+        headers={
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": "compounder-watchdog/1.0",
+        },
     )
     try:
         with urlopen(request, timeout=25) as response:
@@ -277,6 +286,39 @@ def agent_bounties_snapshot() -> dict[str, Any]:
     }
 
 
+def mergepay_snapshot() -> dict[str, Any]:
+    """Read-only snapshot of open MergePay-funded GitHub issues (mergepay.fun).
+
+    MergePay escrows USDC on Arc against a GitHub issue; a contributor comments
+    /claim, opens a PR that says "Fixes #N", and the GitHub-signed merge proof
+    releases the payout to the claimant's linked wallet. This check never
+    comments, claims, or spends: it only detects newly funded issues so a later
+    operator run can verify claim state and act before/while the swarm arrives.
+    """
+    status, payload, _ = http_json(MERGEPAY_SEARCH_URL)
+    if status != 200 or not isinstance(payload, dict):
+        raise RuntimeError(f"GitHub search returned HTTP {status}")
+    items: list[dict[str, Any]] = []
+    for item in payload.get("items", []):
+        if not isinstance(item, dict):
+            continue
+        if "pull_request" in item:
+            continue  # funded issues only; PRs can mention MergePay but are not claimable work
+        repository_url = str(item.get("repository_url") or "").rstrip("/")
+        parts = repository_url.split("/")
+        repo = "/".join(parts[-2:]) if len(parts) >= 2 else repository_url
+        items.append(
+            {
+                "id": f"{repo}#{item.get('number')}",
+                "title": item.get("title"),
+                "url": item.get("html_url"),
+                "assignees": len(item.get("assignees") or []),
+                "createdAt": item.get("created_at"),
+            }
+        )
+    return {"open": items}
+
+
 def load_state(path: Path) -> dict[str, Any]:
     try:
         return json.loads(path.read_text())
@@ -307,6 +349,7 @@ def main() -> int:
     wallet: dict[str, Any] | None = None
     catalog: dict[str, Any] | None = None
     agent_bounties: dict[str, Any] | None = None
+    mergepay: dict[str, Any] | None = None
 
     try:
         service = verify_service()
@@ -342,6 +385,12 @@ def main() -> int:
     except (RuntimeError, URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError) as error:
         warnings.append(f"agent bounties: {error}")
         agent_bounties = None
+
+    try:
+        mergepay = mergepay_snapshot()
+    except (RuntimeError, URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError) as error:
+        warnings.append(f"mergepay: {error}")
+        mergepay = None
 
     status = "unhealthy" if issues else "healthy"
     messages: list[str] = []
@@ -396,6 +445,26 @@ def main() -> int:
                 "needs the capital-policy check (never flagged standing-meta items)."
             )
 
+    old_mergepay = previous.get("mergepay")
+    if mergepay is not None and isinstance(old_mergepay, dict) and "open" in old_mergepay:
+        old_mergepay_ids = {entry.get("id") for entry in old_mergepay.get("open", [])}
+        appeared_mergepay = [
+            entry for entry in mergepay["open"] if entry.get("id") not in old_mergepay_ids
+        ]
+        if appeared_mergepay:
+            listing = "; ".join(
+                f"{entry.get('title')} ({entry.get('id')}"
+                + (", assigned" if entry.get("assignees") else ", no assignee")
+                + ")"
+                for entry in appeared_mergepay
+            )
+            messages.append(
+                f"🎯 MergePay-funded issue(s) appeared at {checked_at}: {listing}. "
+                "MergePay pays USDC on Arc on merge to the claimant whose PR closes the "
+                "issue; verify claim state (assigned ≠ safe to skip), term fitness, and "
+                "expect a contested swarm on fresh fundings — read before claiming."
+            )
+
     if agent_bounties is not None:
         stored_agent_bounties: dict[str, Any] = agent_bounties
     else:
@@ -407,6 +476,14 @@ def main() -> int:
             "counts": old_agent_bounties.get("counts", {}),
         }
 
+    if mergepay is not None:
+        stored_mergepay: dict[str, Any] = mergepay
+    else:
+        stored_mergepay = {
+            "fetchFailed": True,
+            "open": old_mergepay.get("open", []) if isinstance(old_mergepay, dict) else [],
+        }
+
     current = {
         "checkedAt": checked_at,
         "status": status,
@@ -416,6 +493,7 @@ def main() -> int:
         "wallet": wallet,
         "catalog": catalog,
         "agentBounties": stored_agent_bounties,
+        "mergepay": stored_mergepay,
     }
     save_state(args.state, current)
 
