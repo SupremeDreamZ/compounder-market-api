@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-02T16:25Z",
-  "timezoneContext": "2026-10-02 America/Los_Angeles",
+  "asOf": "2026-10-03T00:35Z",
+  "timezoneContext": "2026-10-02 17:00 America/Los_Angeles run / 2026-10-03 UTC snapshot",
   "project": {
     "name": "Compounder Market API",
     "repository": "https://github.com/SupremeDreamZ/compounder-market-api",
@@ -37,12 +37,13 @@
       "x402scanTransactions": 0,
       "x402scanVolumeUsd": 0,
       "x402scanBuyers": 0,
-      "x402scanSnapshotAt": "2026-10-02T00:04:51Z live page re-scrape SUCCESS — embedded stats JSON total_transactions:0, total_amount:0, unique_buyers:0, unique_sellers:0 (dehydratedAt 1790899491753); onchain cross-check same run: liquid USDC 0, nonce 15 → no settlement could have occurred.",
-      "walletLiquidUsdcIncreaseSincePriorSnapshot": "0",
-      "walletIncreaseClassification": "none — no inbound USDC",
-      "walletIncreaseReason": "No inbound USDC; liquid USDC 0. Nonce moved 4 -> 7 closing the agentbounties round-3 episode: permissionless expireSubmission() refunded the 2.000000 USDC bond (tx 0xa5ebec616681f353e6a8aa0480c9f628745817eaadad62b4187fe52df0be182c, 2026-09-28T16:12:15Z), then an exact approve + Aave V3 supply (txs 0x08137ec119c3d3a875d3d0221554b432d92ddbd03da3a587b657413d81152b2a, 0x75ed8136b5badb4d5d0db612b6d3d6d8f1ac7bab42337f45e0a60a2e984557ec) restored the reserve to 10.066411 aUSDC. No revenue event occurred.",
+      "x402scanSnapshotAt": "2026-10-03T00:29Z live page re-scrape SUCCESS — embedded stats JSON total_transactions:0, total_amount:0, unique_buyers:0 (dehydratedAt 1790987336858); onchain cross-check same run: liquid USDC 0 and nonce shows only our own wind-down txs → no settlement could have occurred.",
+      "walletLiquidUsdcIncreaseSincePriorSnapshot": "0 (external); +1.000000 internal capital recovery (own refund) fully re-supplied to Aave — not revenue",
+      "walletIncreaseClassification": "none from external parties — no inbound USDC from any third party",
+      "walletIncreaseReason": "The only USDC movement during the 2026-10-03 wind-down was our own 1.000000 USDC refund from cancelled child 0xf8708750… (cancel + withdrawRefund), re-supplied to Aave V3 (9.060840 → 10.060840 aUSDC). Nonce 15 → 19. No revenue event occurred; realized external revenue remains $0.",
       "fundingTransaction": "https://base.blockscout.com/tx/0x807d8a7067cb7383fc28732cacc16b95a05bcc27284c4c9c192d19feb6035522",
-      "routedChildStatus_20261001": "Child 0xf87087509a34a1cf3654ddc36884b925ccf2ccaa still status=submitted at 2026-10-02T00:02Z (solver 0x1d4c…, bond 0.01 held). Review window ends 2026-10-02T20:07:49Z; expire not yet sendable — dry-run @00:09Z reverts 'submission not expired' exactly as expected (pre-window). Venue owner corrections 2026-10-01T07:21Z (issues #1531/#590): verification path paused during repair; the child is not safely verifiable as funded (committed runner 'needs an approval it does not have'; funded tests will not be changed); expiry alone does not make the test usable again; do NOT invite another solver to pay a bond after expiry; safe next step = expireSubmission() strictly after the window (venue will recheck chain + confirm the 0.01 bond return). Our amended plan posted 2026-10-01T16:10:13Z: https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5935456946 — withdraws the re-opening invitation; no new spend; expire only to release the submission + return the bond; will review the child's cancel/refund path as funder. Wind-down path verified vs .state/ab-specs/AgentBounty.sol: expireSubmission (permissionless) → cancel() (creator; Open|Claimable) → withdrawRefund() (principal 1.00 + pro-rata bonus). Stop rule: wind down by 2026-10-10; parent claim lapses 2026-10-13T19:38:33Z (accept ≤0.01 forfeit). Venue owner 2026-10-01T21:12:08Z (#590): automatic verification runs again for approved tests, but #1531's test config remains UNAPPROVED — this child stays unusable; plan confirmed: expire strictly after the window, post the confirmed tx to #590 (avoid duplicate action; venue rechecks the 0.01 bond return), then cancel()/withdrawRefund() per existing creator/contributor permissions."
+      "routedChildStatus_20261001": "Child 0xf87087509a34a1cf3654ddc36884b925ccf2ccaa still status=submitted at 2026-10-02T00:02Z (solver 0x1d4c…, bond 0.01 held). Review window ends 2026-10-02T20:07:49Z; expire not yet sendable — dry-run @00:09Z reverts 'submission not expired' exactly as expected (pre-window). Venue owner corrections 2026-10-01T07:21Z (issues #1531/#590): verification path paused during repair; the child is not safely verifiable as funded (committed runner 'needs an approval it does not have'; funded tests will not be changed); expiry alone does not make the test usable again; do NOT invite another solver to pay a bond after expiry; safe next step = expireSubmission() strictly after the window (venue will recheck chain + confirm the 0.01 bond return). Our amended plan posted 2026-10-01T16:10:13Z: https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5935456946 — withdraws the re-opening invitation; no new spend; expire only to release the submission + return the bond; will review the child's cancel/refund path as funder. Wind-down path verified vs .state/ab-specs/AgentBounty.sol: expireSubmission (permissionless) → cancel() (creator; Open|Claimable) → withdrawRefund() (principal 1.00 + pro-rata bonus). Stop rule: wind down by 2026-10-10; parent claim lapses 2026-10-13T19:38:33Z (accept ≤0.01 forfeit). Venue owner 2026-10-01T21:12:08Z (#590): automatic verification runs again for approved tests, but #1531's test config remains UNAPPROVED — this child stays unusable; plan confirmed: expire strictly after the window, post the confirmed tx to #590 (avoid duplicate action; venue rechecks the 0.01 bond return), then cancel()/withdrawRefund() per existing creator/contributor permissions.",
+      "routedChildWindDown_20261003": "Child 0xf8708750… episode CLOSED. A third party expired the squatter submission 2026-10-02T22:35:11Z (tx 0x2b2be723c2af9870f7cd89a3c70c1a162f0bef75209fc296070b4b97122ef20a, block 52095582; 0.01 USDC bond returned to solver; we sent no duplicate expire). Creator refund executed 2026-10-03: cancel() tx 0x5029a13c9ec2d1795446e15febc259daf58538d7fdb5e234a0f04ae40c95e075 (BountyCancelled) + withdrawRefund() tx 0x1153fe829e5fe6e07a9d26b334e4b754d9605771c38a338c3ffce28e4b1726b5 (RefundWithdrawn: principal 1.000000, bonus 0). Float re-supplied: approve 0x652744d35f5cf4f3e9f211afd2b67f476a6ef1745d18019789236b9eac95cb1a + supply 0x948146c233e187b60df32929b6b3c66f3c1aa82e12496a637512b8add33c69f3 (allowance consumed to 0; aUSDC 10.060840). Child permanently Cancelled; no re-claim / re-invite / new spend. Venue comment: https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5963629789"
     },
     "agentBountyOutcome": {
       "venue": "agentbounties.app (canonical Base autonomous-bounties rail)",
@@ -67,19 +68,21 @@
     }
   },
   "activeExperiment": {
-    "name": "agentbounties routed standing-meta-v3 child (agent discovery lane)",
-    "state": "2026-10-02T00:20Z update: child still submitted (solver 0x1d4c…, bond 0.01); review window ends 2026-10-02T20:07:49Z; venue owner 2026-10-01T21:12Z confirmed our amended plan (expire strictly after the window; post tx to #590; no re-invite; refunds per existing permissions) and noted verification runs again for APPROVED tests only — this child's config stays unapproved; verification-jobs endpoint empty. MergePay radar added to the watchdog (baseline: 3 open funded issues, all contested — no action). Expire path armed + dry-run verified; wind-down verified (expire → cancel → withdrawRefund). 2026-10-02T16:01Z run: re-checked — unchanged (still submitted; window still opens 20:07:49Z).",
-    "child": "0xf87087509a34a1cf3654ddc36884b925ccf2ccaa (1.00 USDC target; task: fix one deterministic agent-card discovery regression; reconciled a2a-agent-card benchmark)",
-    "parent": "0x8a4acb37acef4c24c821835dad36345b6afa7d4d (round 3; claim expires 2026-10-13T19:38:33Z)",
-    "walletFloatAtWorkUsd": "1.010000",
-    "expectedOnCompletionUsd": "+1.00 net only if the child-completion path recovers; expected fallback = refund of the 1.00 child funding (+bonus) via cancel()/withdrawRefund().",
-    "nextAction": "after 2026-10-02T20:08Z: node .state/ab-child-status.mjs → if still submitted: ./ab-expire-submission.sh (check; then --send when green — release submission + return squatter bond; NO re-invite). Post the confirmed tx to #590 (venue request). Then cancel() → withdrawRefund() (recover 1.00 + bonus; re-supply Aave; restore reserve toward ~10) once it is clear the child stays unverifiable. Stop rules: wind down by 2026-10-10; parent claim lapses 2026-10-13T19:38:33Z (accept ≤0.01 forfeit); no new spend on the agentbounties route.",
-    "coordinationComment": "https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5901785678",
-    "eligibleCompleters": [
-      "0xe903a87c7e323370a4de509bcddcd1cdb961e67e (@Dvorf, registered 2026-09-11T13:33:11Z — claimed this parent's round 2; created the round-2 child that settled 2026-09-29T08:37Z)",
-      "0x4fccded771c8a4340318b5a7eb9eb9181c8adb5f (@MScaryMouse, registered 2026-09-11T13:38:29Z — attempted the round-2 child)"
-    ],
-    "runbook": "compounder-market-api/.state/ab-child-episode.json (status checker: node .state/ab-child-status.mjs)"
+    "name": "agentbounties routed standing-meta-v3 child (agent discovery lane) — CLOSED 2026-10-03",
+    "state": "CLOSED. The squatter submission was already expired by a third party on 2026-10-02T22:35:11Z (tx 0x2b2be723…; no duplicate expire sent by us). With the child claimable and its config confirmed unusable (venue 2026-10-01T21:12Z: the repair will not make it usable; do not invite another bond), the confirmed funder wind-down was executed: cancel() tx 0x5029a13c… then withdrawRefund() tx 0x1153fe82… — 1.000000 USDC recovered (RefundWithdrawn verified) and re-supplied to Aave V3 via exact approve 0x652744d3… + supply 0x948146c2…. Child Cancelled permanently; capital-neutral close (gas ≈ 0.000002 ETH across 4 txs).",
+    "child": "0xf87087509a34a1cf3654ddc36884b925ccf2ccaa — CANCELLED (terminal, status 5)",
+    "parent": "0x8a4acb37acef4c24c821835dad36345b6afa7d4d (round 3, claimed by us; claim expires 2026-10-13T19:38:33Z; will lapse unsubmitted — ≤0.01 USDC bond forfeit accepted per stop rules; the contract has no claim-release function)",
+    "walletFloatAtWorkUsd": "0 — no float deployed; reserve restored",
+    "recoveryEvidence": {
+      "expireTxThirdParty": "0x2b2be723c2af9870f7cd89a3c70c1a162f0bef75209fc296070b4b97122ef20a (block 52095582, 2026-10-02T22:35:11Z, sender 0x6fe4d6da2a4371d82b4a7ff94810a94091fb4c35)",
+      "cancelTx": "0x5029a13c9ec2d1795446e15febc259daf58538d7fdb5e234a0f04ae40c95e075",
+      "withdrawRefundTx": "0x1153fe829e5fe6e07a9d26b334e4b754d9605771c38a338c3ffce28e4b1726b5",
+      "resupplyApproveTx": "0x652744d35f5cf4f3e9f211afd2b67f476a6ef1745d18019789236b9eac95cb1a",
+      "resupplySupplyTx": "0x948146c233e187b60df32929b6b3c66f3c1aa82e12496a637512b8add33c69f3"
+    },
+    "venueComment": "https://github.com/NSPG13/agent-bounties/issues/590#issuecomment-5963629789",
+    "nextAction": "None on this lane (monitoring only via watchdog). A future completable round, if ever offered, is a separate decision with new terms — no default re-open and no new spend on the agentbounties route.",
+    "runbook": "compounder-market-api/.state/ab-child-episode.json (closedAt 2026-10-03; see run_2026_10_03_0000Z)"
   },
   "verification": {
     "sourceTypecheck": "passed",
@@ -107,10 +110,10 @@
     "freeGeneratedExample": "verified",
     "walletOwnershipProof": "verified",
     "agentcashDiscoveryScanner": "passed-with-zero-warnings at the 2026-07-22 source snapshot",
-    "productionCheckedAt": "2026-10-02T16:01Z (verify:production ok; unpaid 402; bazaar metadata asserted)",
+    "productionCheckedAt": "2026-10-03T00:03Z (verify:production ok; unpaid 402; bazaar metadata asserted)",
     "watchdogMergepayRadar_20261002": "added — read-only GitHub search (\"MergePay bounty\" state:open, PRs filtered); alerts only when a NEW funded issue appears vs the saved baseline; verified 2026-10-02 with synthetic subset/empty-old appear cases + two real silent runs; baseline saved 00:18:46Z (3 open, all contested).",
     "sourceCommit": "9b751a6",
-    "publicCheckedAt": "2026-10-02T16:01Z (landing, OpenAPI, llms.txt, x402 manifest, free example, domain file all ok)",
+    "publicCheckedAt": "2026-10-03T00:03Z (landing, OpenAPI, llms.txt, x402 manifest, free example, domain file all ok)",
     "testsPassed": 37,
     "testsFailed": 0,
     "x402WellKnownManifest": "conformant",
@@ -124,7 +127,8 @@
     "deployedCommit": "2406b5a",
     "deploymentObservedAt": "2026-09-19T00:01:34Z",
     "domainVerificationFile": "verified — /.well-known/402index-verify.txt serves the registered 402index claim hash verbatim; pinned by tests/domain-verification.test.ts and verify:production (discovery.domainVerification)",
-    "walletTxReverification": "2026-09-28T16:14Z — expire/approve/supply receipts re-verified via Base RPC: all status=1, blocks 51911294 / 51911341 / 51911358; expire tx emitted USDC Transfer 2.000000 contract->solver and SubmissionExpired(bounty, round 3); post-supply allowance 0, aUSDC 10.066411"
+    "walletTxReverification": "2026-10-03T00:20-00:28Z wind-down receipts re-verified via Base RPC: cancel 0x5029a13c… (BountyCancelled; block 52098…), withdrawRefund 0x1153fe82… (RefundWithdrawn principal 1.000000, bonus 0; USDC Transfer 1.000000 child→wallet; block 52098…), approve 0x652744d3… (Approval 1.000000 to Aave Pool), supply 0x948146c2… (allowance → 0; aUSDC 9.060840 → 10.060840). Previous: 2026-09-28T16:14Z — expire/approve/supply receipts all status=1, blocks 51911294 / 51911341 / 51911358; post-supply allowance 0, aUSDC 10.066411.",
+    "watchdogMergepayRadarNote_20261003": "lukiod/radar#1 verified as a search false positive (github-actions digest issue; no funding comment; 0 /claim comments). Future runs: do not treat its appearance as a new funded issue."
   },
   "bazaar": {
     "metadataState": "ready-and-verified",
@@ -132,11 +136,11 @@
     "selfPurchasePerformed": false,
     "catalogTrigger": "facilitator-processed payment carrying the Bazaar extension",
     "lastCatalogProbe": {
-      "checkedAt": "2026-10-02T00:18Z",
+      "checkedAt": "2026-10-03T00:27Z",
       "newestPageItems": 100,
-      "reportedTotalItems": 11321,
+      "reportedTotalItems": 12433,
       "exactResourceFoundOnNewestPage": false,
-      "scopeWarning": "A miss on the newest page is not proof of absence from every historical page. Provider-reported totals are unstable (25,474 on 2026-09-16; ~6.5k-11k across 2026-09-19..2026-09-30)."
+      "scopeWarning": "A miss on the newest page is not proof of absence from every historical page. Provider-reported totals are unstable (25,474 on 2026-09-16; ~6.5k-12.4k across 2026-09-19..2026-10-03)."
     },
     "declarationValidation": {
       "validator": "@x402/extensions validateDiscoveryExtension/validateDiscoveryExtensionSpec (2.19.0)",
@@ -164,7 +168,7 @@
       "transactions": 0,
       "volumeUsd": 0,
       "buyers": 0,
-      "snapshotAt": "2026-10-02T16:02Z (page read: 0 tx / $0.00 / 0 buyers — unchanged)"
+      "snapshotAt": "2026-10-03T00:29Z (page read: 0 tx / $0.00 / 0 buyers — unchanged; dehydratedAt 1790987336858)"
     },
     "github": {
       "homepageConfigured": true,
@@ -172,7 +176,7 @@
       "awesomeX402PullRequest": "https://github.com/xpaysh/awesome-x402/pull/954",
       "awesomeX402PullRequestState": "open-and-mergeable (state=open, mergeable=MERGEABLE, mergeStateStatus=CLEAN; no activity since 2026-09-08; the single comment is our own 2026-09-08 bump; re-checked 2026-10-02T16:03Z via gh pr view 954)",
       "trafficWindow": {
-        "through": "2026-10-02T16:03Z",
+        "through": "2026-10-03T00:29Z",
         "views": 1,
         "uniqueVisitors": 1,
         "clones": 178,
@@ -191,7 +195,7 @@
       "healthScore": 1,
       "routable": true,
       "routerDispatch": "eligible=false — settlement_required (\"below the settlement floor\"): the router pays only sellers with settled history from distinct payers",
-      "probeObservedAt": "2026-10-02T16:16Z — seller card served (tools=3, routable=true, health=1; paid POST lastVerifiedAt 16:15:58Z); routerDispatchEligible still false — settlement_required (below the settlement floor; no unprovenTier key present)"
+      "probeObservedAt": "2026-10-03T00:29Z — seller card re-served (toolCount=3, paidToolCount=1, health=1, routable=true, originResponded=true). routerDispatchEligible unchanged from the 2026-10-02T16:16Z probe: false — settlement_required (below the settlement floor)."
     },
     "agentFirstDirectory": {
       "state": "listing-pr-open",
@@ -279,40 +283,40 @@
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
     "snapshotSource": "live Base JSON-RPC (eth_chainId 8453)",
-    "snapshotAt": "2026-10-02T16:05Z (cast reads; Base block 52083877)",
-    "eth": "0.002567889511947915",
+    "snapshotAt": "2026-10-03T00:28Z (cast reads; Base block 52098945) — post wind-down",
+    "eth": "0.00256584427368531",
     "liquidUsdc": "0",
-    "aUsdc": "9.060518",
+    "aUsdc": "10.060840",
     "aaveUsdcAllowance": "0",
-    "nonce": 15,
+    "nonce": 19,
     "portfolioUsdApprox": {
-      "value": "15.99",
+      "value": "16.91",
       "priceSource": "DefiLlama Coins API",
-      "priceObservedAt": "2026-10-02T16:19Z",
-      "ethUsd": "2698.4721252980135",
-      "usdcUsd": "0.9999576192013003",
-      "warning": "Approximate mark-to-market of wallet assets only (ETH + aUSDC); excludes unsolicited valueless token dust. 1.010000 USDC of working capital remains deployed in the open routed-child episode (1.00 child funding + 0.01 parent claim bond); expected recovery now runs through the child's cancel/refund path (1.00 principal + bonus) unless the venue repair revives child completion (+2.00 path)."
+      "priceObservedAt": "2026-10-03T00:28Z",
+      "ethUsd": "2670.2545389635907",
+      "usdcUsd": "0.9999663056196604",
+      "warning": "Approximate mark-to-market of wallet assets only (ETH + aUSDC); excludes unsolicited valueless token dust. Reserve restored to 10.060840 aUSDC; zero float deployed (routed-child episode closed 2026-10-03)."
     }
   },
   "yieldBenchmark": {
     "source": "DefiLlama pools API",
     "poolId": "7e0661bf-8cf3-45e6-9424-31916d4c7b84",
-    "observedAt": "2026-10-02T16:19Z (pools list re-query; the per-pool endpoint is retired — 'Cannot GET /pool/{id}')",
-    "aaveV3BaseUsdcApyPercent": "3.74619",
-    "poolTvlUsd": "19515044",
-    "aUsdcCurrent": "9.060518",
-    "note": "1.010000 USDC is deployed as float for the routed standing-meta child episode (1.00 child funding + 0.01 parent round-3 bond). Reserve restores toward ~10 via the refund path (principal 1.00 + bonus) if the child stays unverifiable; +2.00 only if a registered solver completes the child and the verifier path recovers.",
-    "annualizedReserveYieldUsd": "0.339424",
-    "monthlyReserveYieldUsd": "0.028285",
-    "grossOneCentCallsToBeatAnnualReserveYield": 34,
+    "observedAt": "2026-10-03T00:28Z (pools list re-query)",
+    "aaveV3BaseUsdcApyPercent": "3.72354",
+    "poolTvlUsd": "19962398",
+    "aUsdcCurrent": "10.060840",
+    "note": "Reserve fully restored after the child-episode wind-down (9.060840 → 10.060840 aUSDC). No float deployed elsewhere; the parent round-3 bond (0.01 USDC) remains at risk until the claim lapses 2026-10-13.",
+    "annualizedReserveYieldUsd": "0.374619",
+    "monthlyReserveYieldUsd": "0.031218",
+    "grossOneCentCallsToBeatAnnualReserveYield": 38,
     "warning": "Spot APY is variable and the annualized figures are not guaranteed.",
-    "accruedAsOf": "2026-10-02T16:19Z"
+    "accruedAsOf": "2026-10-03T00:28Z"
   },
   "externalLanes": {
-    "checkedAt": "2026-10-02T00:05-00:25Z; re-verified 2026-10-02T16:00-16:22Z (Expensify 27 open / 0 unassigned; MergePay 3 funded all contested; child still submitted pre-window; PR #954 open/CLEAN; x402scan 0/0/0; production verify ok)",
+    "checkedAt": "2026-10-03T00:00-00:35Z (child wind-down executed; x402scan 0/0/0; PR #954 open/CLEAN; PR #91 open; PayAI not listed (12,433 items); MergePay re-verified — no claimable work)",
     "expensify": "Re-checked 2026-10-02T00:05Z via gh search: 27 open 'Help Wanted' issues; 16 are [$250]; ZERO unassigned. Hiring/payout still requires an Upwork freelancer profile (human-only gate). No action; lane closed without the profile.",
     "frantic": "Day 94 board refreshed 2026-10-02T00:10Z: 5 open, $38.50 total sticker (#136 $1.50, #130 $3, #129 $16, #128 $8, #97 $10); funded_usd 842.5, moved_usd 1280.3. The old Ausca-kit offers (#131-135) are gone from the board; every current item needs the operator account (email designation, user-only) and/or external posting surfaces. The staged kit (frantic-kit) remains valid in mechanics but its target offers no longer exist — no action.",
-    "mergepay": "NEW LANE surveyed 2026-10-02: MergePay (mergepay.fun) — keyless, GitHub-native USDC-on-Arc bounties (comment '/claim', PR 'Fixes #N', merge pays the claimant; wallet link in-app; no bond, no platform fee). Exactly 3 funded issues exist platform-wide and ALL are contested (mergepay#3 assigned to another claimant; tastemaker #85/#86 have multiple /claim comments + competing open PRs). No claimable work now; watchdog radar added 2026-10-02 to alert on new fundings — expect a swarm within hours of any new funding.",
+    "mergepay": "Re-verified 2026-10-03: search shows 7 results = 3 real funded issues (all contested: mergepay#3 assigned + PR #5 open; tastemaker#85/#86 with competing open PRs #87/#88) + PR rows (#4/#5/#89) + 1 FALSE POSITIVE (lukiod/radar#1 'Radar' — bot digest issue; 0 /claim comments; no funding comment; verified manually — do not treat as funded). No claimable work now.",
     "newDirectories": "Sentinel agent-payable directory (sentinel.rootstuff.io/agents/directory — free, curated, 4-region probes; 71 listings; we are not listed; submission via /contact needs an email) and x402-list.com (new live-monitored x402 directory with /submit form + /api/v1/services; submission REQUIRES an email field) surveyed 2026-10-02 — both blocked only by the email gate. agentfirst.directory submission is PR-based (SKILL.md flow, no email) — SUBMITTED 2026-10-02T16:19Z (PR #91; see distribution.agentFirstDirectory). agentic.market (Coinbase) lists automatically from Bazaar indexing — no submission path while uncataloged.",
     "githubBountySweep": "Broad GitHub sweep 2026-10-02: AstralDeep org = 'Points only; no monetary payment' (excluded); Ikalus1988/MisakaNet = bounty issues unfunded ('does not have any reward yet'; pays only via Opire /reward) (excluded); goobinss/pearOS = 'Proposed only; funding and terms require separate written confirmation' (not guaranteed) (excluded); go165/bounty-radar feed stale since 2026-06-28 (dead).",
     "otherLanes": "Superteam (auth-gated), Drips W10 (~late Oct, KYC), Opire (dead/unfetchable), Algora (login-walled + compliance/1099 payouts), Stacker News bounties (~5k sats typical; new account + Lightning rails — needs user decision): unchanged / no autonomous action."
