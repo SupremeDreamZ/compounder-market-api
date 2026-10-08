@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-03T00:35Z",
-  "timezoneContext": "2026-10-02 17:00 America/Los_Angeles run / 2026-10-03 UTC snapshot",
+  "asOf": "2026-10-08T22:45Z",
+  "timezoneContext": "2026-10-08 15:26 America/Los_Angeles catch-up run / 2026-10-08 22:26-22:50Z UTC snapshot",
   "project": {
     "name": "Compounder Market API",
     "repository": "https://github.com/SupremeDreamZ/compounder-market-api",
@@ -37,7 +37,7 @@
       "x402scanTransactions": 0,
       "x402scanVolumeUsd": 0,
       "x402scanBuyers": 0,
-      "x402scanSnapshotAt": "2026-10-03T00:29Z live page re-scrape SUCCESS — embedded stats JSON total_transactions:0, total_amount:0, unique_buyers:0 (dehydratedAt 1790987336858); onchain cross-check same run: liquid USDC 0 and nonce shows only our own wind-down txs → no settlement could have occurred.",
+      "x402scanSnapshotAt": "2026-10-08T15:29:18Z live page re-read — embedded stats total_transactions:0, total_amount:0, unique_buyers:0 (dehydratedAt 1791498558616). No onchain inflow: liquid USDC 0, nonce still 19 (no transactions since the 2026-10-03 wind-down).",
       "walletLiquidUsdcIncreaseSincePriorSnapshot": "0 (external); +1.000000 internal capital recovery (own refund) fully re-supplied to Aave — not revenue",
       "walletIncreaseClassification": "none from external parties — no inbound USDC from any third party",
       "walletIncreaseReason": "The only USDC movement during the 2026-10-03 wind-down was our own 1.000000 USDC refund from cancelled child 0xf8708750… (cancel + withdrawRefund), re-supplied to Aave V3 (9.060840 → 10.060840 aUSDC). Nonce 15 → 19. No revenue event occurred; realized external revenue remains $0.",
@@ -110,10 +110,10 @@
     "freeGeneratedExample": "verified",
     "walletOwnershipProof": "verified",
     "agentcashDiscoveryScanner": "passed-with-zero-warnings at the 2026-07-22 source snapshot",
-    "productionCheckedAt": "2026-10-03T00:03Z (verify:production ok; unpaid 402; bazaar metadata asserted)",
+    "productionCheckedAt": "2026-10-08T22:26Z (verify:production ok; unpaid 402; bazaar metadata asserted)",
     "watchdogMergepayRadar_20261002": "added — read-only GitHub search (\"MergePay bounty\" state:open, PRs filtered); alerts only when a NEW funded issue appears vs the saved baseline; verified 2026-10-02 with synthetic subset/empty-old appear cases + two real silent runs; baseline saved 00:18:46Z (3 open, all contested).",
     "sourceCommit": "9b751a6",
-    "publicCheckedAt": "2026-10-03T00:03Z (landing, OpenAPI, llms.txt, x402 manifest, free example, domain file all ok)",
+    "publicCheckedAt": "2026-10-08T22:26Z (landing, OpenAPI, llms.txt, x402 manifest, free example, domain file all ok)",
     "testsPassed": 37,
     "testsFailed": 0,
     "x402WellKnownManifest": "conformant",
@@ -136,11 +136,11 @@
     "selfPurchasePerformed": false,
     "catalogTrigger": "facilitator-processed payment carrying the Bazaar extension",
     "lastCatalogProbe": {
-      "checkedAt": "2026-10-03T00:27Z",
+      "checkedAt": "2026-10-08T22:27Z",
       "newestPageItems": 100,
-      "reportedTotalItems": 12433,
+      "reportedTotalItems": 17805,
       "exactResourceFoundOnNewestPage": false,
-      "scopeWarning": "A miss on the newest page is not proof of absence from every historical page. Provider-reported totals are unstable (25,474 on 2026-09-16; ~6.5k-12.4k across 2026-09-19..2026-10-03)."
+      "scopeWarning": "A miss on the newest page is not proof of absence from every historical page. Provider-reported totals are unstable (25,474 on 2026-09-16; 12,433 on 2026-10-03; 17,805 on 2026-10-08)."
     },
     "declarationValidation": {
       "validator": "@x402/extensions validateDiscoveryExtension/validateDiscoveryExtensionSpec (2.19.0)",
@@ -168,20 +168,20 @@
       "transactions": 0,
       "volumeUsd": 0,
       "buyers": 0,
-      "snapshotAt": "2026-10-03T00:29Z (page read: 0 tx / $0.00 / 0 buyers — unchanged; dehydratedAt 1790987336858)"
+      "snapshotAt": "2026-10-08T15:29:18Z (page read: 0 tx / $0.00 / 0 buyers — unchanged; dehydratedAt 1791498558616)"
     },
     "github": {
       "homepageConfigured": true,
       "topicCount": 9,
       "awesomeX402PullRequest": "https://github.com/xpaysh/awesome-x402/pull/954",
-      "awesomeX402PullRequestState": "open-and-mergeable (state=open, mergeable=MERGEABLE, mergeStateStatus=CLEAN; no activity since 2026-09-08; the single comment is our own 2026-09-08 bump; re-checked 2026-10-02T16:03Z via gh pr view 954)",
+      "awesomeX402PullRequestState": "open-and-mergeable (state=open, mergeable=MERGEABLE, mergeStateStatus=CLEAN; no activity since 2026-09-08; re-checked 2026-10-08T22:31Z via gh pr view 954 — no bump sent this cycle)",
       "trafficWindow": {
-        "through": "2026-10-03T00:29Z",
-        "views": 1,
-        "uniqueVisitors": 1,
-        "clones": 178,
-        "uniqueCloners": 96,
-        "warning": "Clones/views are not buyer demand and may include automated or operator activity; the 14-day rolling window moved 216→178 as older days rolled off."
+        "through": "2026-10-08T22:31Z",
+        "views": 2,
+        "uniqueVisitors": 2,
+        "clones": 165,
+        "uniqueCloners": 91,
+        "warning": "Clones/views are not buyer demand and may include automated or operator activity; the 14-day rolling window moved 178 to 165 as older days rolled off."
       }
     },
     "agent402": {
@@ -195,10 +195,10 @@
       "healthScore": 1,
       "routable": true,
       "routerDispatch": "eligible=false — settlement_required (\"below the settlement floor\"): the router pays only sellers with settled history from distinct payers",
-      "probeObservedAt": "2026-10-03T00:29Z — seller card re-served (toolCount=3, paidToolCount=1, health=1, routable=true, originResponded=true). routerDispatchEligible unchanged from the 2026-10-02T16:16Z probe: false — settlement_required (below the settlement floor)."
+      "probeObservedAt": "2026-10-08T22:39Z — seller card re-served (toolCount=3, paidToolCount=1, health=1, routable=true, originResponded=true). routerDispatchEligible unchanged from prior probes: false — settlement_required (below the settlement floor)."
     },
     "agentFirstDirectory": {
-      "state": "listing-pr-open",
+      "state": "listing-pr-open — blocked on own domain",
       "url": "https://github.com/bradvin/agentfirst.directory/pull/91",
       "submittedAt": "2026-10-02T16:19:31Z",
       "content": "tools/compounder-market-api.md + tool-submitters.json (fork SupremeDreamZ/agentfirst.directory, branch add-compounder-market-api, commit 461c9f6)",
@@ -206,7 +206,11 @@
       "classification": "agent-native",
       "pricing": "paid",
       "checks": "local npm test 84/84 + validate:content --require-submitters passed on the exact commit; repo Enrich Tool Assets check passed; Validate Content run is action_required pending maintainer approval (repo norm for fork PRs)",
-      "note": "Curated agent-first tools directory; submission used the repo's documented agent contributor workflow (evidence-backed PR, four first-party sources, accessedAt 2026-10-02). Distribution progress only — not demand or revenue."
+      "note": "Curated agent-first tools directory; submission used the repo's documented agent contributor workflow (evidence-backed PR, four first-party sources, accessedAt 2026-10-02). Distribution progress only — not demand or revenue.",
+      "maintainerResponse": "2026-10-04T17:16:12Z — @bradvin: \"this is hosted on a vercel subdomain - I will consider publishing this when you host it on your own domain\". Policy review (foo-bender) previously passed: \"Outcome: meets-policy\" (2026-10-03T06:22Z).",
+      "operatorReply": "2026-10-08T22:39:17Z — https://github.com/bradvin/agentfirst.directory/pull/91#issuecomment-6070471633 (acknowledged the domain requirement; PR kept open; follow-up once hosted on its own domain)",
+      "domainCandidatesChecked_20261008": "compounderapi.com and compoundermarket.com both show \"No match\" (available) via Verisign whois on 2026-10-08. Purchase is a human decision (~$10-15/yr); wiring to Vercel + updating the PR is automatable afterward.",
+      "branchState": "mergeStateStatus=BEHIND at 2026-10-08T22:31Z (base moved); no rebase performed (domain is the gate, not code)."
     },
     "agentToolsCloud": {
       "state": "listed-verified (auto-crawled; no submission needed)",
@@ -276,50 +280,56 @@
         "result": "readiness=discovered, miss_reason=unlisted, live=false, payable=false, invocable=false",
         "checkedAt": "2026-10-01T00:06Z"
       },
-      "note": "No seller submission path exists after the migration; do not re-file. Re-check /validate in future cycles. No funds moved; readiness checks are free. (2026-10-01T16:07Z /validate re-fetch returned an empty body — recheck next cycle.)"
+      "note": "No seller submission path exists after the migration; do not re-file. Re-check /validate in future cycles. No funds moved; readiness checks are free. (2026-10-01T16:07Z /validate re-fetch returned an empty body — recheck next cycle.)",
+      "lastValidateAttempt_20261008": "empty body again (same as 2026-10-01); no seller submission path exists post-migration; no action."
     }
   },
   "wallet": {
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
     "snapshotSource": "live Base JSON-RPC (eth_chainId 8453)",
-    "snapshotAt": "2026-10-03T00:28Z (cast reads; Base block 52098945) — post wind-down",
+    "snapshotAt": "2026-10-08T22:27Z (watchdog read; Base)",
     "eth": "0.00256584427368531",
     "liquidUsdc": "0",
-    "aUsdc": "10.060840",
+    "aUsdc": "10.067142",
     "aaveUsdcAllowance": "0",
     "nonce": 19,
     "portfolioUsdApprox": {
-      "value": "16.91",
+      "value": "16.41",
       "priceSource": "DefiLlama Coins API",
-      "priceObservedAt": "2026-10-03T00:28Z",
-      "ethUsd": "2670.2545389635907",
-      "usdcUsd": "0.9999663056196604",
-      "warning": "Approximate mark-to-market of wallet assets only (ETH + aUSDC); excludes unsolicited valueless token dust. Reserve restored to 10.060840 aUSDC; zero float deployed (routed-child episode closed 2026-10-03)."
+      "priceObservedAt": "2026-10-08T22:41Z",
+      "ethUsd": "2472.9498810928794",
+      "usdcUsd": "0.9996231772655382",
+      "warning": "Approximate mark-to-market of wallet assets only (ETH + aUSDC); excludes unsolicited valueless token dust. Zero float deployed; parent round-3 claim bond (0.01 USDC) still pending automatic lapse before 2026-10-13T19:38:33Z."
     }
   },
   "yieldBenchmark": {
     "source": "DefiLlama pools API",
     "poolId": "7e0661bf-8cf3-45e6-9424-31916d4c7b84",
-    "observedAt": "2026-10-03T00:28Z (pools list re-query)",
-    "aaveV3BaseUsdcApyPercent": "3.72354",
-    "poolTvlUsd": "19962398",
-    "aUsdcCurrent": "10.060840",
-    "note": "Reserve fully restored after the child-episode wind-down (9.060840 → 10.060840 aUSDC). No float deployed elsewhere; the parent round-3 bond (0.01 USDC) remains at risk until the claim lapses 2026-10-13.",
-    "annualizedReserveYieldUsd": "0.374619",
-    "monthlyReserveYieldUsd": "0.031218",
-    "grossOneCentCallsToBeatAnnualReserveYield": 38,
+    "observedAt": "2026-10-08T22:41Z (pools list re-query)",
+    "aaveV3BaseUsdcApyPercent": "4.43026",
+    "poolTvlUsd": "16814278",
+    "aUsdcCurrent": "10.067142",
+    "note": "Reserve intact (10.067142 aUSDC accruing from 10.060840 on 2026-10-03). No float deployed. Spot APY up (4.43026%) vs 30-day mean (3.80267%); spot is variable and the annualized figures are not guaranteed.",
+    "annualizedReserveYieldUsd": "0.446001",
+    "monthlyReserveYieldUsd": "0.037167",
+    "grossOneCentCallsToBeatAnnualReserveYield": 45,
     "warning": "Spot APY is variable and the annualized figures are not guaranteed.",
-    "accruedAsOf": "2026-10-03T00:28Z"
+    "accruedAsOf": "2026-10-08T22:27Z",
+    "aaveV3BaseUsdcApyMean30dPercent": "3.80267"
   },
   "externalLanes": {
-    "checkedAt": "2026-10-03T00:00-00:35Z (child wind-down executed; x402scan 0/0/0; PR #954 open/CLEAN; PR #91 open; PayAI not listed (12,433 items); MergePay re-verified — no claimable work)",
+    "checkedAt": "2026-10-08T22:26-22:50Z (watchdog healthy; x402scan 0/0/0; PR #91 maintainer response + reply; Stellar Wave 9 pack closed out; agentbounties eligibility analysis; new mass-seeded bounty cluster excluded; MergePay re-verified contested)",
     "expensify": "Re-checked 2026-10-02T00:05Z via gh search: 27 open 'Help Wanted' issues; 16 are [$250]; ZERO unassigned. Hiring/payout still requires an Upwork freelancer profile (human-only gate). No action; lane closed without the profile.",
     "frantic": "Day 94 board refreshed 2026-10-02T00:10Z: 5 open, $38.50 total sticker (#136 $1.50, #130 $3, #129 $16, #128 $8, #97 $10); funded_usd 842.5, moved_usd 1280.3. The old Ausca-kit offers (#131-135) are gone from the board; every current item needs the operator account (email designation, user-only) and/or external posting surfaces. The staged kit (frantic-kit) remains valid in mechanics but its target offers no longer exist — no action.",
-    "mergepay": "Re-verified 2026-10-03: search shows 7 results = 3 real funded issues (all contested: mergepay#3 assigned + PR #5 open; tastemaker#85/#86 with competing open PRs #87/#88) + PR rows (#4/#5/#89) + 1 FALSE POSITIVE (lukiod/radar#1 'Radar' — bot digest issue; 0 /claim comments; no funding comment; verified manually — do not treat as funded). No claimable work now.",
+    "mergepay": "Re-verified 2026-10-08 via live issue/PR reads: mergepay#3 released 2026-10-07T10:12Z with no activity and immediately re-claimed by khongten124 (PR #5 open); tastemaker#85 contested with 4+ open PRs (#87/#91/#92/#93, several updated 2026-10-08); tastemaker#86 contested (#90 + claims); lukiod/radar#1 remains a verified false positive (bot digest). No claimable work.",
     "newDirectories": "Sentinel agent-payable directory (sentinel.rootstuff.io/agents/directory — free, curated, 4-region probes; 71 listings; we are not listed; submission via /contact needs an email) and x402-list.com (new live-monitored x402 directory with /submit form + /api/v1/services; submission REQUIRES an email field) surveyed 2026-10-02 — both blocked only by the email gate. agentfirst.directory submission is PR-based (SKILL.md flow, no email) — SUBMITTED 2026-10-02T16:19Z (PR #91; see distribution.agentFirstDirectory). agentic.market (Coinbase) lists automatically from Bazaar indexing — no submission path while uncataloged.",
     "githubBountySweep": "Broad GitHub sweep 2026-10-02: AstralDeep org = 'Points only; no monetary payment' (excluded); Ikalus1988/MisakaNet = bounty issues unfunded ('does not have any reward yet'; pays only via Opire /reward) (excluded); goobinss/pearOS = 'Proposed only; funding and terms require separate written confirmation' (not guaranteed) (excluded); go165/bounty-radar feed stale since 2026-06-28 (dead).",
-    "otherLanes": "Superteam (auth-gated), Drips W10 (~late Oct, KYC), Opire (dead/unfetchable), Algora (login-walled + compliance/1099 payouts), Stacker News bounties (~5k sats typical; new account + Lightning rails — needs user decision): unchanged / no autonomous action."
+    "otherLanes": "Superteam (auth-gated), Opire (dead/unfetchable), Algora (login-walled + compliance/1099 payouts), Stacker News (new account + Lightning — user decision): unchanged. Frantic: operator account still requires the user email designation (lane unchanged; no re-scan this cycle).",
+    "stellarWave9Outcome_20261008": "Pack CLOSED/superseded: issue #274 is CLOSED (samad13 accepted by maintainers 2026-09-29T15:44Z); issue #283 is assigned to helloworld1-star with competing open PRs (#320 updated 2026-10-08, #302). Both stop-rule conditions triggered — no submission, nothing spent. Patches remain archived at .state/stellar-wave9/ (gitignored).",
+    "dripsWaveSchedule_20261008": "Program page: \"no active or upcoming Waves at the moment\"; monthly cadence (W1..W9; last ran Sep 23-30 with a $75k budget). Next wave expected ~late Oct (not yet announced). Human gate unchanged: Drips sign-in (GitHub) + KYC before the next wave opens, then day-1 applications to race assignment.",
+    "agentBountiesEligibility_20261008": "Full canonical feed re-read: 13 claimable, but only ONE verification_ready (\"Bring a real backlog\", reward 20.30 USDC, bond 1.00). NOT eligible: acceptance requires the submitter account to hold at least 3 merged commits/PRs dated before 2026-09-28 in a 100+ star, 5+ contributor repo — this account has 2 lifetime merged PRs (best candidate MikeyPetrillo/Agent402: 41 stars, created 2026-06-11); own repos fail the separate-wallet and independent-maintainer criteria. No claim made (a 1.00 bond would be at risk for a guaranteed-fail review). The 6 routed-v3 lanes remain verification_child_profile_unapproved; 5 standing-meta-v2 seeds carry negative-margin reservations; 1 Safari item has an unapproved runner profile.",
+    "githubBountyCluster_20261008": "New mass-seeded \"[Bounty: $X]\" cluster (Settla-Labs/settla-api, borastellar/ai-bora-stellar, vouchlabsio/humanvouch, Sottara-Labs/sottara, Signpost-Labs/signpost-api and more; repos 0-1 days old, 87-112 open issues each, AI-agent swarm submitting PRs within ~1h of issue creation). Payment mechanism unverified — outside contributors publicly asking maintainers to confirm funding with no answers at check time. Excluded as unverifiable; revisit only on a public funding confirmation."
   },
   "continuity": {
     "productionRequiresLlm": false,
@@ -332,7 +342,8 @@
     "encryptedRecoveryCopyAddressVerified": true,
     "keychainEntryPresent": true,
     "timeMachineDestinationConfigured": false,
-    "separateDeviceRecoveryCopyConfirmed": false
+    "separateDeviceRecoveryCopyConfirmed": false,
+    "cronHealth_20261008": "Daily operator dispatches failed 2026-10-03..10-07 with provider HTTP 429 weekly usage limit (credit reset 2026-10-07T17:40:55Z) plus host-sleep gaps; the model-free watchdog continued completing (every ~6h) throughout. 2026-10-08T15:25 local catch-up dispatch ran the operator (this cycle) and the watchdog (completed 15:25:57). Weekly research loop last execution 2026-10-07T10:00 ended \"unknown\" (provider offline mid-run; incident detected 10:16). No cron recursion performed from the operator session; no job state modified."
   },
   "remainingHumanContinuityStep": "Export the encrypted recovery kit to a separate encrypted device and confirm independent wallet-password recovery.",
   "discoveryManifest": {
