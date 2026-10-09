@@ -49,6 +49,18 @@ MERGEPAY_SEARCH_URL = os.environ.get(
     "https://api.github.com/search/issues"
     "?q=%22MergePay%20bounty%22%20state%3Aopen&per_page=50",
 )
+SUPERTEAM_REGISTRATION = Path(
+    os.environ.get(
+        "SUPERTEAM_REGISTRATION",
+        str(Path.home() / ".hermes/profiles/compounder/secrets/superteam/registration.json"),
+    )
+)
+SUPERTEAM_LISTINGS_URL = os.environ.get(
+    "SUPERTEAM_LISTINGS_URL", "https://superteam.fun/api/agents/listings/live?take=100"
+)
+MOLTJOBS_JOBS_URL = os.environ.get(
+    "MOLTJOBS_JOBS_URL", "https://api.moltjobs.io/v1/jobs?status=OPEN&limit=50"
+)
 WALLET = "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35"
 USDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
 AUSDC = "0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB"
@@ -63,17 +75,26 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
-def http_json(url: str, *, method: str = "GET", body: dict[str, Any] | None = None) -> tuple[int, Any, Any]:
+def http_json(
+    url: str,
+    *,
+    method: str = "GET",
+    body: dict[str, Any] | None = None,
+    headers: dict[str, str] | None = None,
+) -> tuple[int, Any, Any]:
     data = json.dumps(body).encode() if body is not None else None
+    request_headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "User-Agent": "compounder-watchdog/1.0",
+    }
+    if headers:
+        request_headers.update(headers)
     request = Request(
         url,
         data=data,
         method=method,
-        headers={
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "User-Agent": "compounder-watchdog/1.0",
-        },
+        headers=request_headers,
     )
     try:
         with urlopen(request, timeout=25) as response:
@@ -319,6 +340,78 @@ def mergepay_snapshot() -> dict[str, Any]:
     return {"open": items}
 
 
+def superteam_snapshot() -> dict[str, Any]:
+    """Read-only snapshot of agent-eligible Superteam Earn listings (superteam.fun).
+
+    Uses the local agent registration created 2026-09-11 (apiKey + claimCode); the
+    key is read from SUPERTEAM_REGISTRATION (default: the active Hermes profile's
+    secrets directory) and is never printed, logged, or stored in the watch state.
+    A machine without the registration skips this check with a warning instead of
+    failing. This check never submits, comments, or claims.
+    """
+    try:
+        registration = json.loads(SUPERTEAM_REGISTRATION.read_text())
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        raise RuntimeError(f"no readable registration at {SUPERTEAM_REGISTRATION}")
+    api_key = registration.get("apiKey") if isinstance(registration, dict) else None
+    if not api_key:
+        raise RuntimeError("registration file has no apiKey")
+    status, payload, _ = http_json(
+        SUPERTEAM_LISTINGS_URL, headers={"Authorization": f"Bearer {api_key}"}
+    )
+    if status != 200:
+        raise RuntimeError(f"Superteam listings returned HTTP {status}")
+    if isinstance(payload, dict):
+        items = payload.get("data") or payload.get("listings") or []
+    elif isinstance(payload, list):
+        items = payload
+    else:
+        items = []
+    listings: list[dict[str, Any]] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        listings.append(
+            {
+                "slug": item.get("slug"),
+                "title": item.get("title"),
+                "rewardAmount": item.get("rewardAmount"),
+                "token": item.get("token"),
+                "deadline": item.get("deadline"),
+                "type": item.get("type"),
+                "agentAccess": item.get("agentAccess"),
+            }
+        )
+    return {"open": listings}
+
+
+def moltjobs_snapshot() -> dict[str, Any]:
+    """Read-only snapshot of OPEN jobs on MoltJobs (agent marketplace, USDC on Base).
+
+    Public endpoint, no credentials. The board is thin and mostly platform
+    referral/marketing slots; detect NEW open jobs so a later operator run can
+    judge fit (customer jobs can be bid on once an agent is registered; referral
+    slots need a genuinely different owner and must never be self-referred).
+    """
+    status, payload, _ = http_json(MOLTJOBS_JOBS_URL)
+    if status != 200 or not isinstance(payload, dict):
+        raise RuntimeError(f"MoltJobs returned HTTP {status}")
+    jobs: list[dict[str, Any]] = []
+    for item in payload.get("data", []):
+        if not isinstance(item, dict):
+            continue
+        jobs.append(
+            {
+                "id": item.get("id"),
+                "title": item.get("title"),
+                "purpose": item.get("purpose"),
+                "budgetUsdc": item.get("budgetUsdc"),
+                "createdAt": item.get("createdAt"),
+            }
+        )
+    return {"open": jobs}
+
+
 def load_state(path: Path) -> dict[str, Any]:
     try:
         return json.loads(path.read_text())
@@ -350,6 +443,8 @@ def main() -> int:
     catalog: dict[str, Any] | None = None
     agent_bounties: dict[str, Any] | None = None
     mergepay: dict[str, Any] | None = None
+    superteam: dict[str, Any] | None = None
+    moltjobs: dict[str, Any] | None = None
 
     try:
         service = verify_service()
@@ -391,6 +486,18 @@ def main() -> int:
     except (RuntimeError, URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError) as error:
         warnings.append(f"mergepay: {error}")
         mergepay = None
+
+    try:
+        superteam = superteam_snapshot()
+    except (RuntimeError, URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError) as error:
+        warnings.append(f"superteam: {error}")
+        superteam = None
+
+    try:
+        moltjobs = moltjobs_snapshot()
+    except (RuntimeError, URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError) as error:
+        warnings.append(f"moltjobs: {error}")
+        moltjobs = None
 
     status = "unhealthy" if issues else "healthy"
     messages: list[str] = []
@@ -465,6 +572,45 @@ def main() -> int:
                 "expect a contested swarm on fresh fundings — read before claiming."
             )
 
+    old_superteam = previous.get("superteam")
+    if superteam is not None and isinstance(old_superteam, dict) and "open" in old_superteam:
+        old_superteam_slugs = {entry.get("slug") for entry in old_superteam.get("open", [])}
+        appeared_superteam = [
+            entry for entry in superteam["open"] if entry.get("slug") not in old_superteam_slugs
+        ]
+        if appeared_superteam:
+            listing = "; ".join(
+                f"{entry.get('title')} ({entry.get('slug')}; {entry.get('rewardAmount')} "
+                f"{entry.get('token')}; deadline {entry.get('deadline')}; "
+                f"{entry.get('agentAccess')})"
+                for entry in appeared_superteam
+            )
+            messages.append(
+                f"🎯 Superteam agent-eligible listing(s) appeared at {checked_at}: {listing}. "
+                "Agents may submit; OAuth, wallet signing, and KYC stay with the human "
+                "claimer, and payouts need the human claim flow. Check fit before "
+                "submitting — no social accounts are authorized for this operation."
+            )
+
+    old_moltjobs = previous.get("moltjobs")
+    if moltjobs is not None and isinstance(old_moltjobs, dict) and "open" in old_moltjobs:
+        old_moltjobs_ids = {entry.get("id") for entry in old_moltjobs.get("open", [])}
+        appeared_moltjobs = [
+            entry for entry in moltjobs["open"] if entry.get("id") not in old_moltjobs_ids
+        ]
+        if appeared_moltjobs:
+            listing = "; ".join(
+                f"{entry.get('title')} ({entry.get('id')}; {entry.get('budgetUsdc')} USDC; "
+                f"{entry.get('purpose')})"
+                for entry in appeared_moltjobs
+            )
+            messages.append(
+                f"🛠️ New MoltJobs open job(s) appeared at {checked_at}: {listing}. "
+                "Customer (MARKETPLACE) jobs can be bid on once an agent is registered; "
+                "PLATFORM_REFERRAL slots require a genuinely different owner and must "
+                "never be self-referred."
+            )
+
     if agent_bounties is not None:
         stored_agent_bounties: dict[str, Any] = agent_bounties
     else:
@@ -484,6 +630,22 @@ def main() -> int:
             "open": old_mergepay.get("open", []) if isinstance(old_mergepay, dict) else [],
         }
 
+    if superteam is not None:
+        stored_superteam: dict[str, Any] = superteam
+    else:
+        stored_superteam = {
+            "fetchFailed": True,
+            "open": old_superteam.get("open", []) if isinstance(old_superteam, dict) else [],
+        }
+
+    if moltjobs is not None:
+        stored_moltjobs: dict[str, Any] = moltjobs
+    else:
+        stored_moltjobs = {
+            "fetchFailed": True,
+            "open": old_moltjobs.get("open", []) if isinstance(old_moltjobs, dict) else [],
+        }
+
     current = {
         "checkedAt": checked_at,
         "status": status,
@@ -494,6 +656,8 @@ def main() -> int:
         "catalog": catalog,
         "agentBounties": stored_agent_bounties,
         "mergepay": stored_mergepay,
+        "superteam": stored_superteam,
+        "moltjobs": stored_moltjobs,
     }
     save_state(args.state, current)
 

@@ -1,6 +1,6 @@
 # Compounder Market API — Operations and Continuity
 
-Updated: 2026-10-01 (America/Los_Angeles) / 2026-10-02 UTC
+Updated: 2026-10-09 (America/Los_Angeles) / 2026-10-09 UTC
 
 This is the public-safe source of truth for operating, verifying, restoring, and handing off the Compounder Market API. It contains no signing key, wallet password, Vercel token, or GitHub token.
 
@@ -46,7 +46,7 @@ A normal scheduled watchdog invocation uses:
 python3 scripts/compounder_watchdog.py
 ```
 
-It prints **nothing** while state remains healthy and unchanged. It prints only on an actionable transition, wallet balance change, Bazaar listing appearance, new claimable + verification-ready work on the canonical Base bounty rail (`agentbounties.app`, read-only check — never signs, claims, or posts a bond), or a newly funded issue on the MergePay GitHub rail (`mergepay.fun` — USDC on Arc paid to the claimant whose PR merges; read-only GitHub search — never comments, claims, or spends). This mode needs no LLM or model credits.
+It prints **nothing** while state remains healthy and unchanged. It prints only on an actionable transition, wallet balance change, Bazaar listing appearance, new claimable + verification-ready work on the canonical Base bounty rail (`agentbounties.app`, read-only check — never signs, claims, or posts a bond), a newly funded issue on the MergePay GitHub rail (`mergepay.fun` — USDC on Arc paid to the claimant whose PR merges; read-only GitHub search — never comments, claims, or spends), a newly appeared agent-eligible listing on Superteam Earn (read-only agent API; the Bearer key is read at runtime from the local profile secrets file and is never printed or stored in state), or a new open job on MoltJobs (agent job marketplace; USDC escrow on Base; public read-only API). This mode needs no LLM or model credits.
 
 ## 3. Verification levels
 
@@ -238,7 +238,7 @@ Current success gate: one unrelated paid call or another qualified demand signal
 Until that happens:
 
 - keep fixed burn at zero;
-- monitor service, wallet, x402scan, the Awesome x402 PR, and newest Bazaar listings;
+- monitor service, wallet, x402scan, the Awesome x402 PR, newest Bazaar listings, the Superteam agent feed, and the MoltJobs board (the last two have model-free watchdog radars, added 2026-10-09);
 - distribute transparently through terms-compliant channels;
 - improve positioning before adding paid infrastructure;
 - preserve liquid capital.
