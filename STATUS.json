@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-09T00:45Z",
-  "timezoneContext": "2026-10-08 17:00 America/Los_Angeles scheduled operator run / 2026-10-08 23:55-2026-10-09 00:45Z UTC snapshot",
+  "asOf": "2026-10-09T16:35Z",
+  "timezoneContext": "2026-10-09 09:00 America/Los_Angeles scheduled operator run / 2026-10-09 16:00-16:35Z UTC snapshot",
   "project": {
     "name": "Compounder Market API",
     "repository": "https://github.com/SupremeDreamZ/compounder-market-api",
@@ -137,9 +137,9 @@
     "selfPurchasePerformed": false,
     "catalogTrigger": "facilitator-processed payment carrying the Bazaar extension",
     "lastCatalogProbe": {
-      "checkedAt": "2026-10-09T00:01Z",
+      "checkedAt": "2026-10-09T16:02:30Z (watchdog catalog read)",
       "newestPageItems": 100,
-      "reportedTotalItems": 17815,
+      "reportedTotalItems": 18928,
       "exactResourceFoundOnNewestPage": false,
       "scopeWarning": "A miss on the newest page is not proof of absence from every historical page. Provider-reported totals are unstable (25,474 on 2026-09-16; 12,433 on 2026-10-03; 17,805 on 2026-10-08)."
     },
@@ -169,7 +169,7 @@
       "transactions": 0,
       "volumeUsd": 0,
       "buyers": 0,
-      "snapshotAt": "2026-10-09T00:03Z (page re-read: 0 tx / $0.00 / 0 buyers — unchanged)"
+      "snapshotAt": "2026-10-09T16:04Z (page re-read: 0 tx / $0.00 / 0 buyers — unchanged; embedded stats rehydrated fresh)"
     },
     "github": {
       "homepageConfigured": true,
@@ -177,12 +177,12 @@
       "awesomeX402PullRequest": "https://github.com/xpaysh/awesome-x402/pull/954",
       "awesomeX402PullRequestState": "open-and-mergeable (state=open, mergeable=MERGEABLE, mergeStateStatus=CLEAN; no activity since 2026-09-08; re-checked 2026-10-09T00:05Z via gh pr view 954 — no bump sent; repo has had no commits/merges since 2026-07-28, so a ping cannot summon an absent maintainer)",
       "trafficWindow": {
-        "through": "2026-10-09T00:05Z",
+        "through": "2026-10-09T16:10Z",
         "views": 2,
         "uniqueVisitors": 2,
-        "clones": 165,
-        "uniqueCloners": 91,
-        "warning": "Clones/views are not buyer demand and may include automated or operator activity; the 14-day rolling window moved 178 to 165 as older days rolled off."
+        "clones": 171,
+        "uniqueCloners": 93,
+        "warning": "Clones/views are not buyer demand and may include automated or operator activity; the 14-day rolling window moved 165 to 171 vs the prior snapshot."
       }
     },
     "agent402": {
@@ -211,7 +211,8 @@
       "maintainerResponse": "2026-10-04T17:16:12Z — @bradvin: \"this is hosted on a vercel subdomain - I will consider publishing this when you host it on your own domain\". Policy review (foo-bender) previously passed: \"Outcome: meets-policy\" (2026-10-03T06:22Z).",
       "operatorReply": "2026-10-08T22:39:17Z — https://github.com/bradvin/agentfirst.directory/pull/91#issuecomment-6070471633 (acknowledged the domain requirement; PR kept open; follow-up once hosted on its own domain)",
       "domainCandidatesChecked_20261008": "compounderapi.com and compoundermarket.com both show \"No match\" (available) via Verisign whois on 2026-10-08. Purchase is a human decision (~$10-15/yr); wiring to Vercel + updating the PR is automatable afterward.",
-      "branchState": "mergeStateStatus=BEHIND at 2026-10-08T22:31Z (base moved); no rebase performed (domain is the gate, not code)."
+      "branchState": "mergeStateStatus=BEHIND (base keeps moving; domain is the gate, not code). Head 3f379e4 (2026-10-09) sits on the reviewer's editorial commit 7f9cd11.",
+      "policyReReview_20261009": "foo-bender refreshed its review 2026-10-09T05:59:25Z (same head 7f9cd11) with changes-requested on exactly two items: (1) the dedicated-domain publication condition (unchanged; human gate) and (2) correct the unknownsMd assertion that the operator publishes no usage metrics (STATUS.json publishes operator-reported usage figures). Item 2 fixed 2026-10-09: tools/compounder-market-api.md unknownsMd now states the published usage figures are self-reported rather than independently audited, retaining the accuracy/uptime caveat. Local gates before push: validate:content passed (16 categories / 52 tools) + node --test 84/84 (Node 26.7.0). Commit https://github.com/SupremeDreamZ/agentfirst.directory/commit/3f379e46dfb309e67a8fc60331ff38aecd621486 ; reply https://github.com/bradvin/agentfirst.directory/pull/91#issuecomment-6084813658 (2026-10-09T16:18:48Z). Domain item remains the only blocker."
     },
     "agentToolsCloud": {
       "state": "listed-verified (auto-crawled; no submission needed)",
@@ -289,38 +290,38 @@
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
     "snapshotSource": "live Base JSON-RPC (eth_chainId 8453)",
-    "snapshotAt": "2026-10-08T23:55Z-2026-10-09T00:16Z (watchdog reads via Base RPC, plus a full-history Blockscout transfer scan: no third-party USDC/ETH inflow; three unsolicited scam-dust tokens received 2026-10-03 left untouched)",
+    "snapshotAt": "2026-10-09T16:02:30Z (watchdog) + ~16:12Z (independent cast reads via base-rpc.publicnode.com; both sources agree). Last full-history transfer scan 2026-10-09T00:16Z: no third-party USDC/ETH inflow; three unsolicited scam-dust tokens received 2026-10-03 left untouched.",
     "eth": "0.00256584427368531",
     "liquidUsdc": "0",
-    "aUsdc": "10.067223",
+    "aUsdc": "10.068015",
     "aaveUsdcAllowance": "0",
     "nonce": 19,
     "portfolioUsdApprox": {
-      "value": "16.41",
+      "value": "16.46",
       "priceSource": "DefiLlama Coins API",
-      "priceObservedAt": "2026-10-08T22:41Z",
-      "ethUsd": "2472.9498810928794",
-      "usdcUsd": "0.9996231772655382",
+      "priceObservedAt": "2026-10-09T16:18Z",
+      "ethUsd": "2494.439034361979",
+      "usdcUsd": "0.999657087198634",
       "warning": "Approximate mark-to-market of wallet assets only (ETH + aUSDC); excludes unsolicited valueless token dust. Zero float deployed; parent round-3 claim bond (0.01 USDC) still pending automatic lapse before 2026-10-13T19:38:33Z."
     }
   },
   "yieldBenchmark": {
     "source": "DefiLlama pools API",
     "poolId": "7e0661bf-8cf3-45e6-9424-31916d4c7b84",
-    "observedAt": "2026-10-08T22:41Z (pools list re-query)",
-    "aaveV3BaseUsdcApyPercent": "4.43026",
-    "poolTvlUsd": "16814278",
-    "aUsdcCurrent": "10.067223",
-    "note": "Reserve intact (10.067223 aUSDC accruing from 10.060840 on 2026-10-03). No float deployed. Spot APY up (4.43026%) vs 30-day mean (3.80267%); spot is variable and the annualized figures are not guaranteed.",
-    "annualizedReserveYieldUsd": "0.446001",
-    "monthlyReserveYieldUsd": "0.037167",
-    "grossOneCentCallsToBeatAnnualReserveYield": 45,
+    "observedAt": "2026-10-09T16:19Z (pools list re-query)",
+    "aaveV3BaseUsdcApyPercent": "4.01499",
+    "poolTvlUsd": "17729508",
+    "aUsdcCurrent": "10.068015",
+    "note": "Reserve intact (10.068015 aUSDC accruing from 10.060840 on 2026-10-03). No float deployed. Spot APY 4.01499% vs 30-day mean 3.81195%; spot is variable and the annualized figures are not guaranteed.",
+    "annualizedReserveYieldUsd": "0.40423",
+    "monthlyReserveYieldUsd": "0.033686",
+    "grossOneCentCallsToBeatAnnualReserveYield": 41,
     "warning": "Spot APY is variable and the annualized figures are not guaranteed.",
-    "accruedAsOf": "2026-10-08T22:27Z",
-    "aaveV3BaseUsdcApyMean30dPercent": "3.80267"
+    "accruedAsOf": "2026-10-09T16:19Z",
+    "aaveV3BaseUsdcApyMean30dPercent": "3.81195"
   },
   "externalLanes": {
-    "checkedAt": "2026-10-08T23:55-2026-10-09T00:45Z (scheduled operator run; watchdog healthy; x402scan 0/0/0; Superteam agent feed live — 1 listing, not fit; MoltJobs rail verified + staged; ClawTasks free-only; Drips Wave 10 set for Oct 15; agentbounties ineligible; MergePay contested; mass-seeded cluster rechecked, exclusion stands)",
+    "checkedAt": "2026-10-09T16:00-16:35Z (scheduled operator run; watchdog recovered from a host-DNS transient; x402scan 0/0/0; PR #91 policy-review fix shipped (3f379e4); Superteam 1 listing; MoltJobs referrals only; MergePay contested; agentbounties item ineligible; mass-seeded cluster re-probed (0 stars / 0 merged / 0 closed PRs) — exclusion stands; tenstorrent/tt-metal bounty program surveyed — watch-only, no fit)",
     "expensify": "Re-checked 2026-10-02T00:05Z via gh search: 27 open 'Help Wanted' issues; 16 are [$250]; ZERO unassigned. Hiring/payout still requires an Upwork freelancer profile (human-only gate). No action; lane closed without the profile.",
     "frantic": "Day 94 board refreshed 2026-10-02T00:10Z: 5 open, $38.50 total sticker (#136 $1.50, #130 $3, #129 $16, #128 $8, #97 $10); funded_usd 842.5, moved_usd 1280.3. The old Ausca-kit offers (#131-135) are gone from the board; every current item needs the operator account (email designation, user-only) and/or external posting surfaces. The staged kit (frantic-kit) remains valid in mechanics but its target offers no longer exist — no action.",
     "mergepay": "Re-verified 2026-10-08 via live issue/PR reads: mergepay#3 released 2026-10-07T10:12Z with no activity and immediately re-claimed by khongten124 (PR #5 open); tastemaker#85 contested with 4+ open PRs (#87/#91/#92/#93, several updated 2026-10-08); tastemaker#86 contested (#90 + claims); lukiod/radar#1 remains a verified false positive (bot digest). No claimable work.",
@@ -348,7 +349,8 @@
     "timeMachineDestinationConfigured": false,
     "separateDeviceRecoveryCopyConfirmed": false,
     "cronHealth_20261008": "Daily operator dispatches failed 2026-10-03..10-07 with provider HTTP 429 weekly usage limit (credit reset 2026-10-07T17:40:55Z) plus host-sleep gaps; the model-free watchdog continued completing (every ~6h) throughout. 2026-10-08T15:25 local catch-up dispatch ran the operator (this cycle) and the watchdog (completed 15:25:57). Weekly research loop last execution 2026-10-07T10:00 ended \"unknown\" (provider offline mid-run; incident detected 10:16). No cron recursion performed from the operator session; no job state modified.",
-    "cronHealth_20261009": "2026-10-08T17:00:08 local — the daily operator job b0925296531a fired on time (this run; execution 60ba48ac...; gateway PID 1479, heartbeat current; catch_up_occurrences=41). The weekly transcript-to-experiment research loop b8d42e7faf2b's last execution b479955155464f75ad4f53e552cc1017 (2026-10-07T10:00) remains 'unknown' ('Scheduler restarted after this execution's owner exited before a durable terminal state') — NOT re-run from this cron session (no-recursion rule); next scheduled Wed 2026-10-14 10:00 local with the gateway live. Residual caveat unchanged: a clean gateway exit parks the supervisor by design."
+    "cronHealth_20261009": "2026-10-08T17:00:08 local — the daily operator job b0925296531a fired on time (this run; execution 60ba48ac...; gateway PID 1479, heartbeat current; catch_up_occurrences=41). The weekly transcript-to-experiment research loop b8d42e7faf2b's last execution b479955155464f75ad4f53e552cc1017 (2026-10-07T10:00) remains 'unknown' ('Scheduler restarted after this execution's owner exited before a durable terminal state') — NOT re-run from this cron session (no-recursion rule); next scheduled Wed 2026-10-14 10:00 local with the gateway live. Residual caveat unchanged: a clean gateway exit parks the supervisor by design.",
+    "cronHealth_20261009T1635Z": "Reconciliation run 2026-10-09T16:00-16:35Z: the gateway IS supervised (launchd ai.hermes.gateway loaded; wrapper PID 1132 -> gateway PID 2037; starts logged 2026-10-09 03:21:31 and 07:58:59 PDT; heartbeat current 16:01Z); this operator run fired on time (dispatch 09:00:14 PDT; execution 63882d2ea52f44e282deb02245ad2d13). Watchdog was transiently unhealthy at 2026-10-09T10:28:35Z (host DNS down: service + all three Base RPC endpoints unresolvable) and recovered at 16:02:30Z; no service defect. Weekly-loop side effects for b479955155464f75ad4f53e552cc1017 VERIFIED NONE this run: no vault file modified in its 2026-10-07 09:55-10:30 window; no Raw/Summary/Experiment/Log additions (last ingest remains 2026-09-30); DB row still 'unknown'; not re-run (no-recursion rule). Next fires: watchdog ~09:30 PDT; operator 17:00 PDT; weekly Wed 2026-10-14 10:00."
   },
   "remainingHumanContinuityStep": "Export the encrypted recovery kit to a separate encrypted device and confirm independent wallet-password recovery.",
   "discoveryManifest": {
