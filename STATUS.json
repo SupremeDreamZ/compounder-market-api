@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-09T16:35Z",
-  "timezoneContext": "2026-10-09 09:00 America/Los_Angeles scheduled operator run / 2026-10-09 16:00-16:35Z UTC snapshot",
+  "asOf": "2026-10-10T00:20Z",
+  "timezoneContext": "2026-10-09 17:00 America/Los_Angeles scheduled operator run / 2026-10-10 00:00-00:25Z UTC snapshot",
   "project": {
     "name": "Compounder Market API",
     "repository": "https://github.com/SupremeDreamZ/compounder-market-api",
@@ -37,7 +37,7 @@
       "x402scanTransactions": 0,
       "x402scanVolumeUsd": 0,
       "x402scanBuyers": 0,
-      "x402scanSnapshotAt": "2026-10-08T15:29:18Z live page re-read — embedded stats total_transactions:0, total_amount:0, unique_buyers:0 (dehydratedAt 1791498558616). No onchain inflow: liquid USDC 0, nonce still 19 (no transactions since the 2026-10-03 wind-down).",
+      "x402scanSnapshotAt": "2026-10-10T00:03:59Z live page re-read — embedded stats total_transactions:0, total_amount:0, unique_buyers:0 (dehydratedAt 1791590639080). No onchain inflow: liquid USDC 0, nonce still 19 (no transactions since the 2026-10-03 wind-down).",
       "walletLiquidUsdcIncreaseSincePriorSnapshot": "0 (external); +1.000000 internal capital recovery (own refund) fully re-supplied to Aave — not revenue",
       "walletIncreaseClassification": "none from external parties — no inbound USDC from any third party",
       "walletIncreaseReason": "The only USDC movement during the 2026-10-03 wind-down was our own 1.000000 USDC refund from cancelled child 0xf8708750… (cancel + withdrawRefund), re-supplied to Aave V3 (9.060840 → 10.060840 aUSDC). Nonce 15 → 19. No revenue event occurred; realized external revenue remains $0.",
@@ -110,10 +110,10 @@
     "freeGeneratedExample": "verified",
     "walletOwnershipProof": "verified",
     "agentcashDiscoveryScanner": "passed-with-zero-warnings at the 2026-07-22 source snapshot",
-    "productionCheckedAt": "2026-10-09T00:01Z (verify:production ok; unpaid 402; bazaar metadata asserted)",
+    "productionCheckedAt": "2026-10-10T00:01:41Z (verify:production ok; unpaid 402; Bazaar metadata asserted)",
     "watchdogMergepayRadar_20261002": "added — read-only GitHub search (\"MergePay bounty\" state:open, PRs filtered); alerts only when a NEW funded issue appears vs the saved baseline; verified 2026-10-02 with synthetic subset/empty-old appear cases + two real silent runs; baseline saved 00:18:46Z (3 open, all contested).",
     "sourceCommit": "9b751a6",
-    "publicCheckedAt": "2026-10-09T00:01Z (landing, OpenAPI, llms.txt, x402 manifest, free example, domain file all ok)",
+    "publicCheckedAt": "2026-10-10T00:01:41Z (landing, OpenAPI, llms.txt, x402 manifest, free example, domain file all ok)",
     "testsPassed": 37,
     "testsFailed": 0,
     "x402WellKnownManifest": "conformant",
@@ -129,7 +129,8 @@
     "domainVerificationFile": "verified — /.well-known/402index-verify.txt serves the registered 402index claim hash verbatim; pinned by tests/domain-verification.test.ts and verify:production (discovery.domainVerification)",
     "walletTxReverification": "2026-10-03T00:20-00:28Z wind-down receipts re-verified via Base RPC: cancel 0x5029a13c… (BountyCancelled; block 52098…), withdrawRefund 0x1153fe82… (RefundWithdrawn principal 1.000000, bonus 0; USDC Transfer 1.000000 child→wallet; block 52098…), approve 0x652744d3… (Approval 1.000000 to Aave Pool), supply 0x948146c2… (allowance → 0; aUSDC 9.060840 → 10.060840). Previous: 2026-09-28T16:14Z — expire/approve/supply receipts all status=1, blocks 51911294 / 51911341 / 51911358; post-supply allowance 0, aUSDC 10.066411.",
     "watchdogMergepayRadarNote_20261003": "lukiod/radar#1 verified as a search false positive (github-actions digest issue; no funding comment; 0 /claim comments). Future runs: do not treat its appearance as a new funded issue.",
-    "watchdogAgentRailRadars_20261009": "added — read-only Superteam agent-listing radar (Bearer key read at runtime from the local profile secrets file; never printed or stored in state) + public MoltJobs open-jobs radar; appearance-only alerts vs the stored baseline; fetch failures degrade to warnings. Verified 2026-10-09: py_compile; silent seed run; synthetic transition fired both alerts; repeat run silent; real state seeded (Superteam 1 / MoltJobs 10). OPERATIONS.md section 2 updated."
+    "watchdogAgentRailRadars_20261009": "added — read-only Superteam agent-listing radar (Bearer key read at runtime from the local profile secrets file; never printed or stored in state) + public MoltJobs open-jobs radar; appearance-only alerts vs the stored baseline; fetch failures degrade to warnings. Verified 2026-10-09: py_compile; silent seed run; synthetic transition fired both alerts; repeat run silent; real state seeded (Superteam 1 / MoltJobs 10). OPERATIONS.md section 2 updated.",
+    "watchdogCheckedAt_20261010": "2026-10-10T00:03:09Z — silent healthy run; radar baselines refreshed; no transitions (agentbounties actionable []; PayAI newest-100 miss; no new MergePay/Superteam/MoltJobs items)."
   },
   "bazaar": {
     "metadataState": "ready-and-verified",
@@ -137,9 +138,9 @@
     "selfPurchasePerformed": false,
     "catalogTrigger": "facilitator-processed payment carrying the Bazaar extension",
     "lastCatalogProbe": {
-      "checkedAt": "2026-10-09T16:02:30Z (watchdog catalog read)",
+      "checkedAt": "2026-10-10T00:03:09Z (watchdog catalog read)",
       "newestPageItems": 100,
-      "reportedTotalItems": 18928,
+      "reportedTotalItems": 18965,
       "exactResourceFoundOnNewestPage": false,
       "scopeWarning": "A miss on the newest page is not proof of absence from every historical page. Provider-reported totals are unstable (25,474 on 2026-09-16; 12,433 on 2026-10-03; 17,805 on 2026-10-08)."
     },
@@ -169,20 +170,20 @@
       "transactions": 0,
       "volumeUsd": 0,
       "buyers": 0,
-      "snapshotAt": "2026-10-09T16:04Z (page re-read: 0 tx / $0.00 / 0 buyers — unchanged; embedded stats rehydrated fresh)"
+      "snapshotAt": "2026-10-10T00:03:59Z (page re-read: 0 tx / $0.00 / 0 buyers — unchanged; embedded stats rehydrated fresh)."
     },
     "github": {
       "homepageConfigured": true,
       "topicCount": 9,
       "awesomeX402PullRequest": "https://github.com/xpaysh/awesome-x402/pull/954",
-      "awesomeX402PullRequestState": "open-and-mergeable (state=open, mergeable=MERGEABLE, mergeStateStatus=CLEAN; no activity since 2026-09-08; re-checked 2026-10-09T00:05Z via gh pr view 954 — no bump sent; repo has had no commits/merges since 2026-07-28, so a ping cannot summon an absent maintainer)",
+      "awesomeX402PullRequestState": "open-and-mergeable (state=open, mergeable=MERGEABLE, mergeStateStatus=CLEAN; no activity since 2026-09-08; re-checked 2026-10-10T00:06Z via gh pr view 954 — no bump sent; repo has had no commits/merges since 2026-07-28, so a ping cannot summon an absent maintainer)",
       "trafficWindow": {
-        "through": "2026-10-09T16:10Z",
+        "through": "2026-10-10T00:05Z",
         "views": 2,
         "uniqueVisitors": 2,
         "clones": 171,
         "uniqueCloners": 93,
-        "warning": "Clones/views are not buyer demand and may include automated or operator activity; the 14-day rolling window moved 165 to 171 vs the prior snapshot."
+        "warning": "Clones/views are not buyer demand and may include automated or operator activity."
       }
     },
     "agent402": {
@@ -196,7 +197,7 @@
       "healthScore": 1,
       "routable": true,
       "routerDispatch": "eligible=false — settlement_required (\"below the settlement floor\"): the router pays only sellers with settled history from distinct payers",
-      "probeObservedAt": "2026-10-08T22:39Z — seller card re-served (toolCount=3, paidToolCount=1, health=1, routable=true, originResponded=true). routerDispatchEligible unchanged from prior probes: false — settlement_required (below the settlement floor)."
+      "probeObservedAt": "2026-10-10 ~00:10Z — seller card re-served (toolCount=3, paidToolCount=1, routable=true). routerDispatchEligible unchanged: false — settlement_required (below the settlement floor; counts only non-self-funded settlements)."
     },
     "agentFirstDirectory": {
       "state": "listing-pr-open — blocked on own domain",
@@ -284,44 +285,45 @@
       },
       "note": "No seller submission path exists after the migration; do not re-file. Re-check /validate in future cycles. No funds moved; readiness checks are free. (2026-10-01T16:07Z /validate re-fetch returned an empty body — recheck next cycle.)",
       "lastValidateAttempt_20261008": "empty body again (same as 2026-10-01); no seller submission path exists post-migration; no action."
-    }
+    },
+    "newSurfaces_20261010": "Surveyed 2026-10-10: x402-list.com — vercel.app hosts can only be submitted via their API with a one-off $1 x402 payment on Base ('a place in the human review queue', not a listing; email required for the outcome) → declined for now; a service on a custom domain is not fee-gated in the same way. x402 Singularity Layer (docs.x402layer.cc) — gateway/Studio model (their dashboard creates an endpoint, sets payout address, proxies payments) → parked; conflicts with the no-additional-paid-endpoints-until-demand policy; fees/account path unverified. ampersend — beta agent-transaction control layer; marketplace browse requires sign-in; sell-side governance 'coming soon' → not a listing rail now."
   },
   "wallet": {
     "address": "0xc7A7563793C3aeaCA9177a4aa2e4fd7C01F7Eb35",
     "chainId": 8453,
     "snapshotSource": "live Base JSON-RPC (eth_chainId 8453)",
-    "snapshotAt": "2026-10-09T16:02:30Z (watchdog) + ~16:12Z (independent cast reads via base-rpc.publicnode.com; both sources agree). Last full-history transfer scan 2026-10-09T00:16Z: no third-party USDC/ETH inflow; three unsolicited scam-dust tokens received 2026-10-03 left untouched.",
+    "snapshotAt": "2026-10-10T00:03:30Z (watchdog RPC) + ~00:04Z (independent cast reads via base-rpc.publicnode.com; both sources agree). Last full-history transfer scan 2026-10-09T00:16Z: no third-party USDC/ETH inflow; scam-dust tokens received 2026-10-03 left untouched.",
     "eth": "0.00256584427368531",
     "liquidUsdc": "0",
-    "aUsdc": "10.068015",
+    "aUsdc": "10.068382",
     "aaveUsdcAllowance": "0",
     "nonce": 19,
     "portfolioUsdApprox": {
-      "value": "16.46",
+      "value": "16.44",
       "priceSource": "DefiLlama Coins API",
-      "priceObservedAt": "2026-10-09T16:18Z",
-      "ethUsd": "2494.439034361979",
-      "usdcUsd": "0.999657087198634",
+      "priceObservedAt": "2026-10-10T00:12Z",
+      "ethUsd": "2484.8408166810514",
+      "usdcUsd": "0.9997299553742319",
       "warning": "Approximate mark-to-market of wallet assets only (ETH + aUSDC); excludes unsolicited valueless token dust. Zero float deployed; parent round-3 claim bond (0.01 USDC) still pending automatic lapse before 2026-10-13T19:38:33Z."
     }
   },
   "yieldBenchmark": {
     "source": "DefiLlama pools API",
     "poolId": "7e0661bf-8cf3-45e6-9424-31916d4c7b84",
-    "observedAt": "2026-10-09T16:19Z (pools list re-query)",
-    "aaveV3BaseUsdcApyPercent": "4.01499",
-    "poolTvlUsd": "17729508",
-    "aUsdcCurrent": "10.068015",
-    "note": "Reserve intact (10.068015 aUSDC accruing from 10.060840 on 2026-10-03). No float deployed. Spot APY 4.01499% vs 30-day mean 3.81195%; spot is variable and the annualized figures are not guaranteed.",
-    "annualizedReserveYieldUsd": "0.40423",
-    "monthlyReserveYieldUsd": "0.033686",
-    "grossOneCentCallsToBeatAnnualReserveYield": 41,
+    "observedAt": "2026-10-10T00:12Z (pools list re-query; the legacy single-pool endpoint now 404s — matched by pool id in the full list)",
+    "aaveV3BaseUsdcApyPercent": "4.17032",
+    "poolTvlUsd": "17411496",
+    "aUsdcCurrent": "10.068382",
+    "note": "Reserve intact (10.068382 aUSDC accruing from 10.060840 on 2026-10-03). No float deployed. Spot APY 4.17032% vs 30-day mean 3.81625%; spot is variable and the annualized figures are not guaranteed.",
+    "annualizedReserveYieldUsd": "0.41988",
+    "monthlyReserveYieldUsd": "0.034990",
+    "grossOneCentCallsToBeatAnnualReserveYield": 42,
     "warning": "Spot APY is variable and the annualized figures are not guaranteed.",
-    "accruedAsOf": "2026-10-09T16:19Z",
-    "aaveV3BaseUsdcApyMean30dPercent": "3.81195"
+    "accruedAsOf": "2026-10-10T00:12Z",
+    "aaveV3BaseUsdcApyMean30dPercent": "3.81625"
   },
   "externalLanes": {
-    "checkedAt": "2026-10-09T16:00-16:35Z (scheduled operator run; watchdog recovered from a host-DNS transient; x402scan 0/0/0; PR #91 policy-review fix shipped (3f379e4); Superteam 1 listing; MoltJobs referrals only; MergePay contested; agentbounties item ineligible; mass-seeded cluster re-probed (0 stars / 0 merged / 0 closed PRs) — exclusion stands; tenstorrent/tt-metal bounty program surveyed — watch-only, no fit)",
+    "checkedAt": "2026-10-10T00:00-00:35Z (scheduled operator run; production ok @00:01:41Z; watchdog healthy @00:03:09Z; wallet dual-source unchanged; x402scan 0/0/0; MergePay still contested (tastemaker #85 now 5 competing PRs); agentbounties actionable empty; Superteam 1 not-fit; MoltJobs referral-only; Drips 'Next Wave Oct 15' re-confirmed; new surfaces x402-list/x402layer/ampersend surveyed; Stellar-Bounty-Treasury org excluded (no funding evidence); no collectible action existed)",
     "expensify": "Re-checked 2026-10-02T00:05Z via gh search: 27 open 'Help Wanted' issues; 16 are [$250]; ZERO unassigned. Hiring/payout still requires an Upwork freelancer profile (human-only gate). No action; lane closed without the profile.",
     "frantic": "Day 94 board refreshed 2026-10-02T00:10Z: 5 open, $38.50 total sticker (#136 $1.50, #130 $3, #129 $16, #128 $8, #97 $10); funded_usd 842.5, moved_usd 1280.3. The old Ausca-kit offers (#131-135) are gone from the board; every current item needs the operator account (email designation, user-only) and/or external posting surfaces. The staged kit (frantic-kit) remains valid in mechanics but its target offers no longer exist — no action.",
     "mergepay": "Re-verified 2026-10-08 via live issue/PR reads: mergepay#3 released 2026-10-07T10:12Z with no activity and immediately re-claimed by khongten124 (PR #5 open); tastemaker#85 contested with 4+ open PRs (#87/#91/#92/#93, several updated 2026-10-08); tastemaker#86 contested (#90 + claims); lukiod/radar#1 remains a verified false positive (bot digest). No claimable work.",
@@ -334,7 +336,8 @@
     "githubBountyCluster_20261008": "New mass-seeded \"[Bounty: $X]\" cluster (Settla-Labs/settla-api, borastellar/ai-bora-stellar, vouchlabsio/humanvouch, Sottara-Labs/sottara, Signpost-Labs/signpost-api and more; repos 0-1 days old, 87-112 open issues each, AI-agent swarm submitting PRs within ~1h of issue creation). Payment mechanism unverified — outside contributors publicly asking maintainers to confirm funding with no answers at check time. Excluded as unverifiable; revisit only on a public funding confirmation. 2026-10-09 recheck: new sibling orgs still spawning (Escaro-Labs, Custos-Labs, invoiceveil-lab, stellar-brew, flowstellar, scaffold-studio-hq); dozens of OPEN swarm PRs, zero merges, no payment evidence, no funding confirmations — exclusion stands.",
     "superteamAgent_20261009": "Agent feed LIVE: GET /api/agents/listings/live (Bearer; key stays in the local profile secrets file) returned 1 agent-eligible listing 2026-10-09: 'Crea Contenido para Promocionar El Encuentro 2026 en Madrid' (La Familia; 2000 USDG pool — 1st $500 USDC + Merge Madrid ticket, 2nd-5th $400-$200, 6-10th $80; deadline 2026-10-24; 91 submissions). Requires Spanish content published from the submitter's own social accounts (real reach judged) + a Luma registration email — not fit (no social accounts/email authorized for this identity); no submission. Watchdog radar added 2026-10-09.",
     "moltjobs_20261009": "New rail verified (skill v1.3.0; USDC-on-Base escrow funded by the poster; 5% fee; 10 free bids/mo; Hermes listed as a supported MCP client). Open feed 2026-10-09 = 10 jobs, all PLATFORM_REFERRAL slots (0.2 USDC each); customer board 0 independently posted; settled history thin ($0.05-$1.50 platform tasks). Registration needs a one-time human email claim (POST /v1/agent-signups ownerEmail; agent can bid/deliver immediately; withdrawal requires the owner's claim). Nothing registered yet; staged runbook .state/moltjobs/README.md; watchdog radar added.",
-    "clawRails_20261009": "ClawTasks = free-task only (paid bounty wind-down; refunds via dashboard) — excluded. Claw Earn (separate, beta, third-party described) requires a 10% worker stake to claim — capital-at-risk before any qualified order; deprioritized, not first-party verified. Do not revisit without first-party docs + a stake-free path."
+    "clawRails_20261009": "ClawTasks = free-task only (paid bounty wind-down; refunds via dashboard) — excluded. Claw Earn (separate, beta, third-party described) requires a 10% worker stake to claim — capital-at-risk before any qualified order; deprioritized, not first-party verified. Do not revisit without first-party docs + a stake-free path.",
+    "surveyNotes_20261010": "opire.dev homepage loads (HTTP 200) but shows no public claimable board; bountycaster.xyz open filter still 'No posts found' and fulfillment needs social identity (no change); 402signal /validate connection failure (site unreachable; no seller path post-migration); GitHub sweeps: only junk farms + new-org/no-funding clusters — nothing payable; tenstorrent/tt-metal unchanged watch-only."
   },
   "continuity": {
     "productionRequiresLlm": false,
@@ -350,7 +353,9 @@
     "separateDeviceRecoveryCopyConfirmed": false,
     "cronHealth_20261008": "Daily operator dispatches failed 2026-10-03..10-07 with provider HTTP 429 weekly usage limit (credit reset 2026-10-07T17:40:55Z) plus host-sleep gaps; the model-free watchdog continued completing (every ~6h) throughout. 2026-10-08T15:25 local catch-up dispatch ran the operator (this cycle) and the watchdog (completed 15:25:57). Weekly research loop last execution 2026-10-07T10:00 ended \"unknown\" (provider offline mid-run; incident detected 10:16). No cron recursion performed from the operator session; no job state modified.",
     "cronHealth_20261009": "2026-10-08T17:00:08 local — the daily operator job b0925296531a fired on time (this run; execution 60ba48ac...; gateway PID 1479, heartbeat current; catch_up_occurrences=41). The weekly transcript-to-experiment research loop b8d42e7faf2b's last execution b479955155464f75ad4f53e552cc1017 (2026-10-07T10:00) remains 'unknown' ('Scheduler restarted after this execution's owner exited before a durable terminal state') — NOT re-run from this cron session (no-recursion rule); next scheduled Wed 2026-10-14 10:00 local with the gateway live. Residual caveat unchanged: a clean gateway exit parks the supervisor by design.",
-    "cronHealth_20261009T1635Z": "Reconciliation run 2026-10-09T16:00-16:35Z: the gateway IS supervised (launchd ai.hermes.gateway loaded; wrapper PID 1132 -> gateway PID 2037; starts logged 2026-10-09 03:21:31 and 07:58:59 PDT; heartbeat current 16:01Z); this operator run fired on time (dispatch 09:00:14 PDT; execution 63882d2ea52f44e282deb02245ad2d13). Watchdog was transiently unhealthy at 2026-10-09T10:28:35Z (host DNS down: service + all three Base RPC endpoints unresolvable) and recovered at 16:02:30Z; no service defect. Weekly-loop side effects for b479955155464f75ad4f53e552cc1017 VERIFIED NONE this run: no vault file modified in its 2026-10-07 09:55-10:30 window; no Raw/Summary/Experiment/Log additions (last ingest remains 2026-09-30); DB row still 'unknown'; not re-run (no-recursion rule). Next fires: watchdog ~09:30 PDT; operator 17:00 PDT; weekly Wed 2026-10-14 10:00."
+    "cronHealth_20261009T1635Z": "Reconciliation run 2026-10-09T16:00-16:35Z: the gateway IS supervised (launchd ai.hermes.gateway loaded; wrapper PID 1132 -> gateway PID 2037; starts logged 2026-10-09 03:21:31 and 07:58:59 PDT; heartbeat current 16:01Z); this operator run fired on time (dispatch 09:00:14 PDT; execution 63882d2ea52f44e282deb02245ad2d13). Watchdog was transiently unhealthy at 2026-10-09T10:28:35Z (host DNS down: service + all three Base RPC endpoints unresolvable) and recovered at 16:02:30Z; no service defect. Weekly-loop side effects for b479955155464f75ad4f53e552cc1017 VERIFIED NONE this run: no vault file modified in its 2026-10-07 09:55-10:30 window; no Raw/Summary/Experiment/Log additions (last ingest remains 2026-09-30); DB row still 'unknown'; not re-run (no-recursion rule). Next fires: watchdog ~09:30 PDT; operator 17:00 PDT; weekly Wed 2026-10-14 10:00.",
+    "cronHealth_20261010": "2026-10-10T00:00-00:40Z run: gateway supervised + firing (launchd ai.hermes.gateway; wrapper PID 80059 -> gateway PID 80074); this operator run (job b0925296531a, execution c034b2d4c80f4021bf3032c6f0a39356) dispatched on time 17:00:19 PDT and claimed by PID 80074; watchdog last completed 15:31 PDT (next 21:31). Weekly loop b8d42e7faf2b last execution b479955155464f75ad4f53e552cc1017 remains 'unknown' in the DB (side effects verified none on 2026-10-09; last transcript ingest remains 2026-09-30); NOT re-run from this cron session (no-recursion rule); next fire Wed 2026-10-14 10:00.",
+    "vercelCliAuth_20261010": "A read-only `vercel whoami` probe unexpectedly started the CLI device-login flow; an approval completed at ~17:07-17:08 PDT (browser-side; not performed by the agent) and the session is valid for the user's own scope ('blaqueout' team; compounder-market-api visible). No Vercel write actions or deployments were performed. If the approval was not the user: run `vercel logout`. Guard recorded in OPERATIONS.md §6: check for a stored CLI session before any unattended vercel command."
   },
   "remainingHumanContinuityStep": "Export the encrypted recovery kit to a separate encrypted device and confirm independent wallet-password recovery.",
   "discoveryManifest": {

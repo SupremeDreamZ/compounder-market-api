@@ -139,6 +139,8 @@ Never add a wallet signer to Vercel. Public deployment needs only the default re
 
 If Vercel authentication expires, GitHub/Vercel OAuth is a human-only step. Do not paste account passwords or long-lived API tokens into chat.
 
+Session state (2026-10-10): the local Vercel CLI session is authenticated and was verified with read-only checks (`vercel whoami`, `vercel projects ls`) — no deployments were made. Unattended sessions must check for a stored CLI session before running any `vercel` command: when none exists, the CLI starts an interactive device login, which an operator must never initiate on its own. Check `~/Library/Application Support/com.vercel.cli/auth.json` first.
+
 For rollback, use the Vercel deployment dashboard to promote the last known-good deployment, then run `npm run verify:production`.
 
 ## 7. No-internet local mode
@@ -242,3 +244,11 @@ Until that happens:
 - distribute transparently through terms-compliant channels;
 - improve positioning before adding paid infrastructure;
 - preserve liquid capital.
+
+## 13. Staged: dedicated-domain cutover (blocked on user purchase)
+
+PR #91 (agentfirst.directory listing) is fully prepared except for the dedicated-domain publication condition set by the maintainer. The cutover procedure is staged (2026-10-10; local detail in `.state/domain-cutover-runbook.md`, vault record `Inbox/Compounder Revenue Cycle 2026-10-10T0000Z.md`).
+
+- Candidates verified available 2026-10-10 (Verisign whois): `compounderapi.com`, `compoundermarket.com`. Purchase (~$10–15/yr) is a human decision.
+- Post-purchase, agent-automatable: attach the domain to Vercel (CLI session authenticated 2026-10-10), verify the new origin end-to-end (`verify:production` against it), update the PR #91 tool files to the new domain, re-run content checks + tests, push, and comment. Keep the vercel.app origin serving so existing directory links do not break.
+- A listing is distribution progress — not revenue, demand, or product-market fit.
